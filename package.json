@@ -1,0 +1,30 @@
+{
+  "name": "dijital-okuryazarlik",
+  "version": "1.0.0",
+  "description": "Türkiyedeki yaşlılar için dijital okuryazarlık kazandırma platformu",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "start": "node build"
+  },
+  "keywords": ["dijital", "okuryazarlık", "yaşlılar", "eğitim"],
+  "author": "Dijital Okur",
+  "license": "MIT",
+  "dependencies": {
+    "@sveltejs/kit": "^2.70.2",
+    "svelte": "^5.56.9"
+  },
+  "devDependencies": {
+    "@sveltejs/adapter-auto": "^7.0.1",
+    "autoprefixer": "^10.5.4",
+    "postcss": "^8.5.26",
+    "tailwindcss": "^3.4.17",
+    "vite": "^7.0.0",
+    "@sveltejs/vite-plugin-svelte": "^6.0.0"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  }
+}
