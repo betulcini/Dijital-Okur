@@ -10,8 +10,19 @@
 		sections: [
 			{
 				title: 'Giriş',
-				content: `Telefonun ayarlarını bilmek çok önemli. Gözlerini rahat edersin, pillerin daha uzun sürer, 
-				ve telefonun hızlı kalır. Bakalım hangi ayarları öğreneceğiz?`
+				content: `Telefonun ayarlarını bilmek çok önemli. Gözlerini rahat edersin, pillerin daha uzun sürer,
+				ve telefonun hızlı kalır. Şimdi gerçek bir telefon arayüzünde birkaç temel işlemi adım adım yapacağız.`
+			},
+			{
+				title: 'Uygulamalı Telefon Pratiği',
+				content: `
+				<strong>Şimdi sıra sende:</strong><br><br>
+				1. Yazı boyutunu büyüt<br>
+				2. Wi‑Fi'yi aç<br>
+				3. Bilinmeyen numaraları engelle<br>
+				4. Gereksiz uygulama izinlerini kapat<br><br>
+				Bu işlemler telefonunla daha güvenli ve daha rahat kullanman için çok önemlidir. Aşağıdaki simülatör üzerinde adım adım deneyebilirsin.
+				`
 			},
 			{
 				title: 'Ekran Parlaklığı',
@@ -123,20 +134,20 @@
 				title: 'Özet',
 				content: `
 				<strong>Önemli Ayarları Hatırla:</strong><br>
-				✓ Parlaklık = Gözler + Pil<br>
-				✓ Ses Kontrolü = Telefonun yanında kontrol et<br>
-				✓ Koyu Mod = Gece gözler dinlensin<br>
-				✓ Pil Tasarrufu = Daha uzun kullanım<br>
-				✓ Yazı Boyutu = Rahatça okuma<br><br>
+				✓ Yazı boyutu = Daha rahat okuma<br>
+				✓ Wi‑Fi = İnternet ve veri tasarrufu<br>
+				✓ Bilinmeyen numara engelleme = Gereksiz çağrıları durdurma<br>
+				✓ Uygulama izinleri = Kişisel veriyi koruma<br>
+				✓ Parlaklık ve ses = Daha konforlu kullanım<br><br>
 				
 				<strong>Alıştırma:</strong><br>
-				Şimdi telefonunu al ve:<br>
-				1. Parlaklığı kontrol et<br>
-				2. Sesi ayarla<br>
-				3. Koyu modu dene<br>
-				4. Yazı boyutunu artır<br><br>
+				Telefonunu eline al ve bu adımlardan birkaçını uygulamaya çalış.<br>
+				1. Yazı boyutunu büyüt<br>
+				2. Wi‑Fi'yi aç<br>
+				3. Bilinmeyen numaraları engelle<br>
+				4. Gereksiz izinleri kapat<br><br>
 				
-				Tebrikler! Artık telefonun temel ayarlarını biliyorsun! 🎉
+				Tebrikler! Artık telefonun temel ayarlarını hem öğrenip hem uygulamayı da biliyorsun! 🎉
 				`
 			}
 		]

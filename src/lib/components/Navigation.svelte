@@ -50,6 +50,7 @@
 			<a href="/" aria-label="Anasayfa" title="Anasayfa" class="grid h-9 w-9 place-items-center rounded-lg text-lg transition-colors {isActive('/') ? 'bg-primary-100 dark:bg-primary-900' : 'hover:bg-gray-100 dark:hover:bg-slate-800'}">🏠</a>
 			<a href="/siber-guvenlik" aria-label="Siber güvenlik" title="Siber güvenlik" class="grid h-9 w-9 place-items-center rounded-lg text-lg transition-colors {isActive('/siber-guvenlik') ? 'bg-primary-100 dark:bg-primary-900' : 'hover:bg-gray-100 dark:hover:bg-slate-800'}">🛡️</a>
 			<a href="/egitim" aria-label="Eğitim" title="Eğitim" class="grid h-9 w-9 place-items-center rounded-lg text-lg transition-colors {isActive('/egitim') ? 'bg-primary-100 dark:bg-primary-900' : 'hover:bg-gray-100 dark:hover:bg-slate-800'}">📚</a>
+			<a href="/telefon-simulasyonu" aria-label="Telefon Simülasyonu" title="Telefon Simülasyonu" class="grid h-9 w-9 place-items-center rounded-lg text-lg transition-colors {isActive('/telefon-simulasyonu') ? 'bg-primary-100 dark:bg-primary-900' : 'hover:bg-gray-100 dark:hover:bg-slate-800'}">📱</a>
 			<a href="/sorular" aria-label="Sorular" title="Sorular" class="grid h-9 w-9 place-items-center rounded-lg text-lg transition-colors {isActive('/sorular') ? 'bg-primary-100 dark:bg-primary-900' : 'hover:bg-gray-100 dark:hover:bg-slate-800'}">💬</a>
 			<a href="/ilerleme" aria-label="İlerleme" title="İlerleme" class="grid h-9 w-9 place-items-center rounded-lg text-lg transition-colors {isActive('/ilerleme') ? 'bg-primary-100 dark:bg-primary-900' : 'hover:bg-gray-100 dark:hover:bg-slate-800'}">📊</a>
 		</div>
@@ -86,6 +87,17 @@
 			>
 				Eğitim
 				{#if isActive('/egitim')}
+					<div class="absolute bottom-0 left-0 right-0 h-1 bg-gradient-primary rounded-full"></div>
+				{/if}
+			</a>
+			<a
+				href="/telefon-simulasyonu"
+				class="relative font-medium transition-colors dark:text-gray-300 {isActive('/telefon-simulasyonu')
+					? 'text-primary-600 dark:text-primary-400'
+					: 'text-gray-700 hover:text-primary-600 dark:hover:text-primary-400'}"
+			>
+				Telefon Simülasyonu
+				{#if isActive('/telefon-simulasyonu')}
 					<div class="absolute bottom-0 left-0 right-0 h-1 bg-gradient-primary rounded-full"></div>
 				{/if}
 			</a>
@@ -173,6 +185,15 @@
 						: 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-slate-700'}"
 				>
 					📚 Eğitim
+				</a>
+				<a
+					href="/telefon-simulasyonu"
+					on:click={closeMobileMenu}
+					class="block px-4 py-2 rounded-lg font-medium transition-colors {isActive('/telefon-simulasyonu')
+						? 'bg-primary-100 dark:bg-primary-900 text-primary-700 dark:text-primary-300'
+						: 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-slate-700'}"
+				>
+					📱 Telefon Simülasyonu
 				</a>
 				<a
 					href="/sorular"

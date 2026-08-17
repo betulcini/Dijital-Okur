@@ -3,7 +3,7 @@
 	import LessonCard from '$lib/components/LessonCard.svelte';
 	import { getProgress, getProgressSummary } from '$lib/utils/progressStore.js';
 
-	const totalLessons = 6;
+	const totalLessons = 5;
 	let summary = { completedLessons: 0, totalLessons, xp: 0, badges: 0 };
 	let completedLessonIds = [];
 
@@ -68,16 +68,6 @@
 				level="Başlangıç"
 				icon="⚠️"
 				completed={isCompleted('halusinyasyon')}
-			/>
-
-			<LessonCard
-				title="📱 Telefonun Temel Ayarları"
-				description="Ekran parlaklığı, ses, koyu/açık mod ve daha fazlasını öğren."
-				href="/egitim/telefon-ayarlari"
-				duration="20 dakika"
-				level="Başlangıç"
-				icon="📱"
-				completed={isCompleted('telefon-ayarlari')}
 			/>
 
 			<LessonCard

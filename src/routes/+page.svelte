@@ -26,7 +26,19 @@
 					color="bg-gradient-to-br from-red-50 to-orange-50 dark:from-red-900 dark:to-orange-900 border-red-200 dark:border-red-700"
 				/>
 				<ModuleCard
-					title="📚 Eğitim Modülleri"
+					title="🎭 Dolandırıcılık Tiyatrosu"
+					description="Gerçekçi SMS, WhatsApp ve e-posta senaryolarını çöz. Güvenli mi, şüpheli mi? Kırmızı bayrakları tek tek öğren."
+					href="/siber-guvenlik"
+					color="bg-gradient-to-br from-amber-50 to-yellow-50 dark:from-yellow-900 dark:to-amber-900 border-amber-200 dark:border-amber-700"
+				/>
+				<ModuleCard
+					title="� Telefon Güvenliği"
+					description="iPhone ve Android için gerçek telefon ayarlarını öğren. Yazı boyutu, Wi‑Fi, izinler ve engelleme işlemlerini uygulamalı şekilde yap."
+					href="/egitim/telefon-ayarlari"
+					color="bg-gradient-to-br from-cyan-50 to-sky-50 dark:from-cyan-900 dark:to-sky-900 border-cyan-200 dark:border-cyan-700"
+				/>
+				<ModuleCard
+					title="�📚 Eğitim Modülleri"
 					description="Yapay zeka nedir, telefon ayarları, şifre güvenliği ve daha fazlasını adım adım öğren."
 					href="/egitim"
 					color="bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900 dark:to-indigo-900 border-blue-200 dark:border-blue-700"

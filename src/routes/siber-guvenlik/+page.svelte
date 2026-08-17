@@ -2,6 +2,7 @@
 	import EmailAnalyzer from '$lib/components/EmailAnalyzer.svelte';
 	import MessageAnalyzer from '$lib/components/MessageAnalyzer.svelte';
 	import SecurityTips from '$lib/components/SecurityTips.svelte';
+	import ScamTheater from '$lib/components/ScamTheater.svelte';
 	let activeTab = 'email';
 </script>
 
@@ -42,6 +43,14 @@
 				💬 Mesaj Analiz
 			</button>
 			<button
+				on:click={() => (activeTab = 'theater')}
+				class="px-6 py-3 rounded-xl font-semibold transition-all duration-200 {activeTab === 'theater'
+					? 'bg-gradient-primary text-white shadow-lg scale-105'
+					: 'bg-white dark:bg-slate-800 text-gray-700 dark:text-gray-300 border-2 border-gray-200 dark:border-slate-700 hover:border-primary-300'}"
+			>
+				🎭 Dolandırıcılık Tiyatrosu
+			</button>
+			<button
 				on:click={() => (activeTab = 'tips')}
 				class="px-6 py-3 rounded-xl font-semibold transition-all duration-200 {activeTab === 'tips'
 					? 'bg-gradient-primary text-white shadow-lg scale-105'
@@ -57,6 +66,8 @@
 				<EmailAnalyzer />
 			{:else if activeTab === 'message'}
 				<MessageAnalyzer />
+			{:else if activeTab === 'theater'}
+				<ScamTheater />
 			{:else if activeTab === 'tips'}
 				<SecurityTips />
 			{/if}
