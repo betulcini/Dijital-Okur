@@ -9,7 +9,12 @@
     "preview": "vite preview",
     "start": "vite preview"
   },
-  "keywords": ["dijital", "okuryazarlık", "yaşlılar", "eğitim"],
+  "keywords": [
+    "dijital",
+    "okuryazarlık",
+    "yaşlılar",
+    "eğitim"
+  ],
   "author": "Dijital Okur",
   "license": "MIT",
   "dependencies": {
@@ -22,7 +27,8 @@
     "autoprefixer": "^10.5.4",
     "postcss": "^8.5.26",
     "tailwindcss": "^3.4.17",
-    "vite": "^8.2.1"
+    "vite": "^8.2.1",
+    "wrangler": "^4.123.0"
   },
   "engines": {
     "node": ">=16.0.0"
