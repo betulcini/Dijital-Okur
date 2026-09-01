@@ -1,7 +1,7 @@
 <script>
 	import { onMount } from 'svelte';
 	import '../styles/global.css';
-	import Navigation from '$lib/components/Navigation.svelte';
+	import Navbar from '$lib/components/Navbar.svelte';
 	import Footer from '$lib/components/Footer.svelte';
 	import { soundManager } from '$lib/utils/soundManager.js';
 
@@ -26,7 +26,7 @@
 </svelte:head>
 
 <div class="min-h-screen flex flex-col bg-slate-50 dark:bg-slate-950">
-	<Navigation />
+	<Navbar />
 	<main class="flex-1">
 		<slot />
 	</main>
