@@ -6,8 +6,16 @@
 		Smartphone,
 		CircleHelp,
 		BarChart3,
-		Brain
+		Brain,
+		Menu,
+		X
 	} from 'lucide-svelte';
+
+	let mobileMenuOpen = false;
+
+	function closeMobileMenu() {
+		mobileMenuOpen = false;
+	}
 </script>
 
 <nav class="navbar" aria-label="Ana menü">
@@ -17,32 +25,44 @@
 		</span>
 	</a>
 
-	<div class="nav-links">
-		<a href="/siber-guvenlik" class="nav-item" title="Siber Güvenlik" aria-label="Siber Güvenlik">
+	<div class="nav-links" class:mobile-open={mobileMenuOpen}>
+		<a href="/siber-guvenlik" class="nav-item" title="Siber Güvenlik" on:click={closeMobileMenu}>
 			<Shield size={18} strokeWidth={2} />
 			<span>Siber Güvenlik</span>
 		</a>
-		<a href="/egitim" class="nav-item" title="Eğitim" aria-label="Eğitim">
+		<a href="/egitim" class="nav-item" title="Eğitim" on:click={closeMobileMenu}>
 			<BookOpen size={18} strokeWidth={2} />
 			<span>Eğitim</span>
 		</a>
-		<a href="/firsatlar" class="nav-item" title="Fırsatlar" aria-label="Fırsatlar">
+		<a href="/firsatlar" class="nav-item" title="Fırsatlar" on:click={closeMobileMenu}>
 			<Gift size={18} strokeWidth={2} />
 			<span>Fırsatlar</span>
 		</a>
-		<a href="/telefon-simulasyonu" class="nav-item" title="Telefon Simülasyonu" aria-label="Telefon Simülasyonu">
+		<a href="/telefon-simulasyonu" class="nav-item" title="Telefon Simülasyonu" on:click={closeMobileMenu}>
 			<Smartphone size={18} strokeWidth={2} />
 			<span>Telefon</span>
 		</a>
-		<a href="/sorular" class="nav-item" title="Sorular" aria-label="Sorular">
+		<a href="/sorular" class="nav-item" title="Sorular" on:click={closeMobileMenu}>
 			<CircleHelp size={18} strokeWidth={2} />
 			<span>Sorular</span>
 		</a>
-		<a href="/ilerleme" class="nav-item" title="İlerleme" aria-label="İlerleme">
+		<a href="/ilerleme" class="nav-item" title="İlerleme" on:click={closeMobileMenu}>
 			<BarChart3 size={18} strokeWidth={2} />
 			<span>İlerleme</span>
 		</a>
 	</div>
+
+	<button 
+		class="mobile-toggle" 
+		on:click={() => mobileMenuOpen = !mobileMenuOpen}
+		aria-label={mobileMenuOpen ? 'Menüyü kapat' : 'Menüyü aç'}
+	>
+		{#if mobileMenuOpen}
+			<X size={24} strokeWidth={2} />
+		{:else}
+			<Menu size={24} strokeWidth={2} />
+		{/if}
+	</button>
 </nav>
 
 <style>
@@ -71,6 +91,7 @@
 		color: #2563eb;
 		background: linear-gradient(135deg, rgba(90, 130, 245, 0.12), rgba(168, 85, 247, 0.12));
 		transition: transform 0.2s ease, box-shadow 0.2s ease;
+		flex-shrink: 0;
 	}
 
 	.logo:hover {
@@ -124,43 +145,90 @@
 		flex-shrink: 0;
 	}
 
+	.mobile-toggle {
+		display: none;
+		background: none;
+		border: none;
+		color: #4b5563;
+		cursor: pointer;
+		padding: 0.5rem;
+		border-radius: 0.8rem;
+		transition: all 0.2s ease;
+	}
+
+	.mobile-toggle:hover {
+		background: rgba(90, 130, 245, 0.1);
+		color: #1d4ed8;
+	}
+
 	@keyframes bounceGentle {
 		0%,
 		100% { transform: translateY(0); }
 		50% { transform: translateY(-5px); }
 	}
 
-	@media (max-width: 820px) {
+	@media (max-width: 1024px) {
 		.navbar {
-			padding: 0.8rem 0.9rem;
+			padding: 0.8rem 1.2rem;
 		}
 
 		.nav-links {
-			gap: 0.45rem;
+			gap: 0.5rem;
 		}
 
 		.nav-item {
-			padding: 0.6rem 0.7rem;
-			font-size: 0.78rem;
+			padding: 0.6rem 0.8rem;
+			font-size: 0.85rem;
+		}
+	}
+
+	@media (max-width: 768px) {
+		.mobile-toggle {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+
+		.nav-links {
+			display: none;
+			position: absolute;
+			top: 100%;
+			left: 0;
+			right: 0;
+			flex-direction: column;
+			background: rgba(255, 255, 255, 0.95);
+			backdrop-filter: blur(10px);
+			border-bottom: 1px solid #e5e7eb;
+			padding: 0.75rem;
+			gap: 0.5rem;
+			width: 100%;
+		}
+
+		.nav-links.mobile-open {
+			display: flex;
+		}
+
+		.nav-item {
+			width: 100%;
+			padding: 0.7rem 1rem;
+			justify-content: flex-start;
+			font-size: 0.9rem;
+		}
+
+		.nav-item span {
+			display: block;
 		}
 	}
 
 	@media (max-width: 640px) {
 		.navbar {
-			gap: 0.75rem;
+			padding: 0.75rem 1rem;
+			gap: 1rem;
 		}
 
 		.logo {
 			width: 44px;
 			height: 44px;
-		}
-
-		.nav-links {
-			justify-content: flex-end;
-		}
-
-		.nav-item span {
-			display: none;
 		}
 	}
 </style>
