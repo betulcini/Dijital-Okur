@@ -8,10 +8,14 @@
 		BarChart3,
 		Brain,
 		Menu,
-		X
+		X,
+		User,
+		Settings,
+		LogOut
 	} from 'lucide-svelte';
 
 	let mobileMenuOpen = false;
+	let accountMenuOpen = false;
 
 	function closeMobileMenu() {
 		mobileMenuOpen = false;
@@ -50,6 +54,34 @@
 			<BarChart3 size={18} strokeWidth={2} />
 			<span>İlerleme</span>
 		</a>
+	</div>
+
+	<div class="account-section">
+		<button 
+			class="account-btn" 
+			on:click={() => accountMenuOpen = !accountMenuOpen}
+			aria-label="Hesap menüsü"
+		>
+			<User size={20} strokeWidth={2} />
+		</button>
+
+		{#if accountMenuOpen}
+			<div class="account-dropdown">
+				<a href="/profil" class="dropdown-item" on:click={() => accountMenuOpen = false}>
+					<User size={16} strokeWidth={2} />
+					<span>Profil</span>
+				</a>
+				<a href="/ayarlar" class="dropdown-item" on:click={() => accountMenuOpen = false}>
+					<Settings size={16} strokeWidth={2} />
+					<span>Ayarlar</span>
+				</a>
+				<hr class="dropdown-divider" />
+				<a href="/giris" class="dropdown-item logout" on:click={() => accountMenuOpen = false}>
+					<LogOut size={16} strokeWidth={2} />
+					<span>Çıkış</span>
+				</a>
+			</div>
+		{/if}
 	</div>
 
 	<button 
@@ -143,6 +175,80 @@
 
 	.nav-item :global(svg) {
 		flex-shrink: 0;
+	}
+
+	.account-section {
+		position: relative;
+		flex-shrink: 0;
+	}
+
+	.account-btn {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 44px;
+		height: 44px;
+		border-radius: 0.9rem;
+		background: linear-gradient(135deg, rgba(90, 130, 245, 0.08), rgba(168, 85, 247, 0.08));
+		border: 1px solid rgba(90, 130, 245, 0.12);
+		color: #4b5563;
+		cursor: pointer;
+		transition: all 0.2s ease;
+	}
+
+	.account-btn:hover {
+		background: linear-gradient(135deg, rgba(90, 130, 245, 0.12), rgba(168, 85, 247, 0.12));
+		color: #1d4ed8;
+		border-color: rgba(90, 130, 245, 0.2);
+	}
+
+	.account-dropdown {
+		position: absolute;
+		top: 100%;
+		right: 0;
+		margin-top: 0.5rem;
+		background: rgba(255, 255, 255, 0.95);
+		backdrop-filter: blur(10px);
+		border: 1px solid #e5e7eb;
+		border-radius: 1rem;
+		box-shadow: 0 12px 32px rgba(15, 23, 42, 0.12);
+		min-width: 180px;
+		overflow: hidden;
+	}
+
+	.dropdown-item {
+		display: flex;
+		align-items: center;
+		gap: 0.75rem;
+		padding: 0.75rem 1rem;
+		color: #4b5563;
+		text-decoration: none;
+		transition: all 0.2s ease;
+		border: none;
+		background: none;
+		cursor: pointer;
+		font-size: 0.9rem;
+		width: 100%;
+		text-align: left;
+	}
+
+	.dropdown-item:hover {
+		background: rgba(90, 130, 245, 0.08);
+		color: #1d4ed8;
+	}
+
+	.dropdown-item.logout {
+		color: #dc2626;
+	}
+
+	.dropdown-item.logout:hover {
+		background: rgba(220, 38, 38, 0.08);
+	}
+
+	.dropdown-divider {
+		margin: 0.5rem 0;
+		border: none;
+		border-top: 1px solid #e5e7eb;
 	}
 
 	.mobile-toggle {
