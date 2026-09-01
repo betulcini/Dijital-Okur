@@ -68,7 +68,7 @@
 	<div class="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center gap-3">
 		<!-- Logo -->
 		<a href="/" class="flex items-center gap-3 flex-shrink-0 hover:opacity-80 transition" on:click={closeMobileMenu}>
-			<div class="brand-mark">D</div>
+			<div class="text-3xl animate-bounce-gentle">🧠</div>
 			<div class="hidden sm:block">
 				<h1 class="font-bold text-lg bg-gradient-to-r from-primary-600 to-secondary-600 bg-clip-text text-transparent">
 					Dijital Okur
@@ -79,13 +79,13 @@
 
 		<!-- Mobile shortcuts: icons remain visible without opening a menu. -->
 		<div class="md:hidden flex flex-1 min-w-0 items-center justify-center gap-0.5">
-			<a href="/" aria-label="Anasayfa" title="Anasayfa" class="mobile-symbol {isActive('/') ? 'active' : ''}">⌂</a>
-			<a href="/siber-guvenlik" aria-label="Siber güvenlik" title="Siber güvenlik" class="mobile-symbol {isActive('/siber-guvenlik') ? 'active' : ''}">◈</a>
-			<a href="/egitim" aria-label="Eğitim" title="Eğitim" class="mobile-symbol {isActive('/egitim') ? 'active' : ''}">▤</a>
-			<a href="/telefon-simulasyonu" aria-label="Telefon Simülasyonu" title="Telefon Simülasyonu" class="mobile-symbol {isActive('/telefon-simulasyonu') ? 'active' : ''}">▣</a>
-			<a href="/sorular" aria-label="Sorular" title="Sorular" class="mobile-symbol {isActive('/sorular') ? 'active' : ''}">?</a>
-			<a href="/ilerleme" aria-label="İlerleme" title="İlerleme" class="mobile-symbol {isActive('/ilerleme') ? 'active' : ''}">◒</a>
-			<a href="/firsatlar" aria-label="Fırsatlar" title="Fırsatlar" class="mobile-symbol {isActive('/firsatlar') ? 'active' : ''}">✦</a>
+			<a href="/" aria-label="Anasayfa" title="Anasayfa" class="grid h-9 w-9 place-items-center rounded-lg text-lg transition-colors {isActive('/') ? 'bg-primary-100 dark:bg-primary-900' : 'hover:bg-gray-100 dark:hover:bg-slate-800'}">🏠</a>
+			<a href="/siber-guvenlik" aria-label="Siber güvenlik" title="Siber güvenlik" class="grid h-9 w-9 place-items-center rounded-lg text-lg transition-colors {isActive('/siber-guvenlik') ? 'bg-primary-100 dark:bg-primary-900' : 'hover:bg-gray-100 dark:hover:bg-slate-800'}">🛡️</a>
+			<a href="/egitim" aria-label="Eğitim" title="Eğitim" class="grid h-9 w-9 place-items-center rounded-lg text-lg transition-colors {isActive('/egitim') ? 'bg-primary-100 dark:bg-primary-900' : 'hover:bg-gray-100 dark:hover:bg-slate-800'}">📚</a>
+			<a href="/telefon-simulasyonu" aria-label="Telefon Simülasyonu" title="Telefon Simülasyonu" class="grid h-9 w-9 place-items-center rounded-lg text-lg transition-colors {isActive('/telefon-simulasyonu') ? 'bg-primary-100 dark:bg-primary-900' : 'hover:bg-gray-100 dark:hover:bg-slate-800'}">📱</a>
+			<a href="/sorular" aria-label="Sorular" title="Sorular" class="grid h-9 w-9 place-items-center rounded-lg text-lg transition-colors {isActive('/sorular') ? 'bg-primary-100 dark:bg-primary-900' : 'hover:bg-gray-100 dark:hover:bg-slate-800'}">💬</a>
+			<a href="/ilerleme" aria-label="İlerleme" title="İlerleme" class="grid h-9 w-9 place-items-center rounded-lg text-lg transition-colors {isActive('/ilerleme') ? 'bg-primary-100 dark:bg-primary-900' : 'hover:bg-gray-100 dark:hover:bg-slate-800'}">📊</a>
+			<a href="/firsatlar" aria-label="Fırsatlar" title="Fırsatlar" class="grid h-9 w-9 place-items-center rounded-lg text-lg transition-colors {isActive('/firsatlar') ? 'bg-primary-100 dark:bg-primary-900' : 'hover:bg-gray-100 dark:hover:bg-slate-800'}">🎁</a>
 		</div>
 
 		<!-- Desktop Links -->
@@ -179,7 +179,7 @@
 		<div class="relative flex items-center gap-2">
 			{#if currentUser}
 				<div class="hidden sm:flex items-center gap-2 rounded-xl bg-teal-50 px-3 py-2 text-sm font-semibold text-teal-800 dark:bg-teal-950 dark:text-teal-200">
-					<a href="/profil" aria-label="Profilim" class="hover:underline">Profilim</a>
+					<a href="/profil" aria-label="Profilim" class="hover:underline">👤 Profilim</a>
 				</div>
 			{:else}
 				<a href="/giris" class="hidden sm:inline-flex rounded-xl bg-teal-600 px-3 py-2 text-sm font-semibold text-white hover:bg-teal-700">Giriş yap</a>
@@ -191,7 +191,7 @@
 				aria-label="Ayarları Aç"
 				title="Ayarlar"
 			>
-				⚙
+				⚙️
 			</button>
 
 			{#if isSettingsOpen}
@@ -225,11 +225,11 @@
 			<div class="space-y-3">
 				{#if currentUser}
 					<div class="flex items-center justify-between rounded-lg bg-teal-50 px-4 py-2 text-sm font-semibold text-teal-800 dark:bg-teal-950 dark:text-teal-200">
-						<span>{currentUser.name}</span>
+						<span>👤 {currentUser.name}</span>
 					</div>
-					<a href="/profil" on:click={closeMobileMenu} class="block rounded-lg border border-teal-200 px-4 py-2 font-semibold text-teal-700 dark:border-teal-800 dark:text-teal-300">Profilim</a>
+					<a href="/profil" on:click={closeMobileMenu} class="block rounded-lg border border-teal-200 px-4 py-2 font-semibold text-teal-700 dark:border-teal-800 dark:text-teal-300">👤 Profilim</a>
 				{:else}
-					<a href="/giris" on:click={closeMobileMenu} class="block rounded-lg bg-teal-600 px-4 py-2 font-semibold text-white">Giriş yap / Kayıt ol</a>
+					<a href="/giris" on:click={closeMobileMenu} class="block rounded-lg bg-teal-600 px-4 py-2 font-semibold text-white">👤 Giriş yap / Kayıt ol</a>
 				{/if}
 				<a
 					href="/"
@@ -298,46 +298,3 @@
 		</div>
 	{/if}
 </nav>
-
-<style>
-	.brand-mark {
-		display: grid;
-		height: 2.5rem;
-		width: 2.5rem;
-		place-items: center;
-		border-radius: 0.75rem;
-		background: linear-gradient(135deg, #0f766e, #0891b2);
-		color: white;
-		font-size: 1.25rem;
-		font-weight: 800;
-		box-shadow: 0 8px 18px rgba(15, 118, 110, 0.22);
-	}
-
-	.mobile-symbol {
-		display: grid;
-		height: 2.25rem;
-		width: 2.25rem;
-		place-items: center;
-		border-radius: 0.625rem;
-		color: #475569;
-		font-size: 1.2rem;
-		font-weight: 700;
-		transition: background-color 0.2s, color 0.2s;
-	}
-
-	.mobile-symbol:hover,
-	.mobile-symbol.active {
-		background: #ccfbf1;
-		color: #0f766e;
-	}
-
-	:global(html.dark) .mobile-symbol {
-		color: #cbd5e1;
-	}
-
-	:global(html.dark) .mobile-symbol:hover,
-	:global(html.dark) .mobile-symbol.active {
-		background: #134e4a;
-		color: #99f6e4;
-	}
-</style>

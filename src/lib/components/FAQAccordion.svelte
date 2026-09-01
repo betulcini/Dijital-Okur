@@ -49,7 +49,7 @@
 				on:click={handleSpeak}
 				class="inline-flex items-center gap-2 px-4 py-2 mt-4 bg-purple-100 dark:bg-purple-900 text-purple-700 dark:text-purple-300 rounded-lg hover:bg-purple-200 dark:hover:bg-purple-800 font-semibold transition"
 			>
-				Bu soruyu sesli oku
+				🔊 Bu Soruyu Sesli Oku
 			</button>
 		</div>
 	{/if}

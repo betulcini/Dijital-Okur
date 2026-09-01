@@ -20,38 +20,33 @@
 
 			<div class="grid md:grid-cols-3 gap-8">
 				<ModuleCard
-					title="Siber Güvenlik"
+					title="🛡️ Siber Güvenlik"
 					description="Şüpheli mesajları ve bağlantıları tanıyın."
 					href="/siber-guvenlik"
-					icon="01"
 					color="bg-gradient-to-br from-red-50 to-orange-50 dark:from-red-900 dark:to-orange-900 border-red-200 dark:border-red-700"
 				/>
 				<ModuleCard
-					title="Dolandırıcılık Tiyatrosu"
+					title="🎭 Dolandırıcılık Tiyatrosu"
 					description="SMS, WhatsApp ve e-posta örneklerini birlikte inceleyin."
 					href="/siber-guvenlik"
-					icon="02"
 					color="bg-gradient-to-br from-amber-50 to-yellow-50 dark:from-yellow-900 dark:to-amber-900 border-amber-200 dark:border-amber-700"
 				/>
 				<ModuleCard
-					title="Telefon Güvenliği"
+					title="📱 Telefon Güvenliği"
 					description="Telefon ayarlarını güvenli ve uygulamalı biçimde öğrenin."
 					href="/egitim/telefon-ayarlari"
-					icon="03"
 					color="bg-gradient-to-br from-cyan-50 to-sky-50 dark:from-cyan-900 dark:to-sky-900 border-cyan-200 dark:border-cyan-700"
 				/>
 				<ModuleCard
-					title="Eğitim Modülleri"
+					title="📚 Eğitim Modülleri"
 					description="Yapay zekâ, şifreler ve günlük teknoloji için dersler."
 					href="/egitim"
-					icon="04"
 					color="bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900 dark:to-indigo-900 border-blue-200 dark:border-blue-700"
 				/>
 				<ModuleCard
-					title="Sık Sorulan Sorular"
+					title="💬 Sık Sorulan Sorular"
 					description="Sık sorulan sorulara kısa ve net yanıtlar bulun."
 					href="/sorular"
-					icon="05"
 					color="bg-gradient-to-br from-purple-50 to-pink-50 dark:from-purple-900 dark:to-pink-900 border-purple-200 dark:border-purple-700"
 				/>
 			</div>

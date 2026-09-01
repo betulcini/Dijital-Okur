@@ -1,5 +1,5 @@
 <div class="space-y-6">
-	<h2 class="text-2xl font-bold text-gray-900 mb-6">Online güvenlik ipuçları</h2>
+	<h2 class="text-2xl font-bold text-gray-900 mb-6">💡 Online Güvenlik İpuçları</h2>
 
 	<div class="grid gap-6">
 		<div class="bg-blue-50 border-l-4 border-blue-500 p-6 rounded-r-lg">
@@ -83,7 +83,7 @@
 	</div>
 
 	<div class="bg-gradient-to-r from-green-100 to-blue-100 p-6 rounded-lg mt-8">
-		<h3 class="font-bold text-lg text-gray-900 mb-3">Güvenli kalma kontrol listesi</h3>
+		<h3 class="font-bold text-lg text-gray-900 mb-3">✅ Güvenli Kalma Kontrol Listesi</h3>
 		<ul class="space-y-2 text-gray-700">
 			<li class="flex gap-3">
 				<input type="checkbox" disabled checked class="w-5 h-5" />

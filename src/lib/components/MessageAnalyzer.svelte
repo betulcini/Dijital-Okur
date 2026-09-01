@@ -53,7 +53,7 @@
 
 <div class="space-y-6">
 	<div class="mb-6">
-		<h2 class="text-2xl font-bold text-gray-900 mb-2">Mesaj analiz</h2>
+		<h2 class="text-2xl font-bold text-gray-900 mb-2">💬 Mesaj Analiz</h2>
 		<p class="text-gray-600">
 			SMS, WhatsApp ya da başka bir uygulamadan aldığın şüpheli bir mesaj mı var? Yapay zeka ile
 			dolandırıcı mı yoksa meşru mu olduğunu kontrol et.
@@ -62,7 +62,7 @@
 
 	<div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
 		<p class="text-sm text-gray-600 mb-3">
-			<strong>Örnek kullan:</strong> Aşağıdaki sahte mesajlarla dene:
+			<strong>💡 Örnek kullan:</strong> Aşağıdaki sahte mesajlarla dene:
 		</p>
 		<div class="flex flex-col gap-2">
 			{#each exampleMessages as example}
@@ -92,7 +92,7 @@
 		disabled={loading}
 		class="w-full bg-red-500 hover:bg-red-600 disabled:bg-gray-400 text-white font-bold py-3 rounded-lg transition-all"
 	>
-		{loading ? 'Analiz ediliyor...' : 'Analiz et'}
+		{loading ? '⏳ Analiz ediliyor...' : '🔍 Analiz Et'}
 	</button>
 
 	{#if error}

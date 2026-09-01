@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "deploy:cloudflare": "npm run build && wrangler pages deploy .svelte-kit/cloudflare",
+    "deploy:cloudflare": "node scripts/deploy-cloudflare.mjs",
     "preview": "vite preview",
     "start": "vite preview"
   },

@@ -29,7 +29,7 @@
 		{/if}
 
 		<!-- Icon -->
-			<div class="icon-mark mb-4 group-hover:scale-110 transition-transform duration-300">
+		<div class="text-5xl mb-4 group-hover:scale-110 transition-transform duration-300">
 			{icon}
 		</div>
 
@@ -63,23 +63,3 @@
 		</div>
 	</div>
 </svelte:element>
-
-<style>
-	.icon-mark {
-		display: grid;
-		height: 3.25rem;
-		width: 3.25rem;
-		place-items: center;
-		border: 1px solid rgba(15, 118, 110, 0.25);
-		border-radius: 0.85rem;
-		color: #0f766e;
-		font-size: 1rem;
-		font-weight: 800;
-		letter-spacing: 0.08em;
-	}
-
-	:global(html.dark) .icon-mark {
-		border-color: rgba(153, 246, 228, 0.3);
-		color: #99f6e4;
-	}
-</style>
