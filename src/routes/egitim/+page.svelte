@@ -3,7 +3,7 @@
 	import LessonCard from '$lib/components/LessonCard.svelte';
 	import { getProgress, getProgressSummary } from '$lib/utils/progressStore.js';
 
-	const totalLessons = 5;
+	const totalLessons = 7;
 	let summary = { completedLessons: 0, totalLessons, xp: 0, badges: 0 };
 	let completedLessonIds = [];
 
@@ -98,6 +98,26 @@
 				level="Orta"
 				icon="🔍"
 				available={false}
+			/>
+
+			<LessonCard
+				title="🏛️ E-Devlet (Elektronik Devlet) Nedir?"
+				description="Devlet hizmetlerine internet üzerinden nasıl ulaşırız? E-Devlet Kapısı güvenli mi? Hangi işlemleri yapabilirsin?"
+				href="/egitim/e-devlet"
+				duration="18 dakika"
+				level="Başlangıç"
+				icon="🏛️"
+				completed={isCompleted('e-devlet')}
+			/>
+
+			<LessonCard
+				title="💊 E-Nabız (Elektronik Sağlık Kaydı) Nedir?"
+				description="Sağlık verilerine dijital ortamda nasıl ulaşırız? E-Nabız aracılığıyla neler yapabiliriz? Gizlilik nasıl korunur?"
+				href="/egitim/e-nabiz"
+				duration="16 dakika"
+				level="Başlangıç"
+				icon="💊"
+				completed={isCompleted('e-nabiz')}
 			/>
 		</div>
 

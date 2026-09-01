@@ -1,30 +1,30 @@
-<script>
+﻿<script>
 	import { onMount } from 'svelte';
 
 	const devices = [
-		{ id: 'iphone', label: '📱 iPhone', os: 'iOS' },
-		{ id: 'android', label: '🤖 Android', os: 'Android' }
+		{ id: 'iphone', label: '📱 iPhone 15 Pro', os: 'iOS 17.5' },
+		{ id: 'android', label: '🤖 Samsung S24', os: 'Android 14' }
 	];
 
 	const missions = [
 		{
 			id: 1,
-			title: 'Işığı Aç',
-			description: 'Telefonun parlaklığını maksimuma çıkart',
+			title: 'Parlaklığı Arttır',
+			description: 'Telefonun parlaklığını %80 üzerine çıkart',
 			points: 10,
-			check: (state) => state.brightness === 100
+			check: (state) => state.brightness >= 80
 		},
 		{
 			id: 2,
-			title: 'İnterneti Kapat',
-			description: 'Mobil veriyi devre dışı bırak',
+			title: 'Mobil Veriyi Kapat',
+			description: 'Mobil veri bağlantısını devre dışı bırak',
 			points: 15,
 			check: (state) => state.mobileData === false
 		},
 		{
 			id: 3,
 			title: 'Wi-Fi Bağla',
-			description: 'Güvenli Wi-Fi ağına bağlan',
+			description: 'HomeWifi Güvenli ağına bağlan',
 			points: 15,
 			check: (state) => state.wifiConnected === true
 		},
@@ -37,15 +37,15 @@
 		},
 		{
 			id: 5,
-			title: 'Bilinmeyen Kaynakları Kapat',
-			description: 'Güvenlik için bilinmeyen kaynaklardan yüklemeleri devre dışı bırak',
+			title: 'Güvenlik Kontrolü',
+			description: 'Bilinmeyen kaynaklardan yüklemeleri devre dışı bırak (Android)',
 			points: 20,
 			check: (state) => state.unknownSources === false
 		},
 		{
 			id: 6,
-			title: 'Konum Hizmetini Kapat',
-			description: 'Gizlilik için konum hizmetini devre dışı bırak',
+			title: 'Konumu Devre Dışı Bırak',
+			description: 'Konum hizmetlerini kapatarak gizliliği koru',
 			points: 15,
 			check: (state) => state.location === false
 		},
@@ -59,7 +59,7 @@
 		{
 			id: 8,
 			title: 'Ekran Kilidi Aç',
-			description: 'Face ID/Parmak izi ile ekran kilidi ayarla',
+			description: 'Biometric kilit (Face ID/Parmak İzi) etkinleştir',
 			points: 20,
 			check: (state) => state.screenLock === true
 		}
@@ -71,9 +71,10 @@
 	let showNotification = null;
 	let notificationTimeout;
 	let activeMenu = 'main';
+	let scrollPosition = 0;
 
 	let phoneState = {
-		brightness: 50,
+		brightness: 40,
 		mobileData: true,
 		wifi: false,
 		wifiConnected: false,
@@ -90,7 +91,7 @@
 	function switchDevice(deviceId) {
 		selectedDevice = deviceId;
 		phoneState = {
-			brightness: 50,
+			brightness: 40,
 			mobileData: true,
 			wifi: false,
 			wifiConnected: false,
@@ -106,6 +107,7 @@
 		completedMissions.clear();
 		score = 0;
 		activeMenu = 'main';
+		scrollPosition = 0;
 	}
 
 	function toggleSetting(key) {
@@ -183,91 +185,99 @@
 	{/if}
 
 	<!-- Main Layout -->
-	<div class="grid gap-6 lg:grid-cols-[1.2fr_0.8fr]">
+	<div class="grid gap-8 lg:grid-cols-[1fr_0.9fr]">
 		<!-- Phone Simulator -->
-		<div class="rounded-[2.5rem] border-[14px] {selectedDevice === 'iphone' ? 'border-gray-900 bg-gray-900' : 'border-gray-950 bg-gray-950'} p-3 shadow-2xl">
-			<div
-				class={`rounded-[2rem] overflow-hidden {selectedDevice === 'iphone' ? 'bg-gradient-to-b from-white to-gray-50' : 'bg-gradient-to-b from-gray-100 to-gray-900'}`}
-			>
-				<!-- Status Bar -->
-				<div class={`px-6 py-2 flex items-center justify-between text-xs font-semibold {selectedDevice === 'iphone' ? 'bg-gray-900 text-white' : 'bg-gray-900 text-white'}`}>
-					<span>09:41</span>
-					<div class="flex items-center gap-1">
-						<span>📶</span>
-						<span>{phoneState.airplane ? '✈️' : '📵'}</span>
-						<span>🔋</span>
-					</div>
-				</div>
-
-				<!-- Phone Content -->
-				<div class="p-4 min-h-[500px] {selectedDevice === 'iphone' ? 'bg-white text-gray-900' : 'bg-gray-900 text-white'}">
-					{#if activeMenu === 'main'}
-						<!-- Main Menu -->
-						<div class="space-y-3">
-							<h2 class="text-lg font-bold mb-4">Ayarlar</h2>
-
-							<button
-								type="button"
-								on:click={() => (activeMenu = 'display')}
-								class={`w-full text-left px-4 py-3 rounded-xl flex items-center justify-between border transition {selectedDevice === 'iphone' ? 'bg-gray-50 border-gray-200 hover:bg-gray-100' : 'bg-gray-800 border-gray-700 hover:bg-gray-700'}`}
-							>
-								<span class="font-medium">🔆 Ekran ve Parlaklık</span>
-								<span>&gt;</span>
-							</button>
-
-							<button
-								type="button"
-								on:click={() => (activeMenu = 'network')}
-								class={`w-full text-left px-4 py-3 rounded-xl flex items-center justify-between border transition {selectedDevice === 'iphone' ? 'bg-gray-50 border-gray-200 hover:bg-gray-100' : 'bg-gray-800 border-gray-700 hover:bg-gray-700'}`}
-							>
-								<span class="font-medium">📡 Ağ ve İnternet</span>
-								<span>&gt;</span>
-							</button>
-
-							<button
-								type="button"
-								on:click={() => (activeMenu = 'privacy')}
-								class={`w-full text-left px-4 py-3 rounded-xl flex items-center justify-between border transition {selectedDevice === 'iphone' ? 'bg-gray-50 border-gray-200 hover:bg-gray-100' : 'bg-gray-800 border-gray-700 hover:bg-gray-700'}`}
-							>
-								<span class="font-medium">🔒 Gizlilik ve Güvenlik</span>
-								<span>&gt;</span>
-							</button>
-
-							<button
-								type="button"
-								on:click={() => (activeMenu = 'sound')}
-								class={`w-full text-left px-4 py-3 rounded-xl flex items-center justify-between border transition {selectedDevice === 'iphone' ? 'bg-gray-50 border-gray-200 hover:bg-gray-100' : 'bg-gray-800 border-gray-700 hover:bg-gray-700'}`}
-							>
-								<span class="font-medium">🔊 Ses ve Titreşim</span>
-								<span>&gt;</span>
-							</button>
-
-							<button
-								type="button"
-								on:click={() => (activeMenu = 'about')}
-								class={`w-full text-left px-4 py-3 rounded-xl flex items-center justify-between border transition {selectedDevice === 'iphone' ? 'bg-gray-50 border-gray-200 hover:bg-gray-100' : 'bg-gray-800 border-gray-700 hover:bg-gray-700'}`}
-							>
-								<span class="font-medium">ℹ️ Hakkında</span>
-								<span>&gt;</span>
-							</button>
+		<div class="flex justify-center lg:justify-start">
+			<div class="phone-simulator {selectedDevice}">
+				<!-- Device Frame -->
+				<div class="device-frame">
+					<!-- Status Bar -->
+					<div class="status-bar">
+						<div class="time">09:41</div>
+						<div class="indicators">
+							<span>📶</span>
+							<span>{phoneState.airplane ? '✈️' : '📵'}</span>
+							<span>🔋</span>
 						</div>
-					{:else if activeMenu === 'display'}
-						<!-- Display Settings -->
-						<div>
-							<button
-								type="button"
-								on:click={() => (activeMenu = 'main')}
-								class={`mb-4 px-3 py-1 rounded text-sm font-medium {selectedDevice === 'iphone' ? 'text-blue-600' : 'text-blue-400'}`}
-							>
-								← Geri
-							</button>
-							<h2 class="text-lg font-bold mb-4">Ekran ve Parlaklık</h2>
+					</div>
 
-							<div class="space-y-4">
-								<div>
-									<div class="flex items-center justify-between mb-2">
-										<span class="font-medium">Parlaklık</span>
-										<span class="text-sm">{phoneState.brightness}%</span>
+					<!-- Screen Content -->
+					<div class="screen-content {selectedDevice === 'iphone' ? 'bg-white text-gray-900' : 'bg-gray-900 text-white'}">
+						{#if activeMenu === 'main'}
+							<!-- Settings Menu -->
+							<div class="settings-menu">
+								<h2 class="menu-title">Ayarlar</h2>
+								<div class="menu-items">
+									<button
+										type="button"
+										on:click={() => (activeMenu = 'display')}
+										class="menu-item"
+									>
+										<span class="menu-icon">🔆</span>
+										<div class="menu-label">
+											<div class="menu-text">Ekran ve Parlaklık</div>
+										</div>
+										<span class="menu-arrow">&gt;</span>
+									</button>
+
+									<button
+										type="button"
+										on:click={() => (activeMenu = 'network')}
+										class="menu-item"
+									>
+										<span class="menu-icon">📡</span>
+										<div class="menu-label">
+											<div class="menu-text">Ağ ve İnternet</div>
+										</div>
+										<span class="menu-arrow">&gt;</span>
+									</button>
+
+									<button
+										type="button"
+										on:click={() => (activeMenu = 'privacy')}
+										class="menu-item"
+									>
+										<span class="menu-icon">🔒</span>
+										<div class="menu-label">
+											<div class="menu-text">Gizlilik ve Güvenlik</div>
+										</div>
+										<span class="menu-arrow">&gt;</span>
+									</button>
+
+									<button
+										type="button"
+										on:click={() => (activeMenu = 'sound')}
+										class="menu-item"
+									>
+										<span class="menu-icon">🔊</span>
+										<div class="menu-label">
+											<div class="menu-text">Ses ve Titreşim</div>
+										</div>
+										<span class="menu-arrow">&gt;</span>
+									</button>
+
+									<button
+										type="button"
+										on:click={() => (activeMenu = 'about')}
+										class="menu-item"
+									>
+										<span class="menu-icon">ℹ️</span>
+										<div class="menu-label">
+											<div class="menu-text">Hakkında</div>
+										</div>
+										<span class="menu-arrow">&gt;</span>
+									</button>
+								</div>
+							</div>
+						{:else if activeMenu === 'display'}
+							<!-- Display Settings -->
+							<div class="settings-menu">
+								<div class="back-button" on:click={() => (activeMenu = 'main')} role="button" tabindex="0">← Geri</div>
+								<h2 class="menu-title">Ekran ve Parlaklık</h2>
+								<div class="settings-items">
+									<div class="setting-item">
+										<div class="setting-label">Parlaklık</div>
+										<div class="setting-value">{phoneState.brightness}%</div>
 									</div>
 									<input
 										type="range"
@@ -275,279 +285,221 @@
 										max="100"
 										value={phoneState.brightness}
 										on:change={(e) => setSetting('brightness', Number(e.target.value))}
-										class="w-full h-2 bg-gray-300 rounded-lg appearance-none cursor-pointer"
+										class="brightness-slider"
 									/>
-								</div>
 
-								<div class={`border-t {selectedDevice === 'iphone' ? 'border-gray-200' : 'border-gray-700'} pt-4`}>
-									<div class="flex items-center justify-between">
-										<span class="font-medium">Gece Modu</span>
+									<div class="setting-divider"></div>
+
+									<div class="toggle-item">
+										<div class="toggle-label">Gece Modu</div>
 										<button
 											type="button"
 											on:click={() => toggleSetting('nightMode')}
-											class={`relative inline-flex h-7 w-12 rounded-full transition {phoneState.nightMode ? (selectedDevice === 'iphone' ? 'bg-green-600' : 'bg-green-600') : (selectedDevice === 'iphone' ? 'bg-gray-300' : 'bg-gray-600')}`}
+											class="toggle-switch {phoneState.nightMode ? 'active' : ''}"
 										>
-											<span
-												class={`inline-block h-6 w-6 transform rounded-full bg-white transition {phoneState.nightMode ? 'translate-x-6' : 'translate-x-0.5'}`}
-											/>
+											<span class="toggle-thumb"></span>
 										</button>
 									</div>
-								</div>
 
-								<div class={`border-t {selectedDevice === 'iphone' ? 'border-gray-200' : 'border-gray-700'} pt-4`}>
-									<div class="flex items-center justify-between">
-										<span class="font-medium">Otomatik Parlaklık</span>
+									<div class="setting-divider"></div>
+
+									<div class="toggle-item">
+										<div class="toggle-label">Otomatik Parlaklık</div>
 										<button
 											type="button"
 											on:click={() => toggleSetting('autoRotate')}
-											class={`relative inline-flex h-7 w-12 rounded-full transition {phoneState.autoRotate ? (selectedDevice === 'iphone' ? 'bg-green-600' : 'bg-green-600') : (selectedDevice === 'iphone' ? 'bg-gray-300' : 'bg-gray-600')}`}
+											class="toggle-switch {phoneState.autoRotate ? 'active' : ''}"
 										>
-											<span
-												class={`inline-block h-6 w-6 transform rounded-full bg-white transition {phoneState.autoRotate ? 'translate-x-6' : 'translate-x-0.5'}`}
-											/>
+											<span class="toggle-thumb"></span>
 										</button>
 									</div>
 								</div>
 							</div>
-						</div>
-					{:else if activeMenu === 'network'}
-						<!-- Network Settings -->
-						<div>
-							<button
-								type="button"
-								on:click={() => (activeMenu = 'main')}
-								class={`mb-4 px-3 py-1 rounded text-sm font-medium {selectedDevice === 'iphone' ? 'text-blue-600' : 'text-blue-400'}`}
-							>
-								← Geri
-							</button>
-							<h2 class="text-lg font-bold mb-4">Ağ ve İnternet</h2>
-
-							<div class="space-y-3">
-								<div class={`border {selectedDevice === 'iphone' ? 'border-gray-200 bg-gray-50' : 'border-gray-700 bg-gray-800'} rounded-lg p-3`}>
-									<div class="flex items-center justify-between">
-										<span class="font-medium">Mobil Veri</span>
+						{:else if activeMenu === 'network'}
+							<!-- Network Settings -->
+							<div class="settings-menu">
+								<div class="back-button" on:click={() => (activeMenu = 'main')} role="button" tabindex="0">← Geri</div>
+								<h2 class="menu-title">Ağ ve İnternet</h2>
+								<div class="settings-items">
+									<div class="toggle-item">
+										<div class="toggle-label">Mobil Veri</div>
 										<button
 											type="button"
 											on:click={() => toggleSetting('mobileData')}
-											class={`relative inline-flex h-7 w-12 rounded-full transition {phoneState.mobileData ? 'bg-green-600' : (selectedDevice === 'iphone' ? 'bg-gray-300' : 'bg-gray-600')}`}
+											class="toggle-switch {phoneState.mobileData ? 'active' : ''}"
 										>
-											<span
-												class={`inline-block h-6 w-6 transform rounded-full bg-white transition {phoneState.mobileData ? 'translate-x-6' : 'translate-x-0.5'}`}
-											/>
+											<span class="toggle-thumb"></span>
 										</button>
 									</div>
-									<p class={`text-xs mt-1 {selectedDevice === 'iphone' ? 'text-gray-600' : 'text-gray-400'}`}>
-										Mobil veri kullanarak internete bağlan
-									</p>
-								</div>
+									<div class="setting-description">Mobil veri kullanarak internete bağlan</div>
 
-								<div class={`border {selectedDevice === 'iphone' ? 'border-gray-200 bg-gray-50' : 'border-gray-700 bg-gray-800'} rounded-lg p-3`}>
-									<div class="flex items-center justify-between mb-3">
-										<span class="font-medium">Wi-Fi</span>
+									<div class="setting-divider"></div>
+
+									<div class="toggle-item">
+										<div class="toggle-label">Wi-Fi</div>
 										<button
 											type="button"
 											on:click={() => toggleSetting('wifi')}
-											class={`relative inline-flex h-7 w-12 rounded-full transition {phoneState.wifi ? 'bg-green-600' : (selectedDevice === 'iphone' ? 'bg-gray-300' : 'bg-gray-600')}`}
+											class="toggle-switch {phoneState.wifi ? 'active' : ''}"
 										>
-											<span
-												class={`inline-block h-6 w-6 transform rounded-full bg-white transition {phoneState.wifi ? 'translate-x-6' : 'translate-x-0.5'}`}
-											/>
+											<span class="toggle-thumb"></span>
 										</button>
 									</div>
 									{#if phoneState.wifi}
-										<div class="space-y-2">
+										<div class="wifi-networks">
 											<button
 												type="button"
 												on:click={() => setSetting('wifiConnected', true)}
-												class={`w-full text-left px-3 py-2 rounded text-sm transition {phoneState.wifiConnected ? (selectedDevice === 'iphone' ? 'bg-blue-100 text-blue-700' : 'bg-blue-900 text-blue-200') : (selectedDevice === 'iphone' ? 'bg-gray-100' : 'bg-gray-700')}`}
+												class="network-item {phoneState.wifiConnected ? 'connected' : ''}"
 											>
-												✓ HomeWifi Güvenli
+													{#if phoneState.wifiConnected}✓{/if} HomeWifi Güvenli
 											</button>
 											<button
 												type="button"
 												on:click={() => setSetting('wifiConnected', false)}
-												class={`w-full text-left px-3 py-2 rounded text-sm transition {selectedDevice === 'iphone' ? 'bg-gray-100 hover:bg-gray-200' : 'bg-gray-700 hover:bg-gray-600'}`}
+												class="network-item"
 											>
 												PublicWifi
 											</button>
 										</div>
 									{/if}
-								</div>
 
-								<div class={`border {selectedDevice === 'iphone' ? 'border-gray-200 bg-gray-50' : 'border-gray-700 bg-gray-800'} rounded-lg p-3`}>
-									<div class="flex items-center justify-between">
-										<span class="font-medium">Uçak Modu</span>
+									<div class="setting-divider"></div>
+
+									<div class="toggle-item">
+										<div class="toggle-label">Uçak Modu</div>
 										<button
 											type="button"
 											on:click={() => toggleSetting('airplane')}
-											class={`relative inline-flex h-7 w-12 rounded-full transition {phoneState.airplane ? 'bg-green-600' : (selectedDevice === 'iphone' ? 'bg-gray-300' : 'bg-gray-600')}`}
+											class="toggle-switch {phoneState.airplane ? 'active' : ''}"
 										>
-											<span
-												class={`inline-block h-6 w-6 transform rounded-full bg-white transition {phoneState.airplane ? 'translate-x-6' : 'translate-x-0.5'}`}
-											/>
+											<span class="toggle-thumb"></span>
 										</button>
 									</div>
 								</div>
 							</div>
-						</div>
-					{:else if activeMenu === 'privacy'}
-						<!-- Privacy Settings -->
-						<div>
-							<button
-								type="button"
-								on:click={() => (activeMenu = 'main')}
-								class={`mb-4 px-3 py-1 rounded text-sm font-medium {selectedDevice === 'iphone' ? 'text-blue-600' : 'text-blue-400'}`}
-							>
-								← Geri
-							</button>
-							<h2 class="text-lg font-bold mb-4">Gizlilik ve Güvenlik</h2>
-
-							<div class="space-y-3">
-								<div class={`border {selectedDevice === 'iphone' ? 'border-gray-200 bg-gray-50' : 'border-gray-700 bg-gray-800'} rounded-lg p-3`}>
-									<div class="flex items-center justify-between">
-										<span class="font-medium">Bluetooth</span>
+						{:else if activeMenu === 'privacy'}
+							<!-- Privacy Settings -->
+							<div class="settings-menu">
+								<div class="back-button" on:click={() => (activeMenu = 'main')} role="button" tabindex="0">← Geri</div>
+								<h2 class="menu-title">Gizlilik ve Güvenlik</h2>
+								<div class="settings-items">
+									<div class="toggle-item">
+										<div class="toggle-label">Bluetooth</div>
 										<button
 											type="button"
 											on:click={() => toggleSetting('bluetooth')}
-											class={`relative inline-flex h-7 w-12 rounded-full transition {phoneState.bluetooth ? 'bg-green-600' : (selectedDevice === 'iphone' ? 'bg-gray-300' : 'bg-gray-600')}`}
+											class="toggle-switch {phoneState.bluetooth ? 'active' : ''}"
 										>
-											<span
-												class={`inline-block h-6 w-6 transform rounded-full bg-white transition {phoneState.bluetooth ? 'translate-x-6' : 'translate-x-0.5'}`}
-											/>
+											<span class="toggle-thumb"></span>
 										</button>
 									</div>
-									<p class={`text-xs mt-1 {selectedDevice === 'iphone' ? 'text-gray-600' : 'text-gray-400'}`}>
-										Yakındaki cihazlara bağlan
-									</p>
-								</div>
+									<div class="setting-description">Yakındaki cihazlara bağlan</div>
 
-								<div class={`border {selectedDevice === 'iphone' ? 'border-gray-200 bg-gray-50' : 'border-gray-700 bg-gray-800'} rounded-lg p-3`}>
-									<div class="flex items-center justify-between">
-										<span class="font-medium">Konum Hizmetleri</span>
+									<div class="setting-divider"></div>
+
+									<div class="toggle-item">
+										<div class="toggle-label">Konum Hizmetleri</div>
 										<button
 											type="button"
 											on:click={() => toggleSetting('location')}
-											class={`relative inline-flex h-7 w-12 rounded-full transition {phoneState.location ? 'bg-green-600' : (selectedDevice === 'iphone' ? 'bg-gray-300' : 'bg-gray-600')}`}
+											class="toggle-switch {phoneState.location ? 'active' : ''}"
 										>
-											<span
-												class={`inline-block h-6 w-6 transform rounded-full bg-white transition {phoneState.location ? 'translate-x-6' : 'translate-x-0.5'}`}
-											/>
+											<span class="toggle-thumb"></span>
 										</button>
 									</div>
-									<p class={`text-xs mt-1 {selectedDevice === 'iphone' ? 'text-gray-600' : 'text-gray-400'}`}>
-										Uygulamalar konumunu isteyebilir
-									</p>
-								</div>
+									<div class="setting-description">Uygulamalar konumunu isteyebilir</div>
 
-								<div class={`border {selectedDevice === 'iphone' ? 'border-gray-200 bg-gray-50' : 'border-gray-700 bg-gray-800'} rounded-lg p-3`}>
-									<div class="flex items-center justify-between">
-										<span class="font-medium">Ekran Kilidi ({phoneState.screenLock ? 'Açık' : 'Kapalı'})</span>
+									<div class="setting-divider"></div>
+
+									<div class="toggle-item">
+										<div class="toggle-label">Ekran Kilidi</div>
 										<button
 											type="button"
 											on:click={() => toggleSetting('screenLock')}
-											class={`relative inline-flex h-7 w-12 rounded-full transition {phoneState.screenLock ? 'bg-green-600' : (selectedDevice === 'iphone' ? 'bg-gray-300' : 'bg-gray-600')}`}
+											class="toggle-switch {phoneState.screenLock ? 'active' : ''}"
 										>
-											<span
-												class={`inline-block h-6 w-6 transform rounded-full bg-white transition {phoneState.screenLock ? 'translate-x-6' : 'translate-x-0.5'}`}
-											/>
+											<span class="toggle-thumb"></span>
 										</button>
 									</div>
-									<p class={`text-xs mt-1 {selectedDevice === 'iphone' ? 'text-gray-600' : 'text-gray-400'}`}>
-										Face ID / Parmak İzi
-									</p>
-								</div>
+									<div class="setting-description">Face ID / Parmak İzi</div>
 
-								{#if selectedDevice === 'android'}
-									<div class={`border {selectedDevice === 'iphone' ? 'border-gray-200 bg-gray-50' : 'border-gray-700 bg-gray-800'} rounded-lg p-3`}>
-										<div class="flex items-center justify-between">
-											<span class="font-medium">Bilinmeyen Kaynaklar</span>
+									{#if selectedDevice === 'android'}
+										<div class="setting-divider"></div>
+
+										<div class="toggle-item">
+											<div class="toggle-label">Bilinmeyen Kaynaklar</div>
 											<button
 												type="button"
 												on:click={() => toggleSetting('unknownSources')}
-												class={`relative inline-flex h-7 w-12 rounded-full transition {phoneState.unknownSources ? 'bg-green-600' : 'bg-gray-600'}`}
+												class="toggle-switch {phoneState.unknownSources ? 'active' : ''}"
 											>
-												<span
-													class={`inline-block h-6 w-6 transform rounded-full bg-white transition {phoneState.unknownSources ? 'translate-x-6' : 'translate-x-0.5'}`}
-												/>
+												<span class="toggle-thumb"></span>
 											</button>
 										</div>
-										<p class={`text-xs mt-1 text-gray-400`}>
-											Play Store dışı kaynaklardan yükle
-										</p>
-									</div>
-								{/if}
+										<div class="setting-description">Play Store dışı kaynaklardan yükle</div>
+									{/if}
+								</div>
 							</div>
-						</div>
-					{:else if activeMenu === 'sound'}
-						<!-- Sound Settings -->
-						<div>
-							<button
-								type="button"
-								on:click={() => (activeMenu = 'main')}
-								class={`mb-4 px-3 py-1 rounded text-sm font-medium {selectedDevice === 'iphone' ? 'text-blue-600' : 'text-blue-400'}`}
-							>
-								← Geri
-							</button>
-							<h2 class="text-lg font-bold mb-4">Ses ve Titreşim</h2>
-
-							<div class="space-y-4">
-								<div class={`border {selectedDevice === 'iphone' ? 'border-gray-200 bg-gray-50' : 'border-gray-700 bg-gray-800'} rounded-lg p-3`}>
-									<div class="flex items-center justify-between mb-2">
-										<span class="font-medium">Ses Seviyesi</span>
-										<span class="text-sm">🔊</span>
+						{:else if activeMenu === 'sound'}
+							<!-- Sound Settings -->
+							<div class="settings-menu">
+								<div class="back-button" on:click={() => (activeMenu = 'main')} role="button" tabindex="0">← Geri</div>
+								<h2 class="menu-title">Ses ve Titreşim</h2>
+								<div class="settings-items">
+									<div class="setting-item">
+										<div class="setting-label">Ses Seviyesi</div>
+										<div class="setting-value">🔊</div>
 									</div>
 									<input
 										type="range"
 										min="0"
 										max="100"
-										class="w-full h-2 bg-gray-300 rounded-lg appearance-none cursor-pointer"
+										class="brightness-slider"
 									/>
-								</div>
 
-								<div class={`border {selectedDevice === 'iphone' ? 'border-gray-200 bg-gray-50' : 'border-gray-700 bg-gray-800'} rounded-lg p-3`}>
-									<div class="flex items-center justify-between">
-										<span class="font-medium">Sessiz Mod</span>
+									<div class="setting-divider"></div>
+
+									<div class="toggle-item">
+										<div class="toggle-label">Sessiz Mod</div>
 										<button
 											type="button"
 											on:click={() => toggleSetting('silentMode')}
-											class={`relative inline-flex h-7 w-12 rounded-full transition {phoneState.silentMode ? 'bg-green-600' : (selectedDevice === 'iphone' ? 'bg-gray-300' : 'bg-gray-600')}`}
+											class="toggle-switch {phoneState.silentMode ? 'active' : ''}"
 										>
-											<span
-												class={`inline-block h-6 w-6 transform rounded-full bg-white transition {phoneState.silentMode ? 'translate-x-6' : 'translate-x-0.5'}`}
-											/>
+											<span class="toggle-thumb"></span>
 										</button>
 									</div>
 								</div>
 							</div>
-						</div>
-					{:else if activeMenu === 'about'}
-						<!-- About -->
-						<div>
-							<button
-								type="button"
-								on:click={() => (activeMenu = 'main')}
-								class={`mb-4 px-3 py-1 rounded text-sm font-medium {selectedDevice === 'iphone' ? 'text-blue-600' : 'text-blue-400'}`}
-							>
-								← Geri
-							</button>
-							<h2 class="text-lg font-bold mb-4">Hakkında</h2>
+						{:else if activeMenu === 'about'}
+							<!-- About -->
+							<div class="settings-menu">
+								<div class="back-button" on:click={() => (activeMenu = 'main')} role="button" tabindex="0">← Geri</div>
+								<h2 class="menu-title">Hakkında</h2>
+								<div class="settings-items">
+									<div class="about-item">
+										<div class="about-label">İşletim Sistemi</div>
+										<div class="about-value">{selectedDevice === 'iphone' ? 'iOS 17.5' : 'Android 14'}</div>
+									</div>
 
-							<div class="space-y-3 text-sm">
-								<div class={`border {selectedDevice === 'iphone' ? 'border-gray-200 bg-gray-50' : 'border-gray-700 bg-gray-800'} rounded-lg p-3`}>
-									<p class="text-gray-500">İşletim Sistemi</p>
-									<p class="font-semibold">{selectedDevice === 'iphone' ? 'iOS 17.5' : 'Android 14'}</p>
-								</div>
-								<div class={`border {selectedDevice === 'iphone' ? 'border-gray-200 bg-gray-50' : 'border-gray-700 bg-gray-800'} rounded-lg p-3`}>
-									<p class="text-gray-500">Model</p>
-									<p class="font-semibold">{selectedDevice === 'iphone' ? 'iPhone 15 Pro' : 'Samsung Galaxy S24'}</p>
-								</div>
-								<div class={`border {selectedDevice === 'iphone' ? 'border-gray-200 bg-gray-50' : 'border-gray-700 bg-gray-800'} rounded-lg p-3`}>
-									<p class="text-gray-500">Depolama</p>
-									<p class="font-semibold">128 GB / 256 GB Kullanılmış</p>
+									<div class="setting-divider"></div>
+
+									<div class="about-item">
+										<div class="about-label">Model</div>
+										<div class="about-value">{selectedDevice === 'iphone' ? 'iPhone 15 Pro' : 'Samsung Galaxy S24'}</div>
+									</div>
+
+									<div class="setting-divider"></div>
+
+									<div class="about-item">
+										<div class="about-label">Depolama</div>
+										<div class="about-value">128 GB / 256 GB Kullanılmış</div>
+									</div>
 								</div>
 							</div>
-						</div>
-					{/if}
+						{/if}
+					</div>
 				</div>
 			</div>
 		</div>
@@ -578,12 +530,18 @@
 				<div class="space-y-2">
 					{#each missions as mission}
 						<div
-							class={`px-3 py-2 rounded-lg border transition {completedMissions.has(mission.id) ? 'bg-green-50 border-green-200' : 'bg-gray-50 border-gray-200'}`}
+							class={`px-3 py-2 rounded-lg border transition ${
+								completedMissions.has(mission.id) ? 'bg-green-50 border-green-200' : 'bg-gray-50 border-gray-200'
+							}`}
 						>
 							<div class="flex items-start gap-2">
 								<span class="text-lg mt-0.5">{completedMissions.has(mission.id) ? '✅' : '⭕'}</span>
 								<div class="flex-1 min-w-0">
-									<p class={`text-xs font-semibold {completedMissions.has(mission.id) ? 'text-green-700' : 'text-gray-700'}`}>
+									<p
+										class={`text-xs font-semibold ${
+											completedMissions.has(mission.id) ? 'text-green-700' : 'text-gray-700'
+										}`}
+									>
 										{mission.title}
 									</p>
 									<p class="text-xs text-gray-500 line-clamp-1">{mission.description}</p>
@@ -608,6 +566,297 @@
 </div>
 
 <style>
+	/* Phone Simulator Styles */
+	.phone-simulator {
+		width: 100%;
+		max-width: 420px;
+		margin: 0 auto;
+	}
+
+	.phone-simulator.iphone .device-frame {
+		/* iPhone 15 Pro: 390x844 */
+		aspect-ratio: 390 / 844;
+		border-radius: 2.5rem;
+		border: 14px solid #1f2937;
+		background: #1f2937;
+		box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+		overflow: hidden;
+		display: flex;
+		flex-direction: column;
+	}
+
+	.phone-simulator.android .device-frame {
+		/* Samsung S24: 412x915 */
+		aspect-ratio: 412 / 915;
+		border-radius: 2.5rem;
+		border: 12px solid #111827;
+		background: #111827;
+		box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+		overflow: hidden;
+		display: flex;
+		flex-direction: column;
+	}
+
+	.status-bar {
+		height: 44px;
+		background: #111827;
+		color: white;
+		font-size: 12px;
+		font-weight: 600;
+		padding: 0 16px;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		flex-shrink: 0;
+	}
+
+	.status-bar .indicators {
+		display: flex;
+		gap: 4px;
+	}
+
+	.screen-content {
+		flex: 1;
+		overflow: hidden;
+		display: flex;
+		flex-direction: column;
+		font-size: 14px;
+	}
+
+	.settings-menu {
+		height: 100%;
+		display: flex;
+		flex-direction: column;
+		overflow-y: auto;
+	}
+
+	.menu-title {
+		font-size: 28px;
+		font-weight: 700;
+		padding: 16px;
+		padding-bottom: 12px;
+		flex-shrink: 0;
+	}
+
+	.back-button {
+		font-size: 16px;
+		font-weight: 600;
+		padding: 12px 16px;
+		color: #2563eb;
+		cursor: pointer;
+		flex-shrink: 0;
+	}
+
+	.menu-items {
+		flex: 1;
+		overflow-y: auto;
+		padding: 0 8px 16px 8px;
+	}
+
+	.menu-item {
+		display: flex;
+		align-items: center;
+		gap: 12px;
+		width: 100%;
+		padding: 12px 8px;
+		background: none;
+		border: none;
+		cursor: pointer;
+		text-align: left;
+		margin-bottom: 8px;
+		border-radius: 8px;
+		transition: background 0.2s;
+	}
+
+	.screen-content.bg-white .menu-item:hover {
+		background: #f3f4f6;
+	}
+
+	.screen-content.bg-gray-900 .menu-item:hover {
+		background: rgba(255, 255, 255, 0.1);
+	}
+
+	.menu-icon {
+		font-size: 20px;
+		flex-shrink: 0;
+	}
+
+	.menu-label {
+		flex: 1;
+		min-width: 0;
+	}
+
+	.menu-text {
+		font-weight: 500;
+		font-size: 16px;
+	}
+
+	.menu-arrow {
+		flex-shrink: 0;
+		opacity: 0.5;
+	}
+
+	.settings-items {
+		flex: 1;
+		overflow-y: auto;
+		padding: 8px;
+	}
+
+	.setting-item,
+	.about-item,
+	.toggle-item {
+		padding: 12px 8px;
+		margin-bottom: 8px;
+	}
+
+	.setting-label,
+	.about-label,
+	.toggle-label {
+		font-weight: 500;
+		font-size: 16px;
+		margin-bottom: 4px;
+	}
+
+	.setting-value,
+	.about-value {
+		font-size: 14px;
+		opacity: 0.6;
+	}
+
+	.toggle-item {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		padding: 12px 8px;
+		margin-bottom: 0;
+	}
+
+	.toggle-switch {
+		width: 50px;
+		height: 28px;
+		border-radius: 14px;
+		border: none;
+		background: #ccc;
+		position: relative;
+		cursor: pointer;
+		transition: background 0.3s;
+	}
+
+	.toggle-switch.active {
+		background: #10b981;
+	}
+
+	.toggle-thumb {
+		position: absolute;
+		width: 24px;
+		height: 24px;
+		background: white;
+		border-radius: 50%;
+		top: 2px;
+		left: 2px;
+		transition: transform 0.3s;
+		display: block;
+	}
+
+	.toggle-switch.active .toggle-thumb {
+		transform: translateX(22px);
+	}
+
+	.screen-content.bg-gray-900 .toggle-switch {
+		background: #4b5563;
+	}
+
+	.brightness-slider {
+		width: 100%;
+		height: 4px;
+		border-radius: 2px;
+		background: #ccc;
+		outline: none;
+		-webkit-appearance: none;
+		margin: 12px 8px;
+	}
+
+	.brightness-slider::-webkit-slider-thumb {
+		-webkit-appearance: none;
+		appearance: none;
+		width: 20px;
+		height: 20px;
+		border-radius: 50%;
+		background: #2563eb;
+		cursor: pointer;
+	}
+
+	.brightness-slider::-moz-range-thumb {
+		width: 20px;
+		height: 20px;
+		border-radius: 50%;
+		background: #2563eb;
+		cursor: pointer;
+		border: none;
+	}
+
+	.setting-divider {
+		height: 1px;
+		background: rgba(0, 0, 0, 0.1);
+		margin: 8px 0;
+	}
+
+	.screen-content.bg-gray-900 .setting-divider {
+		background: rgba(255, 255, 255, 0.1);
+	}
+
+	.setting-description {
+		font-size: 13px;
+		opacity: 0.6;
+		padding: 0 8px;
+		margin-bottom: 12px;
+	}
+
+	.wifi-networks {
+		padding: 8px;
+	}
+
+	.network-item {
+		display: block;
+		width: 100%;
+		padding: 10px 12px;
+		border-radius: 6px;
+		border: none;
+		background: rgba(0, 0, 0, 0.05);
+		cursor: pointer;
+		text-align: left;
+		font-size: 14px;
+		margin-bottom: 6px;
+		transition: background 0.2s;
+	}
+
+	.screen-content.bg-white .network-item {
+		background: #f3f4f6;
+	}
+
+	.screen-content.bg-white .network-item:hover {
+		background: #e5e7eb;
+	}
+
+	.screen-content.bg-gray-900 .network-item {
+		background: rgba(255, 255, 255, 0.1);
+	}
+
+	.screen-content.bg-gray-900 .network-item:hover {
+		background: rgba(255, 255, 255, 0.15);
+	}
+
+	.network-item.connected {
+		background: rgba(37, 99, 235, 0.2);
+		color: #2563eb;
+		font-weight: 500;
+	}
+
+	.screen-content.bg-gray-900 .network-item.connected {
+		background: rgba(59, 130, 246, 0.2);
+		color: #93c5fd;
+	}
+
 	@keyframes slide-in {
 		from {
 			transform: translateY(-20px);
@@ -621,5 +870,11 @@
 
 	.animate-slide-in {
 		animation: slide-in 0.3s ease-out;
+	}
+
+	@media (max-width: 768px) {
+		.phone-simulator {
+			max-width: 100%;
+		}
 	}
 </style>
