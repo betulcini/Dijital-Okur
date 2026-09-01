@@ -13,7 +13,7 @@
 			class="inline-block mb-6 px-4 py-2 bg-gradient-to-r from-primary-100 to-secondary-100 dark:from-primary-900 dark:to-secondary-900 rounded-full"
 		>
 			<span class="text-primary-700 dark:text-primary-300 font-semibold text-sm">
-				✨ Dijital Dünyada Güvenli Kalın
+				01 / DİJİTAL GÜVENLİK
 			</span>
 		</div>
 
@@ -35,7 +35,7 @@
 			>
 				<div class="absolute inset-0 bg-gradient-primary opacity-0 group-hover:opacity-20 transition"></div>
 				<span class="relative flex items-center gap-2">
-					🛡️ Güvenliği Öğren
+					Güvenliği Öğren
 				</span>
 			</button>
 			<button
@@ -43,7 +43,7 @@
 				class="btn-secondary group"
 			>
 				<span class="relative flex items-center gap-2">
-					📚 Derslere Git
+					Derslere Git
 				</span>
 			</button>
 		</div>
@@ -52,7 +52,7 @@
 		<div class="grid md:grid-cols-3 gap-5 mt-20">
 			<div class="card-hover group">
 				<div class="mb-4 text-5xl group-hover:scale-110 transition-transform duration-300">
-					🔒
+					<span class="feature-symbol">01</span>
 				</div>
 				<h3 class="font-bold text-xl mb-3 text-gray-900 dark:text-white">
 					Güvenli
@@ -62,7 +62,7 @@
 
 			<div class="card-hover group">
 				<div class="mb-4 text-5xl group-hover:scale-110 transition-transform duration-300">
-					📖
+					<span class="feature-symbol">02</span>
 				</div>
 				<h3 class="font-bold text-xl mb-3 text-gray-900 dark:text-white">
 					Öğretici
@@ -72,7 +72,7 @@
 
 			<div class="card-hover group">
 				<div class="mb-4 text-5xl group-hover:scale-110 transition-transform duration-300">
-					🎯
+					<span class="feature-symbol">03</span>
 				</div>
 				<h3 class="font-bold text-xl mb-3 text-gray-900 dark:text-white">
 					Pratik
@@ -102,6 +102,24 @@
 <style>
 	.hero-section {
 		background: linear-gradient(135deg, #f8fafc 0%, #ecfeff 48%, #fff7ed 100%);
+	}
+
+	.feature-symbol {
+		display: inline-grid;
+		height: 3rem;
+		width: 3rem;
+		place-items: center;
+		border: 1px solid rgba(15, 118, 110, 0.35);
+		border-radius: 0.75rem;
+		color: #0f766e;
+		font-size: 0.85rem;
+		font-weight: 800;
+		letter-spacing: 0.08em;
+	}
+
+	:global(html.dark) .feature-symbol {
+		border-color: rgba(153, 246, 228, 0.35);
+		color: #99f6e4;
 	}
 
 	:global(html.dark) .hero-section {
