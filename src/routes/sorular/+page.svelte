@@ -5,6 +5,7 @@
 
 	let searchQuery = '';
 	let soundEnabled = soundManager.isSoundEnabled();
+	let activeCategory = 'Tümü';
 
 	const faqs = [
 		{
@@ -379,18 +380,20 @@
 		});
 	};
 
-	$: filteredFaqs = searchQuery
-		? faqs
-				.map((category) => ({
-					...category,
-					items: category.items.filter(
+	$: filteredFaqs = faqs
+		.filter((category) => activeCategory === 'Tümü' || category.category === activeCategory)
+		.map((category) => ({
+			...category,
+			items: searchQuery
+				? category.items.filter(
 						(item) =>
 							item.question.toLowerCase().includes(searchQuery.toLowerCase()) ||
 							item.answer.toLowerCase().includes(searchQuery.toLowerCase())
-					)
-				}))
-				.filter((category) => category.items.length > 0)
-		: faqs;
+						)
+				: category.items
+		}))
+		.filter((category) => category.items.length > 0);
+	$: categories = ['Tümü', ...faqs.map((category) => category.category)];
 </script>
 
 <div class="min-h-screen bg-gradient-to-br from-purple-50 via-pink-50 to-purple-50 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900">
@@ -408,6 +411,21 @@
 			<p class="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
 				Dijital okuryazarlık, güvenlik ve teknoloji hakkında merak ettiklerin var mı? Burada yanıtlarını bulabilirsin!
 			</p>
+		</div>
+
+		<!-- Category Navigation -->
+		<div class="faq-tabs mb-8 flex flex-nowrap gap-3 overflow-x-auto justify-start px-1 pb-2 md:flex-wrap md:justify-center md:overflow-visible" role="tablist" aria-label="Sık sorulan sorular kategorileri">
+			{#each categories as category}
+				<button
+					type="button"
+					on:click={() => (activeCategory = category)}
+					class="shrink-0 whitespace-nowrap rounded-xl px-5 py-3 font-semibold transition-all duration-200 {activeCategory === category
+						? 'bg-gradient-primary text-white shadow-lg'
+						: 'border-2 border-gray-200 bg-white text-gray-700 hover:border-primary-300 dark:border-slate-700 dark:bg-slate-800 dark:text-gray-300'}"
+				>
+					{category}
+				</button>
+			{/each}
 		</div>
 
 		<!-- Search Bar -->
@@ -491,3 +509,27 @@
 		{/if}
 	</div>
 </div>
+
+<style>
+	.faq-tabs {
+		scrollbar-width: thin;
+		scrollbar-color: #cbd5e1 transparent;
+	}
+
+	.faq-tabs::-webkit-scrollbar {
+		height: 6px;
+	}
+
+	.faq-tabs::-webkit-scrollbar-track {
+		background: transparent;
+	}
+
+	.faq-tabs::-webkit-scrollbar-thumb {
+		background: #cbd5e1;
+		border-radius: 999px;
+	}
+
+	:global(html.dark) .faq-tabs {
+		scrollbar-color: #475569 transparent;
+	}
+</style>

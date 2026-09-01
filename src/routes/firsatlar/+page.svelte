@@ -12,7 +12,8 @@
 			priceLabel: 'Ücretsiz',
 			icon: '📱',
 			color: 'blue',
-			description: 'Güvenli telefon kullanımı, e-Devlet hizmetleri ve görüntülü görüşme pratiği.'
+			description: 'Güvenli telefon kullanımı, e-Devlet hizmetleri ve görüntülü görüşme pratiği.',
+			url: 'https://www.kadikoy.bel.tr/'
 		},
 		{
 			id: 2,
@@ -26,7 +27,8 @@
 			priceLabel: 'Ücretsiz',
 			icon: '💻',
 			color: 'teal',
-			description: 'Bilgisayarın temelleri, internet kullanımı ve çevrim içi işlemler için başlangıç eğitimi.'
+			description: 'Bilgisayarın temelleri, internet kullanımı ve çevrim içi işlemler için başlangıç eğitimi.',
+			url: 'https://cankaya.bel.tr/'
 		},
 		{
 			id: 3,
@@ -40,7 +42,8 @@
 			priceLabel: '150 TL',
 			icon: '📷',
 			color: 'orange',
-			description: 'Telefonla fotoğraf çekme, albüm oluşturma ve fotoğrafları güvenle paylaşma çalışmaları.'
+			description: 'Telefonla fotoğraf çekme, albüm oluşturma ve fotoğrafları güvenle paylaşma çalışmaları.',
+			url: 'https://www.izmir.bel.tr/'
 		},
 		{
 			id: 4,
@@ -54,7 +57,8 @@
 			priceLabel: 'Ücretsiz',
 			icon: '🌿',
 			color: 'green',
-			description: 'Günlük yaşamda hareket, sağlıklı beslenme ve dijital sağlık hizmetleri hakkında buluşma.'
+			description: 'Günlük yaşamda hareket, sağlıklı beslenme ve dijital sağlık hizmetleri hakkında buluşma.',
+			url: 'https://www.nilufer.bel.tr/'
 		},
 		{
 			id: 5,
@@ -68,7 +72,8 @@
 			priceLabel: '75 TL',
 			icon: '🏛️',
 			color: 'violet',
-			description: 'Müze gezisi, rehberli anlatım ve 55 yaş üstüne özel indirimli giriş fırsatı.'
+			description: 'Müze gezisi, rehberli anlatım ve 55 yaş üstüne özel indirimli giriş fırsatı.',
+			url: 'https://www.gaziantep.bel.tr/'
 		},
 		{
 			id: 6,
@@ -82,7 +87,8 @@
 			priceLabel: '200 TL',
 			icon: '🎭',
 			color: 'rose',
-			description: 'Emeklilere özel bilet avantajı ve oyun öncesi kısa sahne arkası söyleşisi.'
+			description: 'Emeklilere özel bilet avantajı ve oyun öncesi kısa sahne arkası söyleşisi.',
+			url: 'https://www.eskisehir.bel.tr/'
 		}
 	];
 
@@ -91,10 +97,13 @@
 	let selectedPrice = 'Tüm fiyatlar';
 	let selectedDate = 'Yaklaşanlar';
 	let search = '';
+	let isFiltersOpen = false;
+	const today = new Date().toISOString().slice(0, 10);
 
 	$: categories = ['Tümü', ...new Set(opportunities.map((item) => item.category))];
 	$: cities = ['Tüm şehirler', ...new Set(opportunities.map((item) => item.city))];
 	$: filteredOpportunities = opportunities
+		.filter((item) => item.date >= today)
 		.filter((item) => selectedCategory === 'Tümü' || item.category === selectedCategory)
 		.filter((item) => selectedCity === 'Tüm şehirler' || item.city === selectedCity)
 		.filter((item) => {
@@ -135,7 +144,11 @@
 
 	<main class="mx-auto max-w-6xl px-4 py-8 sm:py-10">
 		<div class="grid gap-8 lg:grid-cols-[260px_1fr] lg:items-start">
-			<aside class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-slate-900 lg:sticky lg:top-24">
+			<button type="button" on:click={() => (isFiltersOpen = !isFiltersOpen)} class="flex items-center justify-between rounded-2xl border border-slate-200 bg-white px-5 py-4 text-left shadow-sm dark:border-slate-800 dark:bg-slate-900 md:hidden">
+				<span class="font-bold text-slate-900 dark:text-white">🔎 Filtreleri {isFiltersOpen ? 'gizle' : 'göster'}</span>
+				<span class="text-xl text-teal-700 transition-transform dark:text-teal-300" class:rotate-180={isFiltersOpen}>⌄</span>
+			</button>
+			<aside class:filter-open={isFiltersOpen} class="filter-panel rounded-2xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-slate-900 lg:sticky lg:top-24">
 				<div class="flex items-center justify-between gap-3">
 					<h2 class="text-lg font-bold text-slate-900 dark:text-white">Filtrele</h2>
 					<button type="button" on:click={resetFilters} class="text-sm font-semibold text-teal-700 hover:text-teal-900 dark:text-teal-300 dark:hover:text-teal-200">Temizle</button>
@@ -184,12 +197,15 @@
 									<h3 class="mt-2 text-xl font-bold leading-snug text-slate-900 dark:text-white">{opportunity.title}</h3>
 									<p class="mt-2 text-sm font-semibold text-teal-700 dark:text-teal-300">{opportunity.provider}</p>
 									<p class="mt-3 flex-1 text-sm leading-6 text-slate-600 dark:text-slate-300">{opportunity.description}</p>
-									<div class="mt-5 space-y-2 border-t border-slate-100 pt-4 text-sm dark:border-slate-800">
+									<details class="opportunity-details mt-5 border-t border-slate-100 pt-4 text-sm dark:border-slate-800">
+										<summary class="cursor-pointer font-semibold text-teal-700 dark:text-teal-300">Detayları göster</summary>
+										<div class="mt-3 space-y-2">
 										<div class="flex justify-between gap-3"><span class="text-slate-500 dark:text-slate-400">📍 Şehir</span><strong class="text-slate-800 dark:text-slate-100">{opportunity.city}</strong></div>
 										<div class="flex justify-between gap-3"><span class="text-slate-500 dark:text-slate-400">📅 Tarih</span><strong class="text-slate-800 dark:text-slate-100">{opportunity.dateLabel}</strong></div>
 										<div class="flex justify-between gap-3"><span class="text-slate-500 dark:text-slate-400">💳 Ücret</span><strong class={opportunity.price === 0 ? 'text-emerald-700 dark:text-emerald-300' : 'text-slate-800 dark:text-slate-100'}>{opportunity.priceLabel}</strong></div>
-									</div>
-									<button type="button" class="btn-secondary mt-5 w-full text-sm">Detayları kurumdan doğrula</button>
+										</div>
+									</details>
+									<a href={opportunity.url} target="_blank" rel="noopener noreferrer" class="btn-secondary mt-5 flex w-full items-center justify-center text-sm">Kurumun duyurusunu aç ↗</a>
 								</div>
 							</article>
 						{/each}
@@ -201,3 +217,19 @@
 		</div>
 	</main>
 </div>
+
+<style>
+	.filter-panel {
+		display: none;
+	}
+
+	.filter-panel.filter-open {
+		display: block;
+	}
+
+	@media (min-width: 768px) {
+		.filter-panel {
+			display: block;
+		}
+	}
+</style>

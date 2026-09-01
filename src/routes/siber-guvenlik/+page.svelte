@@ -25,34 +25,38 @@
 		</div>
 
 		<!-- Tab Navigation -->
-		<div class="flex gap-3 mb-8 justify-center flex-wrap">
+		<div class="security-tabs mb-8 flex gap-3 overflow-x-auto justify-start px-1 pb-2 sm:justify-center" role="tablist" aria-label="Siber güvenlik bölümleri">
 			<button
+				type="button"
 				on:click={() => (activeTab = 'email')}
-				class="px-6 py-3 rounded-xl font-semibold transition-all duration-200 {activeTab === 'email'
+				class="shrink-0 whitespace-nowrap px-6 py-3 rounded-xl font-semibold transition-all duration-200 {activeTab === 'email'
 					? 'bg-gradient-primary text-white shadow-lg scale-105'
 					: 'bg-white dark:bg-slate-800 text-gray-700 dark:text-gray-300 border-2 border-gray-200 dark:border-slate-700 hover:border-primary-300'}"
 			>
 				📧 Email Analiz
 			</button>
 			<button
+				type="button"
 				on:click={() => (activeTab = 'message')}
-				class="px-6 py-3 rounded-xl font-semibold transition-all duration-200 {activeTab === 'message'
+				class="shrink-0 whitespace-nowrap px-6 py-3 rounded-xl font-semibold transition-all duration-200 {activeTab === 'message'
 					? 'bg-gradient-primary text-white shadow-lg scale-105'
 					: 'bg-white dark:bg-slate-800 text-gray-700 dark:text-gray-300 border-2 border-gray-200 dark:border-slate-700 hover:border-primary-300'}"
 			>
 				💬 Mesaj Analiz
 			</button>
 			<button
+				type="button"
 				on:click={() => (activeTab = 'theater')}
-				class="px-6 py-3 rounded-xl font-semibold transition-all duration-200 {activeTab === 'theater'
+				class="shrink-0 whitespace-nowrap px-6 py-3 rounded-xl font-semibold transition-all duration-200 {activeTab === 'theater'
 					? 'bg-gradient-primary text-white shadow-lg scale-105'
 					: 'bg-white dark:bg-slate-800 text-gray-700 dark:text-gray-300 border-2 border-gray-200 dark:border-slate-700 hover:border-primary-300'}"
 			>
 				🎭 Dolandırıcılık Tiyatrosu
 			</button>
 			<button
+				type="button"
 				on:click={() => (activeTab = 'tips')}
-				class="px-6 py-3 rounded-xl font-semibold transition-all duration-200 {activeTab === 'tips'
+				class="shrink-0 whitespace-nowrap px-6 py-3 rounded-xl font-semibold transition-all duration-200 {activeTab === 'tips'
 					? 'bg-gradient-primary text-white shadow-lg scale-105'
 					: 'bg-white dark:bg-slate-800 text-gray-700 dark:text-gray-300 border-2 border-gray-200 dark:border-slate-700 hover:border-primary-300'}"
 			>
@@ -85,3 +89,27 @@
 		</div>
 	</div>
 </div>
+
+<style>
+	.security-tabs {
+		scrollbar-width: thin;
+		scrollbar-color: #cbd5e1 transparent;
+	}
+
+	.security-tabs::-webkit-scrollbar {
+		height: 6px;
+	}
+
+	.security-tabs::-webkit-scrollbar-track {
+		background: transparent;
+	}
+
+	.security-tabs::-webkit-scrollbar-thumb {
+		background: #cbd5e1;
+		border-radius: 999px;
+	}
+
+	:global(html.dark) .security-tabs {
+		scrollbar-color: #475569 transparent;
+	}
+</style>

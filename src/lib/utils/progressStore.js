@@ -1,12 +1,18 @@
 const STORAGE_KEY = 'dijital-okur-progress';
 
+function getStorageKey() {
+	if (typeof localStorage === 'undefined') return STORAGE_KEY;
+	const sessionId = localStorage.getItem('dijital-okur-session');
+	return sessionId ? `${STORAGE_KEY}:${sessionId}` : STORAGE_KEY;
+}
+
 const emptyProgress = () => ({ completedLessons: [] });
 
 function readProgress() {
 	if (typeof localStorage === 'undefined') return emptyProgress();
 
 	try {
-		const stored = JSON.parse(localStorage.getItem(STORAGE_KEY));
+		const stored = JSON.parse(localStorage.getItem(getStorageKey()));
 		return Array.isArray(stored?.completedLessons) ? stored : emptyProgress();
 	} catch {
 		return emptyProgress();
@@ -15,7 +21,7 @@ function readProgress() {
 
 function saveProgress(progress) {
 	if (typeof localStorage !== 'undefined') {
-		localStorage.setItem(STORAGE_KEY, JSON.stringify(progress));
+		localStorage.setItem(getStorageKey(), JSON.stringify(progress));
 	}
 }
 

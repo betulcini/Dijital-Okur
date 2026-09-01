@@ -2,6 +2,7 @@
 	import { onMount } from 'svelte';
 	import { soundManager } from '$lib/utils/soundManager.js';
 	import { getProgress, resetProgress as clearSavedProgress } from '$lib/utils/progressStore.js';
+	import { getCurrentUser } from '$lib/utils/authStore.js';
 
 	const lessonCatalog = [
 		{ id: 'yapay-zeka', name: 'Yapay Zeka Nedir?' },
@@ -60,6 +61,8 @@
 	};
 
 	onMount(() => {
+		const currentUser = getCurrentUser();
+		if (currentUser) userStats.name = currentUser.name;
 		syncProgress();
 		soundManager.playClick();
 	});

@@ -2,18 +2,22 @@
 	import { page } from '$app/stores';
 	import { onMount } from 'svelte';
 	import { soundManager } from '$lib/utils/soundManager.js';
+	import { getCurrentUser } from '$lib/utils/authStore.js';
 
 	let isDark = false;
 	let isMobileMenuOpen = false;
 	let isSettingsOpen = false;
 	let soundEnabled = true;
 	let fontSize = 'normal';
+	let searchQuery = '';
+	let currentUser = null;
 
 	onMount(() => {
 		isDark = document.documentElement.classList.contains('dark');
 		soundEnabled = soundManager.isSoundEnabled();
 		fontSize = localStorage.getItem('fontSize') || 'normal';
 		applyFontSize(fontSize);
+		currentUser = getCurrentUser();
 	});
 
 	const toggleTheme = () => {
@@ -36,6 +40,13 @@
 		const sizes = { small: '15px', normal: '16px', large: '18px', xlarge: '20px' };
 		document.documentElement.style.fontSize = sizes[size] || sizes.normal;
 		localStorage.setItem('fontSize', size);
+	};
+
+	const submitSearch = (event) => {
+		event.preventDefault();
+		const query = searchQuery.trim();
+		if (!query) return;
+		window.open(`https://www.google.com/search?q=${encodeURIComponent(query)}`, '_blank', 'noopener,noreferrer');
 	};
 
 	const isActive = (path) => {
@@ -75,7 +86,7 @@
 		</div>
 
 		<!-- Desktop Links -->
-		<div class="hidden md:flex gap-3 lg:gap-5 items-center flex-1 min-w-0 px-3">
+		<div class="hidden md:flex gap-3 lg:gap-5 items-center flex-1 min-w-0 px-3 md:ml-6 lg:ml-10">
 			<a
 				href="/"
 				class="relative whitespace-nowrap text-sm lg:text-base font-medium transition-colors dark:text-gray-300 {isActive('/')
@@ -155,8 +166,21 @@
 			</a>
 		</div>
 
+		<form class="hidden md:flex w-32 lg:w-48 shrink-0 items-center rounded-xl border border-gray-200 bg-gray-50 p-1 dark:border-slate-700 dark:bg-slate-800" on:submit={submitSearch}>
+			<label class="sr-only" for="navbar-search">Web'de ara</label>
+			<input id="navbar-search" bind:value={searchQuery} type="search" placeholder="Ara..." class="min-w-0 flex-1 bg-transparent px-2 text-sm text-gray-700 outline-none placeholder:text-gray-400 dark:text-gray-200" />
+			<button type="submit" class="grid h-8 w-8 shrink-0 place-items-center rounded-lg text-base hover:bg-white dark:hover:bg-slate-700" aria-label="Arama yap" title="Arama yap">⌕</button>
+		</form>
+
 		<!-- Right Side -->
 		<div class="relative flex items-center gap-2">
+			{#if currentUser}
+				<div class="hidden sm:flex items-center gap-2 rounded-xl bg-teal-50 px-3 py-2 text-sm font-semibold text-teal-800 dark:bg-teal-950 dark:text-teal-200">
+					<a href="/profil" aria-label="Profilim" class="hover:underline">👤 Profilim</a>
+				</div>
+			{:else}
+				<a href="/giris" class="hidden sm:inline-flex rounded-xl bg-teal-600 px-3 py-2 text-sm font-semibold text-white hover:bg-teal-700">Giriş yap</a>
+			{/if}
 			<button
 				type="button"
 				on:click={() => (isSettingsOpen = !isSettingsOpen)}
@@ -196,6 +220,14 @@
 	{#if isMobileMenuOpen}
 		<div class="md:hidden bg-white dark:bg-slate-800 border-t border-gray-100 dark:border-slate-700 py-4 px-4 animate-slide-down">
 			<div class="space-y-3">
+				{#if currentUser}
+					<div class="flex items-center justify-between rounded-lg bg-teal-50 px-4 py-2 text-sm font-semibold text-teal-800 dark:bg-teal-950 dark:text-teal-200">
+						<span>👤 {currentUser.name}</span>
+					</div>
+					<a href="/profil" on:click={closeMobileMenu} class="block rounded-lg border border-teal-200 px-4 py-2 font-semibold text-teal-700 dark:border-teal-800 dark:text-teal-300">👤 Profilim</a>
+				{:else}
+					<a href="/giris" on:click={closeMobileMenu} class="block rounded-lg bg-teal-600 px-4 py-2 font-semibold text-white">👤 Giriş yap / Kayıt ol</a>
+				{/if}
 				<a
 					href="/"
 					on:click={closeMobileMenu}
