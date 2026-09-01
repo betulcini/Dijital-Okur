@@ -25,7 +25,7 @@
 	<title>Dijital Okuryazarlık Platformu</title>
 </svelte:head>
 
-<div class="min-h-screen flex flex-col bg-gray-50">
+<div class="min-h-screen flex flex-col bg-slate-50 dark:bg-slate-950">
 	<Navigation />
 	<main class="flex-1">
 		<slot />

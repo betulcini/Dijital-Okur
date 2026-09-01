@@ -129,7 +129,7 @@
 	<meta name="description" content="55 yaş üstü için belediye, halk eğitim, atölye, müze ve tiyatro fırsatları." />
 </svelte:head>
 
-<div class="min-h-screen bg-slate-50 dark:bg-slate-950">
+<div class="page-shell">
 	<section class="border-b border-slate-200 bg-white dark:border-slate-800 dark:bg-slate-900">
 		<div class="mx-auto max-w-6xl px-4 py-12 sm:py-16">
 			<div class="max-w-3xl">

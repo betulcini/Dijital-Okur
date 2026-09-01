@@ -18,6 +18,9 @@
 		fontSize = localStorage.getItem('fontSize') || 'normal';
 		applyFontSize(fontSize);
 		currentUser = getCurrentUser();
+		const refreshUser = () => (currentUser = getCurrentUser());
+		window.addEventListener('auth-changed', refreshUser);
+		return () => window.removeEventListener('auth-changed', refreshUser);
 	});
 
 	const toggleTheme = () => {

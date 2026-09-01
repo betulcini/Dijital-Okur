@@ -396,12 +396,13 @@
 	$: categories = ['Tümü', ...faqs.map((category) => category.category)];
 </script>
 
-<div class="min-h-screen bg-gradient-to-br from-purple-50 via-pink-50 to-purple-50 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900">
-	<div class="max-w-4xl mx-auto px-4 py-16">
+
+<div class="page-shell">
+	<div class="page-container max-w-4xl">
 		<!-- Header -->
-		<div class="text-center mb-12 animate-fade-in">
-			<div class="inline-block mb-4 px-4 py-2 bg-purple-100 dark:bg-purple-900 rounded-full">
-				<span class="text-purple-700 dark:text-purple-300 font-semibold text-sm">
+		<div class="page-heading animate-fade-in">
+			<div class="page-eyebrow">
+				<span>
 					💬 Merak Ettiklerini Burada Bul
 				</span>
 			</div>

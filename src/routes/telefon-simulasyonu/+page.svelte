@@ -2,7 +2,8 @@
 	import PhonePractice from '$lib/components/PhonePractice.svelte';
 </script>
 
-<div class="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900">
+
+<div class="page-shell">
 	<div class="max-w-6xl mx-auto px-4 py-16">
 		<!-- Header -->
 		<div class="text-center mb-12 animate-fade-in">

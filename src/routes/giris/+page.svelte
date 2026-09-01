@@ -17,13 +17,13 @@
 		try {
 			if (isResetting) {
 				resetPassword({ email, password });
-				goto('/ilerleme');
+				goto('/');
 			} else if (isRegistering) {
 				registerUser({ name, email, password });
 				showOnboarding = true;
 			} else {
 				loginUser({ email, password });
-				goto('/ilerleme');
+				goto('/');
 			}
 		} catch (error) {
 			errorMessage = error.message;
@@ -45,11 +45,11 @@
 	}
 
 	function finishOnboarding() {
-		goto('/egitim');
+		goto('/');
 	}
 
 	function skipOnboarding() {
-		goto('/ilerleme');
+		goto('/');
 	}
 </script>
 
@@ -57,7 +57,8 @@
 	<title>{isRegistering ? 'Kayıt Ol' : 'Giriş Yap'} | Dijital Okur</title>
 </svelte:head>
 
-<div class="min-h-screen bg-gradient-to-br from-cyan-50 via-white to-amber-50 px-4 py-12 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950">
+
+<div class="page-shell px-4 py-12">
 	<div class="mx-auto max-w-md">
 		<div class="mb-8 text-center">
 			<div class="mb-4 text-5xl">🧠</div>

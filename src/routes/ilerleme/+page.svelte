@@ -82,10 +82,11 @@
 	};
 </script>
 
-<div class="min-h-screen bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900">
-	<div class="max-w-6xl mx-auto px-4 py-16">
+
+<div class="page-shell">
+	<div class="page-container">
 		<!-- Header -->
-		<div class="flex flex-col sm:flex-row justify-between sm:items-center gap-4 mb-12">
+		<div class="flex flex-col sm:flex-row justify-between sm:items-center gap-4 mb-10">
 			<div class="animate-fade-in">
 				<div class="inline-block mb-4 px-4 py-2 bg-indigo-100 dark:bg-indigo-900 rounded-full">
 					<span class="text-indigo-700 dark:text-indigo-300 font-semibold text-sm">

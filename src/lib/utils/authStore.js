@@ -1,6 +1,10 @@
 const USERS_KEY = 'dijital-okur-users';
 const SESSION_KEY = 'dijital-okur-session';
 
+function notifyAuthChange() {
+	if (typeof window !== 'undefined') window.dispatchEvent(new CustomEvent('auth-changed'));
+}
+
 function readUsers() {
 	if (typeof localStorage === 'undefined') return [];
 	try {
@@ -40,6 +44,7 @@ export function registerUser({ name, email, password }) {
 	users.push(user);
 	saveUsers(users);
 	localStorage.setItem(SESSION_KEY, user.id);
+	notifyAuthChange();
 	return user;
 }
 
@@ -48,6 +53,7 @@ export function loginUser({ email, password }) {
 	const user = readUsers().find((item) => item.email === normalizedEmail && item.password === password);
 	if (!user) throw new Error('E-posta veya şifre hatalı.');
 	localStorage.setItem(SESSION_KEY, user.id);
+	notifyAuthChange();
 	return user;
 }
 
@@ -61,11 +67,13 @@ export function resetPassword({ email, password }) {
 	users[userIndex] = { ...users[userIndex], password };
 	saveUsers(users);
 	localStorage.setItem(SESSION_KEY, users[userIndex].id);
+	notifyAuthChange();
 	return users[userIndex];
 }
 
 export function logoutUser() {
 	if (typeof localStorage !== 'undefined') localStorage.removeItem(SESSION_KEY);
+	notifyAuthChange();
 }
 
 export function isLoggedIn() {

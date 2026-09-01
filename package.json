@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
+    "deploy:cloudflare": "npm run build && wrangler pages deploy .svelte-kit/cloudflare",
     "preview": "vite preview",
     "start": "vite preview"
   },
@@ -18,11 +19,12 @@
   "author": "Dijital Okur",
   "license": "MIT",
   "dependencies": {
+    "@supabase/supabase-js": "^2.112.4",
     "@sveltejs/kit": "^2.70.2",
     "svelte": "^5.56.9"
   },
   "devDependencies": {
-    "@sveltejs/adapter-auto": "^7.0.1",
+    "@sveltejs/adapter-cloudflare": "^7.2.9",
     "@sveltejs/vite-plugin-svelte": "^7.0.0",
     "autoprefixer": "^10.5.4",
     "postcss": "^8.5.26",

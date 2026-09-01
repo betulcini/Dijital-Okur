@@ -15,12 +15,13 @@
 	const isCompleted = (id) => completedLessonIds.includes(id);
 </script>
 
-<div class="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900">
-	<div class="max-w-5xl mx-auto px-4 py-16">
+
+<div class="page-shell">
+	<div class="page-container max-w-5xl">
 		<!-- Header -->
-		<div class="text-center mb-16 animate-fade-in">
-			<div class="inline-block mb-4 px-4 py-2 bg-blue-100 dark:bg-blue-900 rounded-full">
-				<span class="text-blue-700 dark:text-blue-300 font-semibold text-sm">
+		<div class="page-heading animate-fade-in">
+			<div class="page-eyebrow">
+				<span>
 					📚 Kendi Hızında Öğren
 				</span>
 			</div>

@@ -22,7 +22,8 @@
 	<title>Profilim | Dijital Okur</title>
 </svelte:head>
 
-<div class="min-h-screen bg-gradient-to-br from-cyan-50 via-white to-amber-50 px-4 py-12 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950">
+
+<div class="page-shell px-4 py-12">
 	<div class="mx-auto max-w-3xl">
 		{#if user}
 			<div class="mb-8">

@@ -6,12 +6,13 @@
 	let activeTab = 'email';
 </script>
 
-<div class="min-h-screen bg-gradient-to-br from-red-50 via-orange-50 to-red-50 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900">
-	<div class="max-w-5xl mx-auto px-4 py-16">
+
+<div class="page-shell">
+	<div class="page-container max-w-5xl">
 		<!-- Header -->
-		<div class="text-center mb-16 animate-fade-in">
-			<div class="inline-block mb-4 px-4 py-2 bg-red-100 dark:bg-red-900 rounded-full">
-				<span class="text-red-700 dark:text-red-300 font-semibold text-sm">
+		<div class="page-heading animate-fade-in">
+			<div class="page-eyebrow">
+				<span>
 					🛡️ Kendinizi Koruyun
 				</span>
 			</div>
