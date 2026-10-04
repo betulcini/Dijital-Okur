@@ -33,16 +33,14 @@ svg {
 body {
 	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial,
 		sans-serif;
-	color: #1f2937;
-	background-color: #ffffff;
-	background-image: linear-gradient(135deg, #f0f4ff 0%, #faf3ff 100%);
+	color: #262422;
+	background-color: #faf9f7;
 	transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 html.dark body {
-	color: #f3f4f6;
-	background-color: #0f172a;
-	background-image: linear-gradient(135deg, #0f172a 0%, #1a1a3e 100%);
+	color: #f2efea;
+	background-color: #1a1918;
 }
 
 h1,
@@ -76,10 +74,6 @@ button {
 	border: none;
 	background: none;
 	transition: all 0.2s ease;
-}
-
-button:hover {
-	transform: translateY(-2px);
 }
 
 button:active {
@@ -138,7 +132,7 @@ html.dark ::-webkit-scrollbar-thumb:hover {
 
 /* Selection styling */
 ::selection {
-	background: linear-gradient(135deg, #5a82f5 0%, #a855f7 100%);
+	background: rgba(217, 119, 87, 0.85);
 	color: white;
 }
 
@@ -146,22 +140,6 @@ html.dark ::-webkit-scrollbar-thumb:hover {
 @layer components {
 	.page-shell {
 		@apply relative min-h-screen overflow-hidden bg-slate-50 dark:bg-slate-950;
-		background-image: linear-gradient(135deg, #f8fafc 0%, #ecfeff 52%, #fff7ed 100%);
-	}
-
-	.page-shell::before {
-		content: '';
-		position: absolute;
-		inset: 0;
-		pointer-events: none;
-		background-image: linear-gradient(rgba(15, 118, 110, 0.055) 1px, transparent 1px), linear-gradient(90deg, rgba(15, 118, 110, 0.055) 1px, transparent 1px);
-		background-size: 44px 44px;
-		mask-image: linear-gradient(to bottom, black, transparent 72%);
-		animation: page-grid-drift 24s linear infinite;
-	}
-
-	html.dark .page-shell {
-		background-image: linear-gradient(135deg, #0f172a 0%, #102a36 52%, #211c16 100%);
 	}
 
 	.page-container {
@@ -176,21 +154,12 @@ html.dark ::-webkit-scrollbar-thumb:hover {
 		@apply mb-4 inline-block rounded-full bg-teal-100 px-4 py-2 text-sm font-bold text-teal-800 dark:bg-teal-950 dark:text-teal-200;
 	}
 
-	@keyframes page-grid-drift {
-		from { background-position: 0 0; }
-		to { background-position: 44px 44px; }
-	}
-
-	@media (prefers-reduced-motion: reduce) {
-		.page-shell::before { animation: none; }
-	}
-
 	.card {
-		@apply bg-white dark:bg-slate-800 rounded-2xl shadow-card dark:shadow-md border border-gray-100 dark:border-slate-700 transition-all duration-300;
+		@apply rounded-2xl border border-slate-200 bg-white shadow-sm transition-colors duration-200 dark:border-slate-700 dark:bg-slate-900;
 	}
 
 	.card-hover {
-		@apply card hover:shadow-lg hover:border-primary-300 dark:hover:border-primary-600 hover:scale-105;
+		@apply card hover:border-primary-300 hover:shadow-md dark:hover:border-primary-500;
 	}
 
 	.btn-primary {

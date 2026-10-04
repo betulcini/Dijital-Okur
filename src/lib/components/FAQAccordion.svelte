@@ -1,4 +1,5 @@
 <script>
+	import { ChevronDown, CircleHelp, Volume2 } from 'lucide-svelte';
 	import { soundManager } from '$lib/utils/soundManager.js';
 
 	export let question = '';
@@ -27,14 +28,12 @@
 		class="w-full px-6 py-4 flex justify-between items-center hover:bg-purple-100 dark:hover:bg-slate-600 transition"
 	>
 		<div class="flex items-center gap-4 text-left flex-1">
-			<span class="text-2xl">❓</span>
+			<CircleHelp size={21} class="shrink-0 text-primary-600 dark:text-primary-300" strokeWidth={1.8} />
 			<h3 class="font-semibold text-gray-900 dark:text-white text-lg">
 				{question}
 			</h3>
 		</div>
-		<span class="text-2xl transition-transform duration-300 {isOpen ? 'rotate-180' : ''}"
-			>▼
-		</span>
+		<ChevronDown size={20} class="shrink-0 transition-transform duration-300 {isOpen ? 'rotate-180' : ''}" />
 	</button>
 
 	<!-- Answer Content -->
@@ -49,7 +48,8 @@
 				on:click={handleSpeak}
 				class="inline-flex items-center gap-2 px-4 py-2 mt-4 bg-purple-100 dark:bg-purple-900 text-purple-700 dark:text-purple-300 rounded-lg hover:bg-purple-200 dark:hover:bg-purple-800 font-semibold transition"
 			>
-				🔊 Bu Soruyu Sesli Oku
+			<Volume2 size={17} />
+			Bu Soruyu Sesli Oku
 			</button>
 		</div>
 	{/if}

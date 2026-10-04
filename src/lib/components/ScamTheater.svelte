@@ -10,15 +10,15 @@
 			correct: 'şüpheli',
 			redFlags: [
 				{
-					title: '⚠️ Acil ve tehdit içeren cümle',
+					title: ' Acil ve tehdit içeren cümle',
 					detail: 'Mesaj size "hemen" ve "kilitlenecek" gibi baskı kurarak hızlı karar vermenizi istiyor.'
 				},
 				{
-					title: '🔐 Şifre istemesi',
+					title: ' Şifre istemesi',
 					detail: 'Gerçek bankalar SMS ile şifre veya güvenlik kodu istemez. Bu çok güçlü bir dolandırıcılık işaretidir.'
 				},
 				{
-					title: '🔗 Kısa ve şüpheli link',
+					title: ' Kısa ve şüpheli link',
 					detail: 'Kullanıcıyı bilinmeyen bir adrese götüren kısa link, güvenlik açığı bu mesajın en bariz kırmızı bayrağıdır.'
 				}
 			]
@@ -33,15 +33,15 @@
 			correct: 'şüpheli',
 			redFlags: [
 				{
-					title: '📦 Kargo masalı',
+					title: ' Kargo masalı',
 					detail: 'Paketle ilgili bir sorun mazereti kurularak kullanıcıya bağlatılmak isteniyor.'
 				},
 				{
-					title: '🔘 Bağlantı istemesi',
+					title: ' Bağlantı istemesi',
 					detail: 'Bilinmeyen bir bağlantı açmak, kişisel verilerinizi veya cihazınızı riske atabilir.'
 				},
 				{
-					title: '⏱️ Zaman baskısı',
+					title: ' Zaman baskısı',
 					detail: '"2 dakikada" gibi ifade, acele karar almaya zorlayarak manipülasyon yapıyor.'
 				}
 			]
@@ -56,15 +56,15 @@
 			correct: 'güvenli',
 			redFlags: [
 				{
-					title: '✅ Açık ve net konu',
+					title: ' Açık ve net konu',
 					detail: 'Mesaj net, samimi ve doğrulanabilir bir bağlam içinde yazılmış.'
 				},
 				{
-					title: '✅ Bilgi ve yönlendirme',
+					title: ' Bilgi ve yönlendirme',
 					detail: 'Kişisel veri talebi yok; kullanıcıya resmi sayfaya yönlendirme yapıyor.'
 				},
 				{
-					title: '✅ Korkutma yok',
+					title: ' Korkutma yok',
 					detail: 'Acil tehdit, şifre isteği ya da ödül vaadi gibi manipülasyon bulunmuyor.'
 				}
 			]
@@ -100,7 +100,7 @@
 
 <div class="space-y-6">
 	<div class="mb-6">
-		<h2 class="text-2xl font-bold text-gray-900 mb-2">🎭 Dolandırıcılık Tiyatrosu</h2>
+		<h2 class="text-2xl font-bold text-gray-900 mb-2"> Dolandırıcılık Tiyatrosu</h2>
 		<p class="text-gray-600">
 			Aşağıdaki senaryolarda gerçek hayattaki dolandırıcılık örneklerini görürsün. Güvenli mi,
 			şüpheli mi diye karar verip ardından kırmızı bayrakları tek tek açacağız.
@@ -147,7 +147,7 @@
 						? 'bg-green-600 text-white border-green-600'
 						: 'bg-white text-green-700 border-green-200 hover:bg-green-50'}"
 				>
-					✅ Güvenli
+					 Güvenli
 				</button>
 				<button
 					type="button"
@@ -156,7 +156,7 @@
 						? 'bg-red-600 text-white border-red-600'
 						: 'bg-white text-red-700 border-red-200 hover:bg-red-50'}"
 				>
-					🚨 Şüpheli
+					 Şüpheli
 				</button>
 			</div>
 		</div>

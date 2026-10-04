@@ -15,6 +15,12 @@
 		};
 
 		document.addEventListener('click', playInteractiveClick);
+		if (import.meta.env.PROD && 'serviceWorker' in navigator) {
+			navigator.serviceWorker.register('/sw.js').catch((error) => {
+				console.error('Service worker registration failed:', error);
+			});
+		}
+
 		return () => document.removeEventListener('click', playInteractiveClick);
 	});
 </script>
@@ -25,7 +31,7 @@
 	<title>Dijital Okuryazarlık Platformu</title>
 </svelte:head>
 
-<div class="min-h-screen flex flex-col bg-slate-50 dark:bg-slate-950">
+<div class="min-h-screen flex flex-col bg-slate-50 text-slate-900 transition-colors duration-300 dark:bg-slate-950 dark:text-slate-100">
 	<Navbar />
 	<main class="flex-1">
 		<slot />

@@ -1,5 +1,6 @@
 <script>
 	import { goto } from '$app/navigation';
+	import { BarChart3, BookOpen, Brain, ShieldCheck } from 'lucide-svelte';
 	import { loginUser, registerUser, resetPassword } from '$lib/utils/authStore.js';
 
 	let isRegistering = false;
@@ -61,7 +62,7 @@
 <div class="page-shell px-4 py-12">
 	<div class="mx-auto max-w-md">
 		<div class="mb-8 text-center">
-			<div class="mb-4 text-5xl">🧠</div>
+			<Brain size={38} class="mx-auto mb-4 text-primary-600 dark:text-primary-300" strokeWidth={1.6} />
 			<h1 class="text-3xl font-bold text-slate-900 dark:text-white">{showOnboarding ? 'Dijital Okur’a hoş geldin' : isResetting ? 'Şifreni yenile' : isRegistering ? 'Hesap oluştur' : 'Tekrar hoş geldin'}</h1>
 			<p class="mt-3 text-slate-600 dark:text-slate-300">{showOnboarding ? 'Uygulamayı kısaca tanıyalım mı?' : isResetting ? 'Kayıtlı e-posta adresini ve yeni şifreni gir.' : `İlerlemeni kaydetmek için hesabına ${isRegistering ? 'kaydol' : 'giriş yap'}.`}</p>
 		</div>
@@ -69,9 +70,9 @@
 		{#if showOnboarding}
 			<section class="rounded-2xl border border-slate-200 bg-white p-6 shadow-xl dark:border-slate-800 dark:bg-slate-900 sm:p-8">
 				<div class="space-y-4">
-					<div class="flex gap-4 rounded-xl bg-cyan-50 p-4 dark:bg-cyan-950/40"><span class="text-3xl">📚</span><div><h2 class="font-bold text-slate-900 dark:text-white">Derslerle öğren</h2><p class="mt-1 text-sm text-slate-600 dark:text-slate-300">Güvenlik, telefon ve günlük teknoloji konularını adım adım keşfet.</p></div></div>
-					<div class="flex gap-4 rounded-xl bg-amber-50 p-4 dark:bg-amber-950/40"><span class="text-3xl">🛡️</span><div><h2 class="font-bold text-slate-900 dark:text-white">Güvende kal</h2><p class="mt-1 text-sm text-slate-600 dark:text-slate-300">Şüpheli mesajları incele, dolandırıcılık işaretlerini tanı.</p></div></div>
-					<div class="flex gap-4 rounded-xl bg-emerald-50 p-4 dark:bg-emerald-950/40"><span class="text-3xl">📊</span><div><h2 class="font-bold text-slate-900 dark:text-white">İlerlemeni takip et</h2><p class="mt-1 text-sm text-slate-600 dark:text-slate-300">Tamamladığın dersler ve kazandığın XP profilinde saklanır.</p></div></div>
+					<div class="flex items-start gap-4 rounded-xl bg-cyan-50 p-4 dark:bg-cyan-950/40"><BookOpen size={21} class="mt-0.5 shrink-0 text-cyan-700 dark:text-cyan-300" /><div><h2 class="font-bold text-slate-900 dark:text-white">Derslerle öğren</h2><p class="mt-1 text-sm text-slate-600 dark:text-slate-300">Güvenlik, telefon ve günlük teknoloji konularını adım adım keşfet.</p></div></div>
+					<div class="flex items-start gap-4 rounded-xl bg-amber-50 p-4 dark:bg-amber-950/40"><ShieldCheck size={21} class="mt-0.5 shrink-0 text-amber-700 dark:text-amber-300" /><div><h2 class="font-bold text-slate-900 dark:text-white">Güvende kal</h2><p class="mt-1 text-sm text-slate-600 dark:text-slate-300">Şüpheli mesajları incele, dolandırıcılık işaretlerini tanı.</p></div></div>
+					<div class="flex items-start gap-4 rounded-xl bg-emerald-50 p-4 dark:bg-emerald-950/40"><BarChart3 size={21} class="mt-0.5 shrink-0 text-emerald-700 dark:text-emerald-300" /><div><h2 class="font-bold text-slate-900 dark:text-white">İlerlemeni takip et</h2><p class="mt-1 text-sm text-slate-600 dark:text-slate-300">Tamamladığın dersler ve kazandığın XP profilinde saklanır.</p></div></div>
 				</div>
 				<div class="mt-7 flex flex-col-reverse gap-3 sm:flex-row sm:justify-end"><button type="button" on:click={skipOnboarding} class="rounded-xl px-5 py-3 font-semibold text-slate-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800">Atla</button><button type="button" on:click={finishOnboarding} class="btn-primary">Başla →</button></div>
 			</section>

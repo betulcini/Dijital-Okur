@@ -1,5 +1,16 @@
 <script>
 	import { onMount } from 'svelte';
+	import {
+		Activity,
+		Award,
+		BookCheck,
+		Check,
+		Circle,
+		Star,
+		Target,
+		Volume2,
+		VolumeX
+	} from 'lucide-svelte';
 	import { soundManager } from '$lib/utils/soundManager.js';
 	import { getProgress, resetProgress as clearSavedProgress } from '$lib/utils/progressStore.js';
 	import { getCurrentUser } from '$lib/utils/authStore.js';
@@ -21,10 +32,10 @@
 		completedLessons: 4,
 		totalLessons: 6,
 		badges: [
-			{ name: 'Yapay Zeka Uzmanı', icon: '🤖', date: '2024-08-10' },
-			{ name: 'Güvenlik Meraklısı', icon: '🔐', date: '2024-08-12' },
-			{ name: 'İlk Adım', icon: '🎯', date: '2024-08-01' },
-			{ name: 'Başarı Avı', icon: '🏆', date: '2024-08-15' }
+			{ name: 'Yapay Zeka Uzmanı', date: '2024-08-10' },
+			{ name: 'Güvenlik Meraklısı', date: '2024-08-12' },
+			{ name: 'İlk Adım', date: '2024-08-01' },
+			{ name: 'Başarı Avı', date: '2024-08-15' }
 		],
 		lessonsData: [
 			{ name: 'Yapay Zeka Nedir?', completed: true, xp: 200, date: '2024-08-10' },
@@ -50,7 +61,7 @@
 		userStats.level = Math.max(1, Math.floor(userStats.xp / 300) + 1);
 		userStats.nextLevelXp = userStats.level * 300;
 		userStats.badges = savedProgress.completedLessons.map((lesson) => ({
-			name: `${lesson.title} Rozeti`, icon: '🏆', date: lesson.completedAt
+			name: `${lesson.title} Rozeti`, date: lesson.completedAt
 		}));
 		userStats.lessonsData = lessonCatalog.map((lesson) => {
 			const completed = completedById.get(lesson.id);
@@ -90,14 +101,14 @@
 			<div class="animate-fade-in">
 				<div class="inline-block mb-4 px-4 py-2 bg-indigo-100 dark:bg-indigo-900 rounded-full">
 					<span class="text-indigo-700 dark:text-indigo-300 font-semibold text-sm">
-						📊 Başarımlarını Gör
+					Başarımlarını Gör
 					</span>
 				</div>
 				<h1 class="text-3xl sm:text-4xl md:text-6xl font-bold text-gray-900 dark:text-white mb-4">
 					İlerleme
 				</h1>
 				<p class="text-xl text-gray-600 dark:text-gray-300">
-					{userStats.name}, sen bu kadar öğrendin! 🌟
+					{userStats.name}, sen bu kadar öğrendin!
 				</p>
 			</div>
 
@@ -108,17 +119,16 @@
 					: 'bg-gray-100 dark:bg-slate-700 text-gray-600 dark:text-gray-400'}"
 				title={soundEnabled ? 'Sesleri Kapat' : 'Sesleri Aç'}
 			>
-				{soundEnabled ? '🔊' : '🔇'}
+				{#if soundEnabled}<Volume2 size={20} aria-hidden="true" />{:else}<VolumeX size={20} aria-hidden="true" />{/if}
 			</button>
 		</div>
-
 		<!-- Profile Card -->
 		<div class="card p-8 mb-8 animate-slide-up">
 			<div class="grid md:grid-cols-3 gap-8">
 				<!-- Level Section -->
 				<div class="text-center">
 					<div class="inline-block mb-4 p-6 bg-gradient-to-br from-indigo-100 to-purple-100 dark:from-indigo-900 dark:to-purple-900 rounded-2xl">
-						<div class="text-6xl">⭐</div>
+						<Award size={42} class="text-primary-600 dark:text-primary-300" strokeWidth={1.5} />
 					</div>
 					<h2 class="text-4xl font-bold gradient-text">Level {userStats.level}</h2>
 					<p class="text-gray-600 dark:text-gray-300 mt-2">Dijital Maceraci</p>
@@ -165,26 +175,25 @@
 				</div>
 			</div>
 		</div>
-
 		<!-- Stats Grid -->
 		<div class="grid md:grid-cols-4 gap-4 mb-8">
 			<div class="card p-6 text-center animate-slide-up" style="animation-delay: 0.1s">
-				<div class="text-4xl mb-2">🏆</div>
+				<Award size={26} class="mx-auto mb-3 text-primary-600 dark:text-primary-300" strokeWidth={1.6} />
 				<div class="text-3xl font-bold gradient-text">{userStats.badges.length}</div>
 				<p class="text-gray-600 dark:text-gray-300 text-sm">Rozet Kazandı</p>
 			</div>
 			<div class="card p-6 text-center animate-slide-up" style="animation-delay: 0.2s">
-				<div class="text-4xl mb-2">✅</div>
+				<BookCheck size={26} class="mx-auto mb-3 text-primary-600 dark:text-primary-300" strokeWidth={1.6} />
 				<div class="text-3xl font-bold gradient-text">{userStats.completedLessons}</div>
 				<p class="text-gray-600 dark:text-gray-300 text-sm">Ders Tamamlandı</p>
 			</div>
 			<div class="card p-6 text-center animate-slide-up" style="animation-delay: 0.3s">
-				<div class="text-4xl mb-2">⭐</div>
+				<Star size={26} class="mx-auto mb-3 text-primary-600 dark:text-primary-300" strokeWidth={1.6} />
 				<div class="text-3xl font-bold gradient-text">{userStats.xp}</div>
 				<p class="text-gray-600 dark:text-gray-300 text-sm">Toplam XP</p>
 			</div>
 			<div class="card p-6 text-center animate-slide-up" style="animation-delay: 0.4s">
-				<div class="text-4xl mb-2">🎯</div>
+				<Target size={26} class="mx-auto mb-3 text-primary-600 dark:text-primary-300" strokeWidth={1.6} />
 				<div class="text-3xl font-bold gradient-text">{Math.round((userStats.completedLessons / userStats.totalLessons) * 100)}%</div>
 				<p class="text-gray-600 dark:text-gray-300 text-sm">İlerleme</p>
 			</div>
@@ -192,7 +201,7 @@
 
 		<!-- Badges Section -->
 		<div class="card p-8 mb-8 animate-slide-up">
-			<h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-6">🏆 Kazanılan Rozetler</h2>
+			<h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-6">Kazanılan Rozetler</h2>
 
 			{#if userStats.badges.length > 0}
 				<div class="grid md:grid-cols-4 gap-6">
@@ -201,26 +210,26 @@
 							class="border-2 border-yellow-300 dark:border-yellow-600 rounded-2xl p-6 text-center hover:shadow-lg transition-all duration-300 transform hover:scale-105"
 							style="animation-delay: {index * 0.1}s"
 						>
-							<div class="text-6xl mb-4">{badge.icon}</div>
+							<div class="mb-4 flex justify-center text-primary-600 dark:text-primary-300"><Award size={36} strokeWidth={1.5} /></div>
 							<h3 class="font-bold text-gray-900 dark:text-white mb-2">
 								{badge.name}
 							</h3>
 							<p class="text-sm text-gray-600 dark:text-gray-400">
-								📅 {new Date(badge.date).toLocaleDateString('tr-TR')}
+								 {new Date(badge.date).toLocaleDateString('tr-TR')}
 							</p>
 						</div>
 					{/each}
 				</div>
 			{:else}
 				<p class="text-gray-600 dark:text-gray-300 text-center py-8">
-					Henüz rozet kazanmadın. Dersleri tamamlayarak rozetler kazanmaya başla! 🚀
+					Henüz rozet kazanmadın. Dersleri tamamlayarak rozetler kazanmaya başla!
 				</p>
 			{/if}
 		</div>
 
 		<!-- Lessons Progress -->
 		<div class="card p-8 mb-8 animate-slide-up">
-			<h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-6">📚 Ders İlerlemesi</h2>
+			<h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-6">Ders İlerlemesi</h2>
 
 			<div class="space-y-4">
 				{#each userStats.lessonsData as lesson, index}
@@ -229,8 +238,8 @@
 							? 'border-2 border-green-300 dark:border-green-600'
 							: 'border-2 border-gray-200 dark:border-slate-600'}"
 					>
-						<div class="text-3xl flex-none">
-							{lesson.completed ? '✅' : '⭕'}
+						<div class="flex-none text-slate-500 dark:text-slate-300" aria-label={lesson.completed ? 'Tamamlandı' : 'Tamamlanmadı'}>
+							{#if lesson.completed}<Check size={22} class="text-emerald-600 dark:text-emerald-400" />{:else}<Circle size={22} />{/if}
 						</div>
 						<div class="flex-1 min-w-0">
 							<h3 class="font-semibold text-gray-900 dark:text-white">
@@ -238,7 +247,7 @@
 							</h3>
 							{#if lesson.completed}
 								<p class="text-sm text-gray-600 dark:text-gray-400">
-									📅 {new Date(lesson.date).toLocaleDateString('tr-TR')} • ⭐ {lesson.xp} XP kazandı
+									 {new Date(lesson.date).toLocaleDateString('tr-TR')} •  {lesson.xp} XP kazandı
 								</p>
 							{:else}
 								<p class="text-sm text-gray-600 dark:text-gray-400">
@@ -267,7 +276,7 @@
 
 		<!-- Weekly Activity -->
 		<div class="card p-8 mb-8 animate-slide-up">
-			<h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-6">📈 Haftalık Aktivite</h2>
+			<h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-6">Haftalık Aktivite</h2>
 
 			<div class="flex items-end justify-around h-48 gap-3 mb-6">
 				{#each userStats.weeklyActivity as activity, index}
@@ -284,10 +293,10 @@
 			</div>
 
 			<p class="text-center text-gray-600 dark:text-gray-300">
-				Bu hafta toplam <strong>{userStats.weeklyActivity.reduce((a, b) => a + b, 0)} dakika</strong> çalıştın! 🔥
+				Bu hafta toplam <strong>{userStats.weeklyActivity.reduce((a, b) => a + b, 0)} dakika</strong> çalıştın!
 			</p>
 		</div>
-
+			<Activity size={25} class="mx-auto mb-3 text-primary-600 dark:text-primary-300" strokeWidth={1.6} />
 		<!-- Actions -->
 		<div class="flex gap-4 justify-center flex-wrap animate-slide-up">
 			<a
@@ -312,24 +321,24 @@
 
 		<!-- Motivational Message -->
 		<div class="mt-12 bg-gradient-to-r from-indigo-100 to-purple-100 dark:from-indigo-900 dark:to-purple-900 rounded-2xl p-8 text-center">
-			<div class="text-5xl mb-4">🌟</div>
+
 			<h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-2">
 				Harika İlerletin!
 			</h3>
 			<p class="text-gray-700 dark:text-gray-300 mb-4">
 				{userStats.completedLessons === userStats.totalLessons
-					? "Tüm dersleri tamamladın! Artık dijital okuryazarlıkta uzmanı sayılırsın! 🎉"
-					: `Tüm dersleri tamamlamana ${userStats.totalLessons - userStats.completedLessons} ders kaldı. Devam et! 💪`}
+					? 'Tüm dersleri tamamladın! Artık dijital okuryazarlıkta uzmanı sayılırsın!'
+					: `Tüm dersleri tamamlamana ${userStats.totalLessons - userStats.completedLessons} ders kaldı. Devam et!`}
 			</p>
 			<div class="flex gap-3 justify-center flex-wrap">
 				<span class="px-4 py-2 bg-white dark:bg-slate-800 rounded-full text-sm font-semibold text-gray-900 dark:text-white">
-					🏆 Level {userStats.level}
+					Level {userStats.level}
 				</span>
 				<span class="px-4 py-2 bg-white dark:bg-slate-800 rounded-full text-sm font-semibold text-gray-900 dark:text-white">
-					⭐ {userStats.xp} XP
+					{userStats.xp} XP
 				</span>
 				<span class="px-4 py-2 bg-white dark:bg-slate-800 rounded-full text-sm font-semibold text-gray-900 dark:text-white">
-					🏅 {userStats.badges.length} Rozet
+					{userStats.badges.length} Rozet
 				</span>
 			</div>
 		</div>

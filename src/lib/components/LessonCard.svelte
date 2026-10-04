@@ -1,12 +1,35 @@
 <script>
+	import {
+		BookOpen,
+		Brain,
+		Check,
+		HeartPulse,
+		KeyRound,
+		Landmark,
+		Mail,
+		ShieldAlert
+	} from 'lucide-svelte';
+
 	export let title = '';
 	export let description = '';
 	export let href = '#';
 	export let duration = '';
 	export let level = 'Başlangıç';
-	export let icon = '📚';
+	export let icon = 'book';
 	export let completed = false;
 	export let available = true;
+
+	const icons = {
+		book: BookOpen,
+		brain: Brain,
+		health: HeartPulse,
+		key: KeyRound,
+		government: Landmark,
+		mail: Mail,
+		shield: ShieldAlert
+	};
+
+	$: Icon = icons[icon] || BookOpen;
 </script>
 
 
@@ -16,11 +39,10 @@
 			? 'ring-2 ring-green-500 dark:ring-green-400'
 			: ''}"
 	>
-		<!-- Completed Badge -->
 		{#if completed}
-			<div class="absolute top-4 right-4 text-2xl animate-bounce-gentle">
-				✅
-			</div>
+			<span class="absolute right-4 top-4 grid h-7 w-7 place-items-center rounded-full bg-emerald-100 text-emerald-700 dark:bg-emerald-900 dark:text-emerald-300" aria-label="Tamamlandı">
+				<Check size={16} strokeWidth={2.5} />
+			</span>
 		{/if}
 		{#if !available}
 			<div class="absolute top-4 right-4 rounded-full bg-gray-200 dark:bg-slate-700 px-3 py-1 text-xs font-semibold text-gray-600 dark:text-gray-300">
@@ -28,9 +50,8 @@
 			</div>
 		{/if}
 
-		<!-- Icon -->
-		<div class="text-5xl mb-4 group-hover:scale-110 transition-transform duration-300">
-			{icon}
+		<div class="mb-5 grid h-11 w-11 place-items-center rounded-xl bg-primary-50 text-primary-700 transition-colors group-hover:bg-primary-100 dark:bg-primary-900/40 dark:text-primary-300 dark:group-hover:bg-primary-900/60">
+			<svelte:component this={Icon} size={21} strokeWidth={1.8} />
 		</div>
 
 		<!-- Title -->
@@ -53,7 +74,7 @@
 				>
 					{level}
 				</span>
-				<span class="text-gray-500 dark:text-gray-400 text-xs">⏱️ {duration}</span>
+				<span class="text-gray-500 dark:text-gray-400 text-xs">{duration}</span>
 			</div>
 			{#if available}
 				<div class="text-primary-600 dark:text-primary-400 font-semibold group-hover:translate-x-1 transition">→</div>

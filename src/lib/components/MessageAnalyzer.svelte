@@ -53,7 +53,7 @@
 
 <div class="space-y-6">
 	<div class="mb-6">
-		<h2 class="text-2xl font-bold text-gray-900 mb-2">💬 Mesaj Analiz</h2>
+		<h2 class="text-2xl font-bold text-gray-900 mb-2"> Mesaj Analiz</h2>
 		<p class="text-gray-600">
 			SMS, WhatsApp ya da başka bir uygulamadan aldığın şüpheli bir mesaj mı var? Yapay zeka ile
 			dolandırıcı mı yoksa meşru mu olduğunu kontrol et.
@@ -62,7 +62,7 @@
 
 	<div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
 		<p class="text-sm text-gray-600 mb-3">
-			<strong>💡 Örnek kullan:</strong> Aşağıdaki sahte mesajlarla dene:
+			<strong> Örnek kullan:</strong> Aşağıdaki sahte mesajlarla dene:
 		</p>
 		<div class="flex flex-col gap-2">
 			{#each exampleMessages as example}
@@ -92,7 +92,7 @@
 		disabled={loading}
 		class="w-full bg-red-500 hover:bg-red-600 disabled:bg-gray-400 text-white font-bold py-3 rounded-lg transition-all"
 	>
-		{loading ? '⏳ Analiz ediliyor...' : '🔍 Analiz Et'}
+		{loading ? ' Analiz ediliyor...' : ' Analiz Et'}
 	</button>
 
 	{#if error}
@@ -106,11 +106,11 @@
 			<div class="mb-6">
 				<h3 class="text-2xl font-bold mb-2">
 					{#if analysis.riskLevel === 'Yüksek'}
-						🚨 UYARI: Dolandırıcı Mesaj
+						 UYARI: Dolandırıcı Mesaj
 					{:else if analysis.riskLevel === 'Orta'}
-						⚠️ Şüpheli Mesaj
+						 Şüpheli Mesaj
 					{:else}
-						✅ Güvenli Mesaj
+						 Güvenli Mesaj
 					{/if}
 				</h3>
 				<p class="text-gray-700">
@@ -130,7 +130,7 @@
 			<div class="space-y-4">
 				{#if analysis.redFlags && analysis.redFlags.length > 0}
 					<div>
-						<h4 class="font-bold text-gray-900 mb-2">🚩 Kırmızı Bayraklar:</h4>
+						<h4 class="font-bold text-gray-900 mb-2"> Kırmızı Bayraklar:</h4>
 						<ul class="space-y-2">
 							{#each analysis.redFlags as flag}
 								<li class="flex gap-2 text-gray-700">
@@ -143,13 +143,13 @@
 				{/if}
 
 				<div>
-					<h4 class="font-bold text-gray-900 mb-2">📊 Manipülasyon Analizi:</h4>
+					<h4 class="font-bold text-gray-900 mb-2"> Manipülasyon Analizi:</h4>
 					<p class="text-gray-700 leading-relaxed">{analysis.analysis}</p>
 				</div>
 
 				{#if analysis.advice}
 					<div class="bg-white bg-opacity-70 p-4 rounded border-l-4 border-green-500">
-						<h4 class="font-bold text-gray-900 mb-2">💬 Tavsiyemiz:</h4>
+						<h4 class="font-bold text-gray-900 mb-2"> Tavsiyemiz:</h4>
 						<p class="text-gray-700">{analysis.advice}</p>
 					</div>
 				{/if}

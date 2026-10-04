@@ -3,7 +3,7 @@
 
 	const lesson = {
 		id: 'e-devlet',
-		title: '🏛️ E-Devlet (Elektronik Devlet) Nedir?',
+		title: ' E-Devlet (Elektronik Devlet) Nedir?',
 		duration: '18 dakika',
 		level: 'Başlangıç',
 		progress: 0,
@@ -47,19 +47,19 @@
 				content: `
 				<div class="space-y-3">
 					<div class="bg-blue-50 dark:bg-blue-900/20 p-3 rounded">
-						<strong class="text-blue-700 dark:text-blue-300">📄 Belgeler:</strong> Nüfus, medeni durum, askerlik belgesi talep et
+						<strong class="text-blue-700 dark:text-blue-300"> Belgeler:</strong> Nüfus, medeni durum, askerlik belgesi talep et
 					</div>
 					<div class="bg-green-50 dark:bg-green-900/20 p-3 rounded">
-						<strong class="text-green-700 dark:text-green-300">💰 Mali İşler:</strong> Vergi beyannamesi ver, para cezası sorgula
+						<strong class="text-green-700 dark:text-green-300"> Mali İşler:</strong> Vergi beyannamesi ver, para cezası sorgula
 					</div>
 					<div class="bg-purple-50 dark:bg-purple-900/20 p-3 rounded">
-						<strong class="text-purple-700 dark:text-purple-300">🏫 Eğitim:</strong> Üniversite ve OKS başvuruları yap
+						<strong class="text-purple-700 dark:text-purple-300"> Eğitim:</strong> Üniversite ve OKS başvuruları yap
 					</div>
 					<div class="bg-orange-50 dark:bg-orange-900/20 p-3 rounded">
-						<strong class="text-orange-700 dark:text-orange-300">📱 İletişim:</strong> Yazılı başvurular gönder
+						<strong class="text-orange-700 dark:text-orange-300"> İletişim:</strong> Yazılı başvurular gönder
 					</div>
 					<div class="bg-red-50 dark:bg-red-900/20 p-3 rounded">
-						<strong class="text-red-700 dark:text-red-300">🏠 Gayrimenkul:</strong> Gayrimenkul transfer işlemleri
+						<strong class="text-red-700 dark:text-red-300"> Gayrimenkul:</strong> Gayrimenkul transfer işlemleri
 					</div>
 				</div>
 				`
@@ -75,7 +75,7 @@
 					<li><strong>Çıkış Yap:</strong> Bitirdiğinde mutlaka "Çıkış Yap" butonuna bas.</li>
 				</ul>
 				<p class="mt-4 bg-yellow-50 dark:bg-yellow-900/20 p-3 rounded text-sm">
-					<strong>💡 Bilgi:</strong> E-Devlet hesabınız dolandırılırsa, her şey kaydedildiğinden sorunların izlenebilir.
+					<strong> Bilgi:</strong> E-Devlet hesabınız dolandırılırsa, her şey kaydedildiğinden sorunların izlenebilir.
 				</p>
 				`
 			}

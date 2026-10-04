@@ -1,5 +1,6 @@
 <script>
 	import { onMount } from 'svelte';
+	import { Volume2, VolumeX } from 'lucide-svelte';
 	import { soundManager } from '$lib/utils/soundManager.js';
 	import { ttsManager } from '$lib/utils/ttsManager.js';
 	import { completeLesson, isLessonCompleted } from '$lib/utils/progressStore.js';
@@ -90,13 +91,13 @@
 					</h1>
 					<div class="flex flex-wrap gap-x-4 gap-y-2 text-sm sm:text-base text-gray-600 dark:text-gray-300">
 						<span class="flex items-center gap-2 whitespace-nowrap">
-							⏱️ <strong>Süre:</strong> {lesson.duration}
+							 <strong>Süre:</strong> {lesson.duration}
 						</span>
 						<span class="flex items-center gap-2 whitespace-nowrap">
-							📊 <strong>Seviye:</strong> {lesson.level}
+							 <strong>Seviye:</strong> {lesson.level}
 						</span>
 						<span class="flex items-center gap-2 whitespace-nowrap">
-							✅ <strong>İlerleme:</strong> {currentSection + 1}/{lesson.sections.length}
+							 <strong>İlerleme:</strong> {currentSection + 1}/{lesson.sections.length}
 						</span>
 					</div>
 				</div>
@@ -109,7 +110,7 @@
 						: 'bg-gray-100 dark:bg-slate-700 text-gray-600 dark:text-gray-400'}"
 					title={soundEnabled ? 'Sesleri Kapat' : 'Sesleri Aç'}
 				>
-					{soundEnabled ? '🔊' : '🔇'}
+					{#if soundEnabled}<Volume2 size={20} aria-hidden="true" />{:else}<VolumeX size={20} aria-hidden="true" />{/if}
 				</button>
 			</div>
 		</div>
@@ -134,9 +135,9 @@
 						class="btn-primary py-2 px-4 text-sm flex items-center gap-2"
 					>
 						{#if isSpeaking}
-							⏸️ Okumayı Durdur
+							 Okumayı Durdur
 						{:else}
-							🔊 Sesli Oku
+							 Sesli Oku
 						{/if}
 					</button>
 				</div>
@@ -178,7 +179,7 @@
 		{:else}
 			<!-- Completion Screen -->
 			<div class="bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900 dark:to-emerald-900 rounded-2xl shadow-xl p-12 text-center animate-slide-up">
-				<div class="text-6xl mb-6 animate-bounce">🎉</div>
+
 				<h2 class="text-4xl font-bold gradient-text mb-4">Tebrikler!</h2>
 				<p class="text-xl text-gray-700 dark:text-gray-300 mb-8">
 					<strong>{lesson.title}</strong> dersini başarıyla tamamladın!
@@ -186,7 +187,7 @@
 
 				<div class="bg-white dark:bg-slate-800 rounded-xl p-8 mb-8">
 					<div class="mb-6">
-						<div class="text-5xl mb-4">🏆</div>
+
 						<h3 class="text-2xl font-bold text-gray-900 dark:text-white">Rozet Kazandın!</h3>
 						<p class="text-gray-600 dark:text-gray-300 mt-2">Bu dersin tamamlanma rozeti sana ait.</p>
 					</div>

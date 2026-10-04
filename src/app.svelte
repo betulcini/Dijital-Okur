@@ -6,8 +6,13 @@
 	<meta charset="UTF-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<meta name="description" content="Dijital okuryazarlık platformu - Yaşlılar için güvenli internet rehberi" />
-	<meta name="theme-color" content="#3B82F6" />
+	<meta name="theme-color" content="#1A1918" />
 	<link rel="icon" href="/favicon.svg" />
+	<link rel="manifest" href="/manifest.webmanifest" />
+	<link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+	<meta name="apple-mobile-web-app-title" content="Dijital Okur" />
 	<title>Dijital Okuryazarlık</title>
 </svelte:head>
 

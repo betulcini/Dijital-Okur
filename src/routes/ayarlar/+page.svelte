@@ -1,6 +1,7 @@
 <script>
 	import { onMount } from 'svelte';
 	import { soundManager } from '$lib/utils/soundManager.js';
+	import { Moon, Sun } from 'lucide-svelte';
 
 	let isDark = false;
 	let soundEnabled = true;
@@ -23,6 +24,7 @@
 		isDark = !isDark;
 		document.documentElement.classList.toggle('dark', isDark);
 		localStorage.setItem('theme', isDark ? 'dark' : 'light');
+		document.dispatchEvent(new Event('theme-changed'));
 		showSavedMessage();
 	}
 
@@ -56,14 +58,14 @@
 			<div class="flex items-center justify-between gap-6 border-b border-slate-100 p-6 dark:border-slate-800 sm:p-8">
 				<div><h2 class="text-xl font-bold text-slate-900 dark:text-white">Görünüm</h2><p class="mt-1 text-sm text-slate-600 dark:text-slate-300">Açık veya koyu temayı seçin.</p></div>
 				<button type="button" on:click={toggleTheme} class="shrink-0 rounded-xl bg-slate-100 px-4 py-3 font-semibold text-slate-800 transition hover:bg-slate-200 dark:bg-slate-800 dark:text-white dark:hover:bg-slate-700" aria-pressed={isDark}>
-					{isDark ? '☀️ Açık tema' : '🌙 Koyu tema'}
+					<span class="inline-flex items-center gap-2">{#if isDark}<Sun size={18} /> Açık tema{:else}<Moon size={18} /> Koyu tema{/if}</span>
 				</button>
 			</div>
 
 			<div class="flex items-center justify-between gap-6 border-b border-slate-100 p-6 dark:border-slate-800 sm:p-8">
 				<div><h2 class="text-xl font-bold text-slate-900 dark:text-white">Sesler</h2><p class="mt-1 text-sm text-slate-600 dark:text-slate-300">Butonlara bastığınızda çıkan sesleri yönetin.</p></div>
 				<button type="button" on:click={toggleSound} class="shrink-0 rounded-xl bg-teal-600 px-4 py-3 font-semibold text-white transition hover:bg-teal-700" aria-pressed={soundEnabled}>
-					{soundEnabled ? '🔊 Açık' : '🔇 Kapalı'}
+					{soundEnabled ? ' Açık' : ' Kapalı'}
 				</button>
 			</div>
 

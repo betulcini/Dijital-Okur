@@ -3,7 +3,7 @@
 
 	const lesson = {
 		id: 'yapay-zeka',
-		title: '🤖 Yapay Zeka Nedir?',
+		title: ' Yapay Zeka Nedir?',
 		duration: '15 dakika',
 		level: 'Başlangıç',
 		progress: 0,

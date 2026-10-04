@@ -3,7 +3,7 @@
 
 	const lesson = {
 		id: 'e-nabiz',
-		title: '💊 E-Nabız (Elektronik Sağlık Kaydı) Nedir?',
+		title: ' E-Nabız (Elektronik Sağlık Kaydı) Nedir?',
 		duration: '16 dakika',
 		level: 'Başlangıç',
 		progress: 0,
@@ -47,7 +47,7 @@
 				content: `
 				<div class="space-y-3 mb-4">
 					<div class="bg-green-50 dark:bg-green-900/20 p-3 rounded">
-						<strong class="text-green-700 dark:text-green-300">✅ Görebilecekler:</strong>
+						<strong class="text-green-700 dark:text-green-300"> Görebilecekler:</strong>
 						<ul class="list-disc pl-6 mt-2 text-sm">
 							<li>Sağlık Bakanlığı (kamu hastaneleri)</li>
 							<li>Senin izninle seçtiğin hekimler ve hastaneler</li>
@@ -55,7 +55,7 @@
 						</ul>
 					</div>
 					<div class="bg-red-50 dark:bg-red-900/20 p-3 rounded">
-						<strong class="text-red-700 dark:text-red-300">❌ Göremeyecekler:</strong>
+						<strong class="text-red-700 dark:text-red-300"> Göremeyecekler:</strong>
 						<ul class="list-disc pl-6 mt-2 text-sm">
 							<li>Sigorta şirketleri (izin olmadan)</li>
 							<li>İşverenlerin (gizli bilgidir)</li>
@@ -65,7 +65,7 @@
 					</div>
 				</div>
 				<p class="bg-blue-50 dark:bg-blue-900/20 p-3 rounded text-sm">
-					<strong>🔒 Gizlilik:</strong> Sağlık bilgileri en hassas verilerdir ve E-Nabız bu gizliliği korur.
+					<strong> Gizlilik:</strong> Sağlık bilgileri en hassas verilerdir ve E-Nabız bu gizliliği korur.
 				</p>
 				`
 			},
@@ -94,7 +94,7 @@
 					<li><strong>Çıkış Yap:</strong> Bitirdiğinde mutlaka çıkış yap.</li>
 				</ul>
 				<p class="mt-4 bg-yellow-50 dark:bg-yellow-900/20 p-3 rounded text-sm">
-					<strong>💡 Not:</strong> E-Nabız uygulaması kullanırken iki aşamalı doğrulamayı açmanız önerilir.
+					<strong> Not:</strong> E-Nabız uygulaması kullanırken iki aşamalı doğrulamayı açmanız önerilir.
 				</p>
 				`
 			}

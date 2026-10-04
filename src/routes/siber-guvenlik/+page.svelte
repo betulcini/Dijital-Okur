@@ -13,7 +13,7 @@
 		<div class="page-heading animate-fade-in">
 			<div class="page-eyebrow">
 				<span>
-					🛡️ Kendinizi Koruyun
+					 Kendinizi Koruyun
 				</span>
 			</div>
 			<h1 class="text-3xl sm:text-4xl md:text-6xl font-bold text-gray-900 dark:text-white mb-6">
@@ -34,7 +34,7 @@
 					? 'bg-gradient-primary text-white shadow-lg scale-105'
 					: 'bg-white dark:bg-slate-800 text-gray-700 dark:text-gray-300 border-2 border-gray-200 dark:border-slate-700 hover:border-primary-300'}"
 			>
-				📧 Email Analiz
+				 Email Analiz
 			</button>
 			<button
 				type="button"
@@ -43,7 +43,7 @@
 					? 'bg-gradient-primary text-white shadow-lg scale-105'
 					: 'bg-white dark:bg-slate-800 text-gray-700 dark:text-gray-300 border-2 border-gray-200 dark:border-slate-700 hover:border-primary-300'}"
 			>
-				💬 Mesaj Analiz
+				 Mesaj Analiz
 			</button>
 			<button
 				type="button"
@@ -52,7 +52,7 @@
 					? 'bg-gradient-primary text-white shadow-lg scale-105'
 					: 'bg-white dark:bg-slate-800 text-gray-700 dark:text-gray-300 border-2 border-gray-200 dark:border-slate-700 hover:border-primary-300'}"
 			>
-				🎭 Dolandırıcılık Tiyatrosu
+				 Dolandırıcılık Tiyatrosu
 			</button>
 			<button
 				type="button"
@@ -61,7 +61,7 @@
 					? 'bg-gradient-primary text-white shadow-lg scale-105'
 					: 'bg-white dark:bg-slate-800 text-gray-700 dark:text-gray-300 border-2 border-gray-200 dark:border-slate-700 hover:border-primary-300'}"
 			>
-				💡 Güvenlik İpuçları
+				 Güvenlik İpuçları
 			</button>
 		</div>
 
@@ -81,7 +81,7 @@
 		<!-- Info Banner -->
 		<div class="mt-12 bg-blue-50 dark:bg-blue-900 border-l-4 border-blue-500 dark:border-blue-400 p-6 rounded-lg">
 			<h3 class="font-bold text-lg text-blue-900 dark:text-blue-100 mb-2">
-				💡 Hatırla
+				 Hatırla
 			</h3>
 			<p class="text-blue-800 dark:text-blue-200">
 				Bu araçlar seni koruyan bir kaynaktır. Ancak her zaman dikkatli ol, şüphe duyduğunda başkasından sorgula

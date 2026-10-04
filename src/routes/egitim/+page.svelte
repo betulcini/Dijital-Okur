@@ -21,9 +21,7 @@
 		<!-- Header -->
 		<div class="page-heading animate-fade-in">
 			<div class="page-eyebrow">
-				<span>
-					📚 Kendi Hızında Öğren
-				</span>
+				<span>Kendi Hızında Öğren</span>
 			</div>
 			<h1 class="text-3xl sm:text-4xl md:text-6xl font-bold text-gray-900 dark:text-white mb-6">
 				Eğitim Modülleri
@@ -52,94 +50,94 @@
 		<!-- Lessons Grid -->
 		<div class="grid md:grid-cols-2 gap-6 mb-12">
 			<LessonCard
-				title="🤖 Yapay Zeka Nedir?"
+				title="Yapay Zeka Nedir?"
 				description="Yapay zekanın ne olduğunu, nasıl çalıştığını ve günlük yaşamda nerede kullanıldığını öğren."
 				href="/egitim/yapay-zeka"
 				duration="15 dakika"
 				level="Başlangıç"
-				icon="🤖"
+				icon="brain"
 				completed={isCompleted('yapay-zeka')}
 			/>
 
 			<LessonCard
-				title="⚠️ Yapay Zeka Halüsinasyonları"
+				title="Yapay Zeka Halüsinasyonları"
 				description="Yapay zeka bazen yanlış bilgi verebilir. Buna 'halüsinasyon' denir. Bunlardan nasıl korunur?"
 				href="/egitim/halusinyasyon"
 				duration="12 dakika"
 				level="Başlangıç"
-				icon="⚠️"
+				icon="brain"
 				completed={isCompleted('halusinyasyon')}
 			/>
 
 			<LessonCard
-				title="🔐 Şifre Güvenliği"
+				title="Şifre Güvenliği"
 				description="Güçlü şifre nasıl oluşturur? Şifrelerinizi nasıl koruduğunuzu öğren."
 				href=""
 				duration="18 dakika"
 				level="Başlangıç"
-				icon="🔐"
+				icon="key"
 				available={false}
 			/>
 
 			<LessonCard
-				title="📧 Email Kullanımı"
+				title="Email Kullanımı"
 				description="Email nasıl gönderilir, dosya nasıl eklenir, spam mesajlarından nasıl korunur?"
 				href=""
 				duration="25 dakika"
 				level="Orta"
-				icon="📧"
+				icon="mail"
 				available={false}
 			/>
 
 			<LessonCard
-				title="🔍 Dolandırıcılık Belirtileri"
+				title="Dolandırıcılık Belirtileri"
 				description="Online dolandırıcılık nasıl tanınır? Hangi uyarı işaretlerini bilmelisin?"
 				href=""
 				duration="16 dakika"
 				level="Orta"
-				icon="🔍"
+				icon="shield"
 				available={false}
 			/>
 
 			<LessonCard
-				title="🏛️ E-Devlet (Elektronik Devlet) Nedir?"
+				title="E-Devlet (Elektronik Devlet) Nedir?"
 				description="Devlet hizmetlerine internet üzerinden nasıl ulaşırız? E-Devlet Kapısı güvenli mi? Hangi işlemleri yapabilirsin?"
 				href="/egitim/e-devlet"
 				duration="18 dakika"
 				level="Başlangıç"
-				icon="🏛️"
+				icon="government"
 				completed={isCompleted('e-devlet')}
 			/>
 
 			<LessonCard
-				title="💊 E-Nabız (Elektronik Sağlık Kaydı) Nedir?"
+				title="E-Nabız (Elektronik Sağlık Kaydı) Nedir?"
 				description="Sağlık verilerine dijital ortamda nasıl ulaşırız? E-Nabız aracılığıyla neler yapabiliriz? Gizlilik nasıl korunur?"
 				href="/egitim/e-nabiz"
 				duration="16 dakika"
 				level="Başlangıç"
-				icon="💊"
+				icon="health"
 				completed={isCompleted('e-nabiz')}
 			/>
 		</div>
 
 		<!-- FAQ Section -->
 		<div class="card p-8">
-			<h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-8">💬 Sık Sorulan Sorular</h2>
+			<h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-8">Sık Sorulan Sorular</h2>
 			<div class="grid md:grid-cols-3 gap-6">
 				<div class="border-l-4 border-primary-500 pl-4 py-2">
-					<h3 class="font-semibold text-gray-900 dark:text-white mb-2">⏱️ Dersler ne kadar sürer?</h3>
+					<h3 class="font-semibold text-gray-900 dark:text-white mb-2">Dersler ne kadar sürer?</h3>
 					<p class="text-gray-600 dark:text-gray-300 text-sm">
 						Her ders 12-25 dakika arası. Kendi hızında öğren, istediğin zaman durdur.
 					</p>
 				</div>
 				<div class="border-l-4 border-primary-500 pl-4 py-2">
-					<h3 class="font-semibold text-gray-900 dark:text-white mb-2">🏆 Rozet nedir?</h3>
+					<h3 class="font-semibold text-gray-900 dark:text-white mb-2">Rozet nedir?</h3>
 					<p class="text-gray-600 dark:text-gray-300 text-sm">
 						Her dersin sonunda bir sınav vardır. Başarıyla tamamlayınca rozet kazanırsın!
 					</p>
 				</div>
 				<div class="border-l-4 border-primary-500 pl-4 py-2">
-					<h3 class="font-semibold text-gray-900 dark:text-white mb-2">💰 Ücret var mı?</h3>
+					<h3 class="font-semibold text-gray-900 dark:text-white mb-2">Ücret var mı?</h3>
 					<p class="text-gray-600 dark:text-gray-300 text-sm">
 						Hayır! Tüm dersler tamamen ücretsiz ve herkese açık.
 					</p>

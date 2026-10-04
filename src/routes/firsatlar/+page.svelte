@@ -1,4 +1,15 @@
 <script>
+	import { BookOpen, Camera, HeartPulse, Landmark, Smartphone, Theater } from 'lucide-svelte';
+
+	const icons = {
+		device: Smartphone,
+		course: BookOpen,
+		photo: Camera,
+		health: HeartPulse,
+		museum: Landmark,
+		theater: Theater
+	};
+
 	const opportunities = [
 		{
 			id: 1,
@@ -10,7 +21,7 @@
 			dateLabel: '12 Eylül 2026',
 			price: 0,
 			priceLabel: 'Ücretsiz',
-			icon: '📱',
+			icon: 'device',
 			color: 'blue',
 			description: 'Güvenli telefon kullanımı, e-Devlet hizmetleri ve görüntülü görüşme pratiği.',
 			url: 'https://www.kadikoy.bel.tr/'
@@ -25,7 +36,7 @@
 			dateLabel: '15 Eylül 2026',
 			price: 0,
 			priceLabel: 'Ücretsiz',
-			icon: '💻',
+			icon: 'course',
 			color: 'teal',
 			description: 'Bilgisayarın temelleri, internet kullanımı ve çevrim içi işlemler için başlangıç eğitimi.',
 			url: 'https://cankaya.bel.tr/'
@@ -40,7 +51,7 @@
 			dateLabel: '18 Eylül 2026',
 			price: 150,
 			priceLabel: '150 TL',
-			icon: '📷',
+			icon: 'photo',
 			color: 'orange',
 			description: 'Telefonla fotoğraf çekme, albüm oluşturma ve fotoğrafları güvenle paylaşma çalışmaları.',
 			url: 'https://www.izmir.bel.tr/'
@@ -55,7 +66,7 @@
 			dateLabel: '20 Eylül 2026',
 			price: 0,
 			priceLabel: 'Ücretsiz',
-			icon: '🌿',
+			icon: 'health',
 			color: 'green',
 			description: 'Günlük yaşamda hareket, sağlıklı beslenme ve dijital sağlık hizmetleri hakkında buluşma.',
 			url: 'https://www.nilufer.bel.tr/'
@@ -70,7 +81,7 @@
 			dateLabel: '24 Eylül 2026',
 			price: 75,
 			priceLabel: '75 TL',
-			icon: '🏛️',
+			icon: 'museum',
 			color: 'violet',
 			description: 'Müze gezisi, rehberli anlatım ve 55 yaş üstüne özel indirimli giriş fırsatı.',
 			url: 'https://www.gaziantep.bel.tr/'
@@ -85,7 +96,7 @@
 			dateLabel: '2 Ekim 2026',
 			price: 200,
 			priceLabel: '200 TL',
-			icon: '🎭',
+			icon: 'theater',
 			color: 'rose',
 			description: 'Emeklilere özel bilet avantajı ve oyun öncesi kısa sahne arkası söyleşisi.',
 			url: 'https://www.eskisehir.bel.tr/'
@@ -145,7 +156,7 @@
 	<main class="mx-auto max-w-6xl px-4 py-8 sm:py-10">
 		<div class="grid gap-8 lg:grid-cols-[260px_1fr] lg:items-start">
 			<button type="button" on:click={() => (isFiltersOpen = !isFiltersOpen)} class="flex items-center justify-between rounded-2xl border border-slate-200 bg-white px-5 py-4 text-left shadow-sm dark:border-slate-800 dark:bg-slate-900 md:hidden">
-				<span class="font-bold text-slate-900 dark:text-white">🔎 Filtreleri {isFiltersOpen ? 'gizle' : 'göster'}</span>
+				<span class="font-bold text-slate-900 dark:text-white"> Filtreleri {isFiltersOpen ? 'gizle' : 'göster'}</span>
 				<span class="text-xl text-teal-700 transition-transform dark:text-teal-300" class:rotate-180={isFiltersOpen}>⌄</span>
 			</button>
 			<aside class:filter-open={isFiltersOpen} class="filter-panel rounded-2xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-slate-900 lg:sticky lg:top-24">
@@ -189,7 +200,9 @@
 						{#each filteredOpportunities as opportunity}
 							<article class="group flex flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-lg dark:border-slate-800 dark:bg-slate-900">
 								<div class="flex items-start justify-between gap-4 border-b border-slate-100 bg-slate-50 p-5 dark:border-slate-800 dark:bg-slate-800/60">
-									<div class="grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-white text-2xl shadow-sm dark:bg-slate-800">{opportunity.icon}</div>
+									<div class="grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-white text-primary-700 shadow-sm dark:bg-slate-800 dark:text-primary-300">
+										<svelte:component this={icons[opportunity.icon]} size={22} strokeWidth={1.7} />
+									</div>
 									<span class="rounded-full bg-teal-100 px-3 py-1 text-xs font-bold text-teal-800 dark:bg-teal-950 dark:text-teal-200">55+ uygun</span>
 								</div>
 								<div class="flex flex-1 flex-col p-5">
@@ -200,18 +213,18 @@
 									<details class="opportunity-details mt-5 border-t border-slate-100 pt-4 text-sm dark:border-slate-800">
 										<summary class="cursor-pointer font-semibold text-teal-700 dark:text-teal-300">Detayları göster</summary>
 										<div class="mt-3 space-y-2">
-										<div class="flex justify-between gap-3"><span class="text-slate-500 dark:text-slate-400">📍 Şehir</span><strong class="text-slate-800 dark:text-slate-100">{opportunity.city}</strong></div>
-										<div class="flex justify-between gap-3"><span class="text-slate-500 dark:text-slate-400">📅 Tarih</span><strong class="text-slate-800 dark:text-slate-100">{opportunity.dateLabel}</strong></div>
-										<div class="flex justify-between gap-3"><span class="text-slate-500 dark:text-slate-400">💳 Ücret</span><strong class={opportunity.price === 0 ? 'text-emerald-700 dark:text-emerald-300' : 'text-slate-800 dark:text-slate-100'}>{opportunity.priceLabel}</strong></div>
+										<div class="flex justify-between gap-3"><span class="text-slate-500 dark:text-slate-400"> Şehir</span><strong class="text-slate-800 dark:text-slate-100">{opportunity.city}</strong></div>
+										<div class="flex justify-between gap-3"><span class="text-slate-500 dark:text-slate-400"> Tarih</span><strong class="text-slate-800 dark:text-slate-100">{opportunity.dateLabel}</strong></div>
+										<div class="flex justify-between gap-3"><span class="text-slate-500 dark:text-slate-400"> Ücret</span><strong class={opportunity.price === 0 ? 'text-emerald-700 dark:text-emerald-300' : 'text-slate-800 dark:text-slate-100'}>{opportunity.priceLabel}</strong></div>
 										</div>
 									</details>
-									<a href={opportunity.url} target="_blank" rel="noopener noreferrer" class="btn-secondary mt-5 flex w-full items-center justify-center text-sm">Kurumun duyurusunu aç ↗</a>
+									<a href={opportunity.url} target="_blank" rel="noopener noreferrer" class="btn-secondary mt-5 flex w-full items-center justify-center text-sm">Kurumun duyurusunu aç </a>
 								</div>
 							</article>
 						{/each}
 					</div>
 				{:else}
-					<div class="rounded-2xl border border-dashed border-slate-300 bg-white px-6 py-16 text-center dark:border-slate-700 dark:bg-slate-900"><div class="text-4xl">🔎</div><h3 class="mt-4 text-xl font-bold text-slate-900 dark:text-white">Uygun fırsat bulunamadı</h3><p class="mt-2 text-slate-600 dark:text-slate-300">Filtreleri değiştirerek yeniden deneyebilirsin.</p><button type="button" on:click={resetFilters} class="btn-primary mt-5">Filtreleri temizle</button></div>
+					<div class="rounded-2xl border border-dashed border-slate-300 bg-white px-6 py-16 text-center dark:border-slate-700 dark:bg-slate-900"><h3 class="mt-4 text-xl font-bold text-slate-900 dark:text-white">Uygun fırsat bulunamadı</h3><p class="mt-2 text-slate-600 dark:text-slate-300">Filtreleri değiştirerek yeniden deneyebilirsin.</p><button type="button" on:click={resetFilters} class="btn-primary mt-5">Filtreleri temizle</button></div>
 				{/if}
 			</section>
 		</div>

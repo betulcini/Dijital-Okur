@@ -53,7 +53,7 @@
 
 <div class="space-y-6">
 	<div class="mb-6">
-		<h2 class="text-2xl font-bold text-gray-900 mb-2">📧 Email Analiz</h2>
+		<h2 class="text-2xl font-bold text-gray-900 mb-2"> Email Analiz</h2>
 		<p class="text-gray-600">
 			Şüpheli bir email mi aldın? Buraya yapıştır ve yapay zeka ile analiz ettir. Dolandırıcı mı
 			yoksa meşru mu olduğunu kontrol edelim.
@@ -62,7 +62,7 @@
 
 	<div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
 		<p class="text-sm text-gray-600 mb-3">
-			<strong>💡 Örnek kullan:</strong> Aşağıdaki şüpheli emaillerle dene:
+			<strong> Örnek kullan:</strong> Aşağıdaki şüpheli emaillerle dene:
 		</p>
 		<div class="flex flex-col gap-2">
 			{#each exampleEmails as example}
@@ -92,7 +92,7 @@
 		disabled={loading}
 		class="w-full bg-red-500 hover:bg-red-600 disabled:bg-gray-400 text-white font-bold py-3 rounded-lg transition-all"
 	>
-		{loading ? '⏳ Analiz ediliyor...' : '🔍 Analiz Et'}
+		{loading ? ' Analiz ediliyor...' : ' Analiz Et'}
 	</button>
 
 	{#if error}
@@ -106,11 +106,11 @@
 			<div class="mb-6">
 				<h3 class="text-2xl font-bold mb-2">
 					{#if analysis.riskLevel === 'Yüksek'}
-						🚨 UYARI: Tehlikeli Email
+						 UYARI: Tehlikeli Email
 					{:else if analysis.riskLevel === 'Orta'}
-						⚠️ Şüpheli Email
+						 Şüpheli Email
 					{:else}
-						✅ Güvenli Email
+						 Güvenli Email
 					{/if}
 				</h3>
 				<p class="text-gray-700">
@@ -130,7 +130,7 @@
 			<div class="space-y-4">
 				{#if analysis.warnings && analysis.warnings.length > 0}
 					<div>
-						<h4 class="font-bold text-gray-900 mb-2">⚠️ Uyarı İşaretleri:</h4>
+						<h4 class="font-bold text-gray-900 mb-2"> Uyarı İşaretleri:</h4>
 						<ul class="space-y-2">
 							{#each analysis.warnings as warning}
 								<li class="flex gap-2 text-gray-700">
@@ -143,13 +143,13 @@
 				{/if}
 
 				<div>
-					<h4 class="font-bold text-gray-900 mb-2">📝 Analiz:</h4>
+					<h4 class="font-bold text-gray-900 mb-2"> Analiz:</h4>
 					<p class="text-gray-700 leading-relaxed">{analysis.analysis}</p>
 				</div>
 
 				{#if analysis.recommendations}
 					<div class="bg-white bg-opacity-70 p-4 rounded border-l-4 border-blue-500">
-						<h4 class="font-bold text-gray-900 mb-2">💡 Ne Yapmalısın:</h4>
+						<h4 class="font-bold text-gray-900 mb-2"> Ne Yapmalısın:</h4>
 						<ul class="space-y-1 text-gray-700">
 							{#each analysis.recommendations as rec}
 								<li class="flex gap-2">

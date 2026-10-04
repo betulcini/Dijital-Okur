@@ -1,10 +1,12 @@
 <script>
 	import HeroSection from '$lib/components/HeroSection.svelte';
 	import ModuleCard from '$lib/components/ModuleCard.svelte';
+	import PwaInstallPrompt from '$lib/components/PwaInstallPrompt.svelte';
 </script>
 
 <div class="dark:bg-slate-900 transition-colors duration-300">
 	<HeroSection />
+	<PwaInstallPrompt />
 
 	<!-- Modules Section -->
 	<section class="py-16 md:py-24 px-4 bg-white dark:bg-slate-800">
@@ -20,34 +22,34 @@
 
 			<div class="grid md:grid-cols-3 gap-8">
 				<ModuleCard
-					title="🛡️ Siber Güvenlik"
+					title="Siber Güvenlik"
 					description="Şüpheli mesajları ve bağlantıları tanıyın."
 					href="/siber-guvenlik"
-					color="bg-gradient-to-br from-red-50 to-orange-50 dark:from-red-900 dark:to-orange-900 border-red-200 dark:border-red-700"
+					icon="security"
 				/>
 				<ModuleCard
-					title="🎭 Dolandırıcılık Tiyatrosu"
+					title="Dolandırıcılık Tiyatrosu"
 					description="SMS, WhatsApp ve e-posta örneklerini birlikte inceleyin."
 					href="/siber-guvenlik"
-					color="bg-gradient-to-br from-amber-50 to-yellow-50 dark:from-yellow-900 dark:to-amber-900 border-amber-200 dark:border-amber-700"
+					icon="theater"
 				/>
 				<ModuleCard
-					title="📱 Telefon Güvenliği"
+					title="Telefon Güvenliği"
 					description="Telefon ayarlarını güvenli ve uygulamalı biçimde öğrenin."
 					href="/egitim/telefon-ayarlari"
-					color="bg-gradient-to-br from-cyan-50 to-sky-50 dark:from-cyan-900 dark:to-sky-900 border-cyan-200 dark:border-cyan-700"
+					icon="phone"
 				/>
 				<ModuleCard
-					title="📚 Eğitim Modülleri"
+					title="Eğitim Modülleri"
 					description="Yapay zekâ, şifreler ve günlük teknoloji için dersler."
 					href="/egitim"
-					color="bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900 dark:to-indigo-900 border-blue-200 dark:border-blue-700"
+					icon="book"
 				/>
 				<ModuleCard
-					title="💬 Sık Sorulan Sorular"
+					title="Sık Sorulan Sorular"
 					description="Sık sorulan sorulara kısa ve net yanıtlar bulun."
 					href="/sorular"
-					color="bg-gradient-to-br from-purple-50 to-pink-50 dark:from-purple-900 dark:to-pink-900 border-purple-200 dark:border-purple-700"
+					icon="questions"
 				/>
 			</div>
 		</div>
@@ -65,14 +67,12 @@
 
 			<div class="grid md:grid-cols-2 gap-8">
 				<div class="card">
-					<div class="text-4xl mb-4">⚠️</div>
 					<h4 class="font-bold text-lg mb-2 text-gray-900 dark:text-white">Tehditler Gerçek</h4>
 					<p class="text-gray-600 dark:text-gray-300">
 						Şüpheli durumları fark etmek için temel işaretleri öğrenin.
 					</p>
 				</div>
 				<div class="card">
-					<div class="text-4xl mb-4">✅</div>
 					<h4 class="font-bold text-lg mb-2 text-gray-900 dark:text-white">Kolaydan Başla</h4>
 					<p class="text-gray-600 dark:text-gray-300">
 						Her konu basit örneklerle, kendi hızınızda anlatılır.

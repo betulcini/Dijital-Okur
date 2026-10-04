@@ -33,7 +33,7 @@
 
 			<section class="rounded-2xl border border-slate-200 bg-white p-6 shadow-xl dark:border-slate-800 dark:bg-slate-900 sm:p-8">
 				<div class="flex items-center gap-4 border-b border-slate-100 pb-6 dark:border-slate-800">
-					<div class="grid h-16 w-16 place-items-center rounded-full bg-teal-100 text-3xl dark:bg-teal-950">👤</div>
+
 					<div><h2 class="text-2xl font-bold text-slate-900 dark:text-white">{user.name}</h2><p class="text-slate-500 dark:text-slate-400">{user.email}</p></div>
 				</div>
 
@@ -50,7 +50,7 @@
 			</section>
 		{:else}
 			<section class="rounded-2xl border border-slate-200 bg-white p-8 text-center shadow-xl dark:border-slate-800 dark:bg-slate-900">
-				<div class="text-5xl">👤</div><h1 class="mt-4 text-2xl font-bold text-slate-900 dark:text-white">Profilini görmek için giriş yap</h1><a href="/giris" class="btn-primary mt-6 inline-flex">Giriş yap / Kayıt ol</a>
+				<h1 class="mt-4 text-2xl font-bold text-slate-900 dark:text-white">Profilini görmek için giriş yap</h1><a href="/giris" class="btn-primary mt-6 inline-flex">Giriş yap / Kayıt ol</a>
 			</section>
 		{/if}
 	</div>

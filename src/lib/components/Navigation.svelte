@@ -1,6 +1,23 @@
 <script>
 	import { page } from '$app/stores';
 	import { onMount } from 'svelte';
+	import {
+		BarChart3,
+		BookOpen,
+		Gift,
+		Home,
+		Menu,
+		MessageCircle,
+		Moon,
+		Search,
+		Settings,
+		Shield,
+		Smartphone,
+		Sun,
+		Volume2,
+		VolumeX,
+		X
+	} from 'lucide-svelte';
 	import { soundManager } from '$lib/utils/soundManager.js';
 	import { getCurrentUser } from '$lib/utils/authStore.js';
 
@@ -68,7 +85,7 @@
 	<div class="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center gap-3">
 		<!-- Logo -->
 		<a href="/" class="flex items-center gap-3 flex-shrink-0 hover:opacity-80 transition" on:click={closeMobileMenu}>
-			<div class="text-3xl animate-bounce-gentle">🧠</div>
+			<Settings size={25} class="text-primary-600 dark:text-primary-400" strokeWidth={1.8} />
 			<div class="hidden sm:block">
 				<h1 class="font-bold text-lg bg-gradient-to-r from-primary-600 to-secondary-600 bg-clip-text text-transparent">
 					Dijital Okur
@@ -79,13 +96,13 @@
 
 		<!-- Mobile shortcuts: icons remain visible without opening a menu. -->
 		<div class="md:hidden flex flex-1 min-w-0 items-center justify-center gap-0.5">
-			<a href="/" aria-label="Anasayfa" title="Anasayfa" class="grid h-9 w-9 place-items-center rounded-lg text-lg transition-colors {isActive('/') ? 'bg-primary-100 dark:bg-primary-900' : 'hover:bg-gray-100 dark:hover:bg-slate-800'}">🏠</a>
-			<a href="/siber-guvenlik" aria-label="Siber güvenlik" title="Siber güvenlik" class="grid h-9 w-9 place-items-center rounded-lg text-lg transition-colors {isActive('/siber-guvenlik') ? 'bg-primary-100 dark:bg-primary-900' : 'hover:bg-gray-100 dark:hover:bg-slate-800'}">🛡️</a>
-			<a href="/egitim" aria-label="Eğitim" title="Eğitim" class="grid h-9 w-9 place-items-center rounded-lg text-lg transition-colors {isActive('/egitim') ? 'bg-primary-100 dark:bg-primary-900' : 'hover:bg-gray-100 dark:hover:bg-slate-800'}">📚</a>
-			<a href="/telefon-simulasyonu" aria-label="Telefon Simülasyonu" title="Telefon Simülasyonu" class="grid h-9 w-9 place-items-center rounded-lg text-lg transition-colors {isActive('/telefon-simulasyonu') ? 'bg-primary-100 dark:bg-primary-900' : 'hover:bg-gray-100 dark:hover:bg-slate-800'}">📱</a>
-			<a href="/sorular" aria-label="Sorular" title="Sorular" class="grid h-9 w-9 place-items-center rounded-lg text-lg transition-colors {isActive('/sorular') ? 'bg-primary-100 dark:bg-primary-900' : 'hover:bg-gray-100 dark:hover:bg-slate-800'}">💬</a>
-			<a href="/ilerleme" aria-label="İlerleme" title="İlerleme" class="grid h-9 w-9 place-items-center rounded-lg text-lg transition-colors {isActive('/ilerleme') ? 'bg-primary-100 dark:bg-primary-900' : 'hover:bg-gray-100 dark:hover:bg-slate-800'}">📊</a>
-			<a href="/firsatlar" aria-label="Fırsatlar" title="Fırsatlar" class="grid h-9 w-9 place-items-center rounded-lg text-lg transition-colors {isActive('/firsatlar') ? 'bg-primary-100 dark:bg-primary-900' : 'hover:bg-gray-100 dark:hover:bg-slate-800'}">🎁</a>
+			<a href="/" aria-label="Anasayfa" title="Anasayfa" class="grid h-9 w-9 place-items-center rounded-lg text-slate-600 transition-colors hover:bg-gray-100 dark:text-slate-300 dark:hover:bg-slate-800"><Home size={18} /></a>
+			<a href="/siber-guvenlik" aria-label="Siber güvenlik" title="Siber güvenlik" class="grid h-9 w-9 place-items-center rounded-lg text-slate-600 transition-colors hover:bg-gray-100 dark:text-slate-300 dark:hover:bg-slate-800"><Shield size={18} /></a>
+			<a href="/egitim" aria-label="Eğitim" title="Eğitim" class="grid h-9 w-9 place-items-center rounded-lg text-slate-600 transition-colors hover:bg-gray-100 dark:text-slate-300 dark:hover:bg-slate-800"><BookOpen size={18} /></a>
+			<a href="/telefon-simulasyonu" aria-label="Telefon Simülasyonu" title="Telefon Simülasyonu" class="grid h-9 w-9 place-items-center rounded-lg text-slate-600 transition-colors hover:bg-gray-100 dark:text-slate-300 dark:hover:bg-slate-800"><Smartphone size={18} /></a>
+			<a href="/sorular" aria-label="Sorular" title="Sorular" class="grid h-9 w-9 place-items-center rounded-lg text-slate-600 transition-colors hover:bg-gray-100 dark:text-slate-300 dark:hover:bg-slate-800"><MessageCircle size={18} /></a>
+			<a href="/ilerleme" aria-label="İlerleme" title="İlerleme" class="grid h-9 w-9 place-items-center rounded-lg text-slate-600 transition-colors hover:bg-gray-100 dark:text-slate-300 dark:hover:bg-slate-800"><BarChart3 size={18} /></a>
+			<a href="/firsatlar" aria-label="Fırsatlar" title="Fırsatlar" class="grid h-9 w-9 place-items-center rounded-lg text-slate-600 transition-colors hover:bg-gray-100 dark:text-slate-300 dark:hover:bg-slate-800"><Gift size={18} /></a>
 		</div>
 
 		<!-- Desktop Links -->
@@ -172,14 +189,13 @@
 		<form class="hidden md:flex w-32 lg:w-48 shrink-0 items-center rounded-xl border border-gray-200 bg-gray-50 p-1 dark:border-slate-700 dark:bg-slate-800" on:submit={submitSearch}>
 			<label class="sr-only" for="navbar-search">Web'de ara</label>
 			<input id="navbar-search" bind:value={searchQuery} type="search" placeholder="Ara..." class="min-w-0 flex-1 bg-transparent px-2 text-sm text-gray-700 outline-none placeholder:text-gray-400 dark:text-gray-200" />
-			<button type="submit" class="grid h-8 w-8 shrink-0 place-items-center rounded-lg text-base hover:bg-white dark:hover:bg-slate-700" aria-label="Arama yap" title="Arama yap">⌕</button>
+			<button type="submit" class="grid h-8 w-8 shrink-0 place-items-center rounded-lg text-base hover:bg-white dark:hover:bg-slate-700" aria-label="Arama yap" title="Arama yap"><Search size={16} /></button>
 		</form>
-
 		<!-- Right Side -->
 		<div class="relative flex items-center gap-2">
 			{#if currentUser}
 				<div class="hidden sm:flex items-center gap-2 rounded-xl bg-teal-50 px-3 py-2 text-sm font-semibold text-teal-800 dark:bg-teal-950 dark:text-teal-200">
-					<a href="/profil" aria-label="Profilim" class="hover:underline">👤 Profilim</a>
+					<a href="/profil" aria-label="Profilim" class="hover:underline"> Profilim</a>
 				</div>
 			{:else}
 				<a href="/giris" class="hidden sm:inline-flex rounded-xl bg-teal-600 px-3 py-2 text-sm font-semibold text-white hover:bg-teal-700">Giriş yap</a>
@@ -191,14 +207,14 @@
 				aria-label="Ayarları Aç"
 				title="Ayarlar"
 			>
-				⚙️
+				<Settings size={19} />
 			</button>
 
 			{#if isSettingsOpen}
 				<div class="absolute right-0 top-12 z-50 w-72 rounded-2xl border border-gray-200 bg-white p-4 shadow-xl dark:border-slate-700 dark:bg-slate-800">
-					<div class="mb-4 flex items-center justify-between"><h2 class="font-bold text-gray-900 dark:text-white">Ayarlar</h2><button type="button" class="text-gray-500" on:click={() => (isSettingsOpen = false)} aria-label="Ayarları Kapat">✕</button></div>
-					<div class="flex items-center justify-between border-b border-gray-100 py-3 dark:border-slate-700"><span class="text-sm font-medium text-gray-700 dark:text-gray-200">Sesler</span><button type="button" on:click={toggleSound} class="rounded-lg bg-gray-100 px-3 py-2 text-sm dark:bg-slate-700" aria-label="Sesleri aç veya kapat">{soundEnabled ? '🔊 Açık' : '🔇 Kapalı'}</button></div>
-					<div class="flex items-center justify-between border-b border-gray-100 py-3 dark:border-slate-700"><span class="text-sm font-medium text-gray-700 dark:text-gray-200">Görünüm</span><button type="button" on:click={toggleTheme} class="rounded-lg bg-gray-100 px-3 py-2 text-sm dark:bg-slate-700">{isDark ? '☀️ Aydınlık' : '🌙 Karanlık'}</button></div>
+					<div class="mb-4 flex items-center justify-between"><h2 class="font-bold text-gray-900 dark:text-white">Ayarlar</h2><button type="button" class="text-gray-500" on:click={() => (isSettingsOpen = false)} aria-label="Ayarları Kapat"><X size={18} /></button></div>
+					<div class="flex items-center justify-between border-b border-gray-100 py-3 dark:border-slate-700"><span class="text-sm font-medium text-gray-700 dark:text-gray-200">Sesler</span><button type="button" on:click={toggleSound} class="inline-flex items-center gap-2 rounded-lg bg-gray-100 px-3 py-2 text-sm dark:bg-slate-700" aria-label="Sesleri aç veya kapat">{#if soundEnabled}<Volume2 size={16} /> Açık{:else}<VolumeX size={16} /> Kapalı{/if}</button></div>
+					<div class="flex items-center justify-between border-b border-gray-100 py-3 dark:border-slate-700"><span class="text-sm font-medium text-gray-700 dark:text-gray-200">Görünüm</span><button type="button" on:click={toggleTheme} class="inline-flex items-center gap-2 rounded-lg bg-gray-100 px-3 py-2 text-sm dark:bg-slate-700">{#if isDark}<Sun size={16} /> Aydınlık{:else}<Moon size={16} /> Karanlık{/if}</button></div>
 					<div class="py-3"><label class="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-200" for="font-size">Yazı boyutu</label><select id="font-size" value={fontSize} on:change={(event) => applyFontSize(event.currentTarget.value)} class="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm dark:border-slate-600 dark:bg-slate-700 dark:text-white"><option value="small">Küçük</option><option value="normal">Normal</option><option value="large">Büyük</option><option value="xlarge">Çok büyük</option></select></div>
 				</div>
 			{/if}
@@ -211,9 +227,9 @@
 				aria-label="Menüyü Aç"
 			>
 				{#if isMobileMenuOpen}
-					✕
+					<X size={22} />
 				{:else}
-					☰
+					<Menu size={22} />
 				{/if}
 			</button>
 		</div>
@@ -225,11 +241,11 @@
 			<div class="space-y-3">
 				{#if currentUser}
 					<div class="flex items-center justify-between rounded-lg bg-teal-50 px-4 py-2 text-sm font-semibold text-teal-800 dark:bg-teal-950 dark:text-teal-200">
-						<span>👤 {currentUser.name}</span>
+						<span> {currentUser.name}</span>
 					</div>
-					<a href="/profil" on:click={closeMobileMenu} class="block rounded-lg border border-teal-200 px-4 py-2 font-semibold text-teal-700 dark:border-teal-800 dark:text-teal-300">👤 Profilim</a>
+					<a href="/profil" on:click={closeMobileMenu} class="block rounded-lg border border-teal-200 px-4 py-2 font-semibold text-teal-700 dark:border-teal-800 dark:text-teal-300"> Profilim</a>
 				{:else}
-					<a href="/giris" on:click={closeMobileMenu} class="block rounded-lg bg-teal-600 px-4 py-2 font-semibold text-white">👤 Giriş yap / Kayıt ol</a>
+					<a href="/giris" on:click={closeMobileMenu} class="block rounded-lg bg-teal-600 px-4 py-2 font-semibold text-white"> Giriş yap / Kayıt ol</a>
 				{/if}
 				<a
 					href="/"
@@ -238,7 +254,7 @@
 						? 'bg-primary-100 dark:bg-primary-900 text-primary-700 dark:text-primary-300'
 						: 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-slate-700'}"
 				>
-					🏠 Anasayfa
+					 Anasayfa
 				</a>
 				<a
 					href="/siber-guvenlik"
@@ -247,7 +263,7 @@
 						? 'bg-primary-100 dark:bg-primary-900 text-primary-700 dark:text-primary-300'
 						: 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-slate-700'}"
 				>
-					🛡️ Siber Güvenlik
+					 Siber Güvenlik
 				</a>
 				<a
 					href="/egitim"
@@ -256,7 +272,7 @@
 						? 'bg-primary-100 dark:bg-primary-900 text-primary-700 dark:text-primary-300'
 						: 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-slate-700'}"
 				>
-					📚 Eğitim
+					 Eğitim
 				</a>
 				<a
 					href="/firsatlar"
@@ -265,7 +281,7 @@
 						? 'bg-primary-100 dark:bg-primary-900 text-primary-700 dark:text-primary-300'
 						: 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-slate-700'}"
 				>
-					🎁 Fırsatlar
+					 Fırsatlar
 				</a>
 				<a
 					href="/telefon-simulasyonu"
@@ -274,7 +290,7 @@
 						? 'bg-primary-100 dark:bg-primary-900 text-primary-700 dark:text-primary-300'
 						: 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-slate-700'}"
 				>
-					📱 Telefon Simülasyonu
+					 Telefon Simülasyonu
 				</a>
 				<a
 					href="/sorular"
@@ -283,7 +299,7 @@
 						? 'bg-primary-100 dark:bg-primary-900 text-primary-700 dark:text-primary-300'
 						: 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-slate-700'}"
 				>
-					💬 Sorular
+					 Sorular
 				</a>
 				<a
 					href="/ilerleme"
@@ -292,7 +308,7 @@
 						? 'bg-primary-100 dark:bg-primary-900 text-primary-700 dark:text-primary-300'
 						: 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-slate-700'}"
 				>
-					📊 İlerleme
+					 İlerleme
 				</a>
 			</div>
 		</div>

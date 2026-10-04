@@ -1,4 +1,5 @@
 <script>
+	import { onMount } from 'svelte';
 	import {
 		Shield,
 		BookOpen,
@@ -11,11 +12,28 @@
 		X,
 		User,
 		Settings,
-		LogOut
+		LogOut,
+		Moon,
+		Sun
 	} from 'lucide-svelte';
 
 	let mobileMenuOpen = false;
 	let accountMenuOpen = false;
+	let isDark = false;
+
+	onMount(() => {
+		const syncTheme = () => (isDark = document.documentElement.classList.contains('dark'));
+		syncTheme();
+		document.addEventListener('theme-changed', syncTheme);
+		return () => document.removeEventListener('theme-changed', syncTheme);
+	});
+
+	function toggleTheme() {
+		isDark = !isDark;
+		document.documentElement.classList.toggle('dark', isDark);
+		localStorage.setItem('theme', isDark ? 'dark' : 'light');
+		document.dispatchEvent(new Event('theme-changed'));
+	}
 
 	function closeMobileMenu() {
 		mobileMenuOpen = false;
@@ -24,9 +42,8 @@
 
 <nav class="navbar" aria-label="Ana menü">
 	<a href="/" class="logo" title="Ana sayfa" aria-label="Ana sayfa">
-		<span class="brain-wrap">
-			<Brain class="brain-icon" size={28} strokeWidth={2.2} />
-		</span>
+		<Brain class="brain-icon" size={25} strokeWidth={1.8} />
+		<span class="brand-name">Dijital Okur</span>
 	</a>
 
 	<div class="nav-links" class:mobile-open={mobileMenuOpen}>
@@ -57,6 +74,14 @@
 	</div>
 
 	<div class="account-section">
+		<button
+			class="theme-btn"
+			on:click={toggleTheme}
+			aria-label={isDark ? 'Açık temaya geç' : 'Koyu temaya geç'}
+			title={isDark ? 'Açık tema' : 'Koyu tema'}
+		>
+			{#if isDark}<Sun size={19} strokeWidth={1.8} />{:else}<Moon size={19} strokeWidth={1.8} />{/if}
+		</button>
 		<button 
 			class="account-btn" 
 			on:click={() => accountMenuOpen = !accountMenuOpen}
@@ -111,35 +136,43 @@
 		position: sticky;
 		top: 0;
 		z-index: 50;
+		transition: background-color 0.2s ease, border-color 0.2s ease;
+	}
+
+	:global(html.dark) .navbar {
+		background: rgba(31, 30, 28, 0.96);
+		border-bottom-color: #3a3836;
+		box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
 	}
 
 	.logo {
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		width: 52px;
-		height: 52px;
-		border-radius: 16px;
-		color: #2563eb;
-		background: linear-gradient(135deg, rgba(90, 130, 245, 0.12), rgba(168, 85, 247, 0.12));
-		transition: transform 0.2s ease, box-shadow 0.2s ease;
+		gap: 0.6rem;
+		padding: 0.6rem 0.8rem;
+		border-radius: 12px;
+		color: #a34e31;
+		background: #fbf1ed;
+		text-decoration: none;
+		transition: background-color 0.2s ease, color 0.2s ease;
 		flex-shrink: 0;
 	}
 
-	.logo:hover {
-		transform: translateY(-2px);
-		box-shadow: 0 8px 18px rgba(90, 130, 245, 0.18);
+	:global(html.dark) .logo {
+		color: #e08a6b;
+		background: rgba(217, 119, 87, 0.14);
 	}
 
-	.brain-wrap {
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		animation: bounceGentle 2s ease-in-out infinite;
+	.brand-name {
+		color: #262422;
+		font-size: 0.95rem;
+		font-weight: 700;
+		white-space: nowrap;
 	}
 
-	:global(.brain-icon) {
-		filter: drop-shadow(0 6px 12px rgba(37, 99, 235, 0.18));
+	:global(html.dark) .brand-name {
+		color: #f2efea;
 	}
 
 	.nav-links {
@@ -167,10 +200,19 @@
 	}
 
 	.nav-item:hover {
-		background: linear-gradient(135deg, rgba(90, 130, 245, 0.08), rgba(168, 85, 247, 0.08));
-		color: #1d4ed8;
-		border-color: rgba(90, 130, 245, 0.12);
-		transform: translateY(-1px);
+		background: #fbf1ed;
+		color: #a34e31;
+		border-color: #f6e0d7;
+	}
+
+	:global(html.dark) .nav-item {
+		color: #cfc9c1;
+	}
+
+	:global(html.dark) .nav-item:hover {
+		background: rgba(217, 119, 87, 0.12);
+		color: #e6a68e;
+		border-color: rgba(217, 119, 87, 0.2);
 	}
 
 	.nav-item :global(svg) {
@@ -178,28 +220,46 @@
 	}
 
 	.account-section {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
 		position: relative;
 		flex-shrink: 0;
 	}
 
-	.account-btn {
+	.account-btn,
+	.theme-btn {
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		width: 44px;
-		height: 44px;
-		border-radius: 0.9rem;
-		background: linear-gradient(135deg, rgba(90, 130, 245, 0.08), rgba(168, 85, 247, 0.08));
-		border: 1px solid rgba(90, 130, 245, 0.12);
-		color: #4b5563;
+		width: 40px;
+		height: 40px;
+		border-radius: 10px;
+		background: transparent;
+		border: 1px solid #e3e0db;
+		color: #5a5651;
 		cursor: pointer;
-		transition: all 0.2s ease;
+		transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
 	}
 
-	.account-btn:hover {
-		background: linear-gradient(135deg, rgba(90, 130, 245, 0.12), rgba(168, 85, 247, 0.12));
-		color: #1d4ed8;
-		border-color: rgba(90, 130, 245, 0.2);
+	.account-btn:hover,
+	.theme-btn:hover {
+		background: #fbf1ed;
+		color: #a34e31;
+		border-color: #eec4b3;
+	}
+
+	:global(html.dark) .account-btn,
+	:global(html.dark) .theme-btn {
+		color: #cfc9c1;
+		border-color: #3a3836;
+	}
+
+	:global(html.dark) .account-btn:hover,
+	:global(html.dark) .theme-btn:hover {
+		background: rgba(217, 119, 87, 0.12);
+		color: #e6a68e;
+		border-color: #7e3d27;
 	}
 
 	.account-dropdown {
@@ -207,7 +267,7 @@
 		top: 100%;
 		right: 0;
 		margin-top: 0.5rem;
-		background: rgba(255, 255, 255, 0.95);
+		background: #fff;
 		backdrop-filter: blur(10px);
 		border: 1px solid #e5e7eb;
 		border-radius: 1rem;
@@ -216,12 +276,17 @@
 		overflow: hidden;
 	}
 
+	:global(html.dark) .account-dropdown {
+		background: #262422;
+		border-color: #3a3836;
+	}
+
 	.dropdown-item {
 		display: flex;
 		align-items: center;
 		gap: 0.75rem;
 		padding: 0.75rem 1rem;
-		color: #4b5563;
+		color: #5a5651;
 		text-decoration: none;
 		transition: all 0.2s ease;
 		border: none;
@@ -233,8 +298,17 @@
 	}
 
 	.dropdown-item:hover {
-		background: rgba(90, 130, 245, 0.08);
-		color: #1d4ed8;
+		background: #fbf1ed;
+		color: #a34e31;
+	}
+
+	:global(html.dark) .dropdown-item {
+		color: #cfc9c1;
+	}
+
+	:global(html.dark) .dropdown-item:hover {
+		background: rgba(217, 119, 87, 0.12);
+		color: #e6a68e;
 	}
 
 	.dropdown-item.logout {
@@ -248,7 +322,11 @@
 	.dropdown-divider {
 		margin: 0.5rem 0;
 		border: none;
-		border-top: 1px solid #e5e7eb;
+		border-top: 1px solid #e3e0db;
+	}
+
+	:global(html.dark) .dropdown-divider {
+		border-top-color: #3a3836;
 	}
 
 	.mobile-toggle {
@@ -267,24 +345,19 @@
 		color: #1d4ed8;
 	}
 
-	@keyframes bounceGentle {
-		0%,
-		100% { transform: translateY(0); }
-		50% { transform: translateY(-5px); }
-	}
-
-	@media (max-width: 1024px) {
+	@media (max-width: 1180px) {
 		.navbar {
 			padding: 0.8rem 1.2rem;
+			gap: 0.8rem;
 		}
 
 		.nav-links {
-			gap: 0.5rem;
+			gap: 0.15rem;
 		}
 
 		.nav-item {
-			padding: 0.6rem 0.8rem;
-			font-size: 0.85rem;
+			padding: 0.55rem;
+			font-size: 0.8rem;
 		}
 	}
 
@@ -302,12 +375,17 @@
 			left: 0;
 			right: 0;
 			flex-direction: column;
-			background: rgba(255, 255, 255, 0.95);
+			background: rgba(250, 249, 247, 0.98);
 			backdrop-filter: blur(10px);
 			border-bottom: 1px solid #e5e7eb;
 			padding: 0.75rem;
 			gap: 0.5rem;
 			width: 100%;
+		}
+
+		:global(html.dark) .nav-links {
+			background: rgba(31, 30, 28, 0.98);
+			border-bottom-color: #3a3836;
 		}
 
 		.nav-links.mobile-open {
@@ -332,9 +410,7 @@
 			gap: 1rem;
 		}
 
-		.logo {
-			width: 44px;
-			height: 44px;
-		}
+		.logo { padding: 0.55rem; }
+		.brand-name { display: none; }
 	}
 </style>

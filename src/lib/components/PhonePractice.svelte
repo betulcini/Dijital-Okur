@@ -1,9 +1,21 @@
 ﻿<script>
 	import { onMount } from 'svelte';
+	import {
+		BatteryFull,
+		Check,
+		Circle,
+		Info,
+		Monitor,
+		Plane,
+		ShieldCheck,
+		Signal,
+		Volume2,
+		Wifi
+	} from 'lucide-svelte';
 
 	const devices = [
-		{ id: 'iphone', label: '📱 iPhone 15 Pro', os: 'iOS 17.5' },
-		{ id: 'android', label: '🤖 Samsung S24', os: 'Android 14' }
+		{ id: 'iphone', label: 'iPhone 15 Pro', os: 'iOS 17.5' },
+		{ id: 'android', label: 'Samsung S24', os: 'Android 14' }
 	];
 
 	const missions = [
@@ -125,7 +137,7 @@
 			if (!completedMissions.has(mission.id) && mission.check(phoneState)) {
 				completedMissions.add(mission.id);
 				score += mission.points;
-				showNotificationMessage(`✅ Görev Tamamlandı: ${mission.title} +${mission.points} puan!`);
+				showNotificationMessage(` Görev Tamamlandı: ${mission.title} +${mission.points} puan!`);
 			}
 		});
 	}
@@ -152,7 +164,7 @@
 	<!-- Header -->
 	<div class="mb-8">
 		<p class="text-sm font-semibold uppercase tracking-wide text-blue-600">Uygulamalı Pratik</p>
-		<h3 class="text-3xl sm:text-4xl font-bold text-gray-900 mt-2">📱 Telefon Ayarları Simülasyonu</h3>
+		<h3 class="text-3xl sm:text-4xl font-bold text-gray-900 mt-2"> Telefon Ayarları Simülasyonu</h3>
 		<p class="text-gray-700 mt-3">
 			Cihaz seç, görevleri tamamla ve puanlar topla! Gerçek bir telefon gibi ayarları değiştir.
 		</p>
@@ -195,12 +207,12 @@
 					<div class="status-bar">
 						<div class="time">09:41</div>
 						<div class="indicators">
-							<span>📶</span>
-							<span>{phoneState.airplane ? '✈️' : '📵'}</span>
-							<span>🔋</span>
+							<Signal size={14} />
+							<Wifi size={14} />
+							{#if phoneState.airplane}<Plane size={14} />{/if}
+							<BatteryFull size={16} />
 						</div>
 					</div>
-
 					<!-- Screen Content -->
 					<div class="screen-content {selectedDevice === 'iphone' ? 'bg-white text-gray-900' : 'bg-gray-900 text-white'}">
 						{#if activeMenu === 'main'}
@@ -213,31 +225,29 @@
 										on:click={() => (activeMenu = 'display')}
 										class="menu-item"
 									>
-										<span class="menu-icon">🔆</span>
+										<span class="menu-icon"><Monitor size={19} strokeWidth={1.8} /></span>
 										<div class="menu-label">
 											<div class="menu-text">Ekran ve Parlaklık</div>
 										</div>
 										<span class="menu-arrow">&gt;</span>
 									</button>
-
 									<button
 										type="button"
 										on:click={() => (activeMenu = 'network')}
 										class="menu-item"
 									>
-										<span class="menu-icon">📡</span>
+										<span class="menu-icon"><Wifi size={19} strokeWidth={1.8} /></span>
 										<div class="menu-label">
 											<div class="menu-text">Ağ ve İnternet</div>
 										</div>
 										<span class="menu-arrow">&gt;</span>
 									</button>
-
 									<button
 										type="button"
 										on:click={() => (activeMenu = 'privacy')}
 										class="menu-item"
 									>
-										<span class="menu-icon">🔒</span>
+										<span class="menu-icon"><ShieldCheck size={19} strokeWidth={1.8} /></span>
 										<div class="menu-label">
 											<div class="menu-text">Gizlilik ve Güvenlik</div>
 										</div>
@@ -249,7 +259,7 @@
 										on:click={() => (activeMenu = 'sound')}
 										class="menu-item"
 									>
-										<span class="menu-icon">🔊</span>
+										<span class="menu-icon"><Volume2 size={19} strokeWidth={1.8} /></span>
 										<div class="menu-label">
 											<div class="menu-text">Ses ve Titreşim</div>
 										</div>
@@ -261,7 +271,7 @@
 										on:click={() => (activeMenu = 'about')}
 										class="menu-item"
 									>
-										<span class="menu-icon">ℹ️</span>
+										<span class="menu-icon"><Info size={19} strokeWidth={1.8} /></span>
 										<div class="menu-label">
 											<div class="menu-text">Hakkında</div>
 										</div>
@@ -449,7 +459,7 @@
 								<div class="settings-items">
 									<div class="setting-item">
 										<div class="setting-label">Ses Seviyesi</div>
-										<div class="setting-value">🔊</div>
+
 									</div>
 									<input
 										type="range"
@@ -535,7 +545,9 @@
 							}`}
 						>
 							<div class="flex items-start gap-2">
-								<span class="text-lg mt-0.5">{completedMissions.has(mission.id) ? '✅' : '⭕'}</span>
+								<span class="mt-0.5 text-slate-500">
+									{#if completedMissions.has(mission.id)}<Check size={18} class="text-emerald-600" />{:else}<Circle size={18} />{/if}
+								</span>
 								<div class="flex-1 min-w-0">
 									<p
 										class={`text-xs font-semibold ${
@@ -556,7 +568,7 @@
 			<!-- Completion Message -->
 			{#if allCompleted}
 				<div class="rounded-2xl border border-green-300 bg-gradient-to-br from-green-50 to-emerald-50 p-4 text-center animate-pulse">
-					<div class="text-3xl mb-2">🎉</div>
+					<Check size={24} class="mx-auto mb-2 text-green-700" />
 					<p class="text-sm font-bold text-green-800">Tüm görevleri tamamladın!</p>
 					<p class="text-xs text-green-700 mt-1">Harika bir iş çıkardın! {score} puan kazandın.</p>
 				</div>

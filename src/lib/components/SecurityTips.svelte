@@ -1,9 +1,9 @@
 <div class="space-y-6">
-	<h2 class="text-2xl font-bold text-gray-900 mb-6">💡 Online Güvenlik İpuçları</h2>
+	<h2 class="text-2xl font-bold text-gray-900 mb-6"> Online Güvenlik İpuçları</h2>
 
 	<div class="grid gap-6">
 		<div class="bg-blue-50 border-l-4 border-blue-500 p-6 rounded-r-lg">
-			<h3 class="font-bold text-lg text-gray-900 mb-2">1️⃣ Bağlantılara Tıklamaya Dikkat Et</h3>
+			<h3 class="font-bold text-lg text-gray-900 mb-2"> Bağlantılara Tıklamaya Dikkat Et</h3>
 			<p class="text-gray-700 mb-3">
 				Emailde ya da mesajda gelen bağlantılara direkt tıklama. Özellikle banka, PayPal, Amazon gibi
 				yerlerden gelse bile, tarayıcıdan kendi sitelerine gir.
@@ -15,7 +15,7 @@
 		</div>
 
 		<div class="bg-red-50 border-l-4 border-red-500 p-6 rounded-r-lg">
-			<h3 class="font-bold text-lg text-gray-900 mb-2">2️⃣ Acilen Yapılması Gereken İşlere Şüphe Et</h3>
+			<h3 class="font-bold text-lg text-gray-900 mb-2"> Acilen Yapılması Gereken İşlere Şüphe Et</h3>
 			<p class="text-gray-700 mb-3">
 				"Acele! Hesabın kilitlenecek!" ya da "2 saat içinde tıkla!" gibi mesajlar dolandırıcıların
 				işaretidir. Meşru yerler seni asla aceleye almaz.
@@ -26,7 +26,7 @@
 		</div>
 
 		<div class="bg-purple-50 border-l-4 border-purple-500 p-6 rounded-r-lg">
-			<h3 class="font-bold text-lg text-gray-900 mb-2">3️⃣ Kişisel Bilgileri Asla Vermeyeceksin</h3>
+			<h3 class="font-bold text-lg text-gray-900 mb-2"> Kişisel Bilgileri Asla Vermeyeceksin</h3>
 			<p class="text-gray-700 mb-3">
 				Şifre, kredi kartı, kimlik numarası, telefon numarası - bunları asla emailde ya da web
 				sitesinde bir formda vermeyeceksin.
@@ -37,7 +37,7 @@
 		</div>
 
 		<div class="bg-green-50 border-l-4 border-green-500 p-6 rounded-r-lg">
-			<h3 class="font-bold text-lg text-gray-900 mb-2">4️⃣ Gönderici Adresini Kontrol Et</h3>
+			<h3 class="font-bold text-lg text-gray-900 mb-2"> Gönderici Adresini Kontrol Et</h3>
 			<p class="text-gray-700 mb-3">
 				Emailin gönderici adresi kontrol et. Dolandırıcılar benzer adresler kullanır. Örneğin:
 				<code class="bg-white px-2 py-1 rounded text-sm">garanti-bank@suspicious.com</code>
@@ -49,7 +49,7 @@
 		</div>
 
 		<div class="bg-yellow-50 border-l-4 border-yellow-500 p-6 rounded-r-lg">
-			<h3 class="font-bold text-lg text-gray-900 mb-2">5️⃣ Hediye ya da Ödül Vaatleri Şüpheli</h3>
+			<h3 class="font-bold text-lg text-gray-900 mb-2"> Hediye ya da Ödül Vaatleri Şüpheli</h3>
 			<p class="text-gray-700 mb-3">
 				"Siz kazandınız!", "Milyoncu oldunuz!" gibi mesajlar neredeyse her zaman dolandırıcılıktır.
 			</p>
@@ -60,7 +60,7 @@
 		</div>
 
 		<div class="bg-indigo-50 border-l-4 border-indigo-500 p-6 rounded-r-lg">
-			<h3 class="font-bold text-lg text-gray-900 mb-2">6️⃣ Şifreni Güçlü Yap</h3>
+			<h3 class="font-bold text-lg text-gray-900 mb-2"> Şifreni Güçlü Yap</h3>
 			<p class="text-gray-700 mb-3">
 				Şifre: BÜYÜK HARF + küçük harf + rakam + özel işaret (@#$%) ve en az 12 karakter.
 			</p>
@@ -71,7 +71,7 @@
 		</div>
 
 		<div class="bg-pink-50 border-l-4 border-pink-500 p-6 rounded-r-lg">
-			<h3 class="font-bold text-lg text-gray-900 mb-2">7️⃣ Ara ve Sor!</h3>
+			<h3 class="font-bold text-lg text-gray-900 mb-2"> Ara ve Sor!</h3>
 			<p class="text-gray-700 mb-3">
 				Şüphelendin mi? Karşı tarafı ara ve sor. Gerçek firmalar sana çağrı yapılmasından memnun
 				olurlar.
@@ -83,7 +83,7 @@
 	</div>
 
 	<div class="bg-gradient-to-r from-green-100 to-blue-100 p-6 rounded-lg mt-8">
-		<h3 class="font-bold text-lg text-gray-900 mb-3">✅ Güvenli Kalma Kontrol Listesi</h3>
+		<h3 class="font-bold text-lg text-gray-900 mb-3"> Güvenli Kalma Kontrol Listesi</h3>
 		<ul class="space-y-2 text-gray-700">
 			<li class="flex gap-3">
 				<input type="checkbox" disabled checked class="w-5 h-5" />
