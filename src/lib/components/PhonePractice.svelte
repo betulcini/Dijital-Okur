@@ -160,12 +160,12 @@
 	$: allCompleted = completedMissions.size === missions.length;
 </script>
 
-<div class="mt-12 rounded-3xl border border-blue-200 bg-gradient-to-br from-blue-50 to-indigo-50 p-5 sm:p-8 shadow-lg">
+<div class="mt-12 rounded-3xl border border-blue-200 dark:border-slate-700 bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-slate-900 dark:to-slate-800 p-5 sm:p-8 shadow-lg">
 	<!-- Header -->
 	<div class="mb-8">
-		<p class="text-sm font-semibold uppercase tracking-wide text-blue-600">Uygulamalı Pratik</p>
-		<h3 class="text-3xl sm:text-4xl font-bold text-gray-900 mt-2"> Telefon Ayarları Simülasyonu</h3>
-		<p class="text-gray-700 mt-3">
+		<p class="text-sm font-semibold uppercase tracking-wide text-blue-600 dark:text-blue-300">Uygulamalı Pratik</p>
+		<h3 class="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-gray-100 mt-2"> Telefon Ayarları Simülasyonu</h3>
+		<p class="text-gray-700 dark:text-gray-300 mt-3">
 			Cihaz seç, görevleri tamamla ve puanlar topla! Gerçek bir telefon gibi ayarları değiştir.
 		</p>
 	</div>
@@ -180,7 +180,7 @@
 					? device.id === 'iphone'
 						? 'bg-blue-600 text-white border-blue-600 shadow-md'
 						: 'bg-green-600 text-white border-green-600 shadow-md'
-					: 'bg-white text-slate-700 border-slate-200 hover:border-blue-300'}"
+					: 'bg-white dark:bg-slate-700 text-slate-700 dark:text-slate-100 border-slate-200 dark:border-slate-600 hover:border-blue-300'}"
 			>
 				{device.label} ({device.os})
 			</button>
@@ -517,16 +517,16 @@
 		<!-- Missions Panel -->
 		<div class="space-y-4">
 			<!-- Score -->
-			<div class="rounded-2xl border border-amber-200 bg-gradient-to-br from-amber-50 to-yellow-50 p-6 text-center shadow-sm">
-				<div class="text-5xl font-bold text-amber-600 mb-2">{score}</div>
-				<p class="text-sm font-semibold text-amber-700">Toplam Puan</p>
-				<p class="text-xs text-amber-600 mt-2">{missionProgress}/{missions.length} görev tamamlandı</p>
+			<div class="rounded-2xl border border-amber-200 dark:border-slate-700 bg-gradient-to-br from-amber-50 to-yellow-50 dark:from-slate-800 dark:to-slate-800 p-6 text-center shadow-sm">
+				<div class="text-5xl font-bold text-amber-600 dark:text-amber-300 mb-2">{score}</div>
+				<p class="text-sm font-semibold text-amber-700 dark:text-amber-200">Toplam Puan</p>
+				<p class="text-xs text-amber-600 dark:text-amber-300 mt-2">{missionProgress}/{missions.length} görev tamamlandı</p>
 			</div>
 
 			<!-- Progress Bar -->
-			<div class="rounded-2xl border border-blue-200 bg-white p-4 shadow-sm">
-				<p class="text-sm font-semibold text-gray-700 mb-2">İlerleme</p>
-				<div class="w-full h-3 bg-gray-200 rounded-full overflow-hidden">
+			<div class="rounded-2xl border border-blue-200 dark:border-slate-700 bg-white dark:bg-slate-800 p-4 shadow-sm">
+				<p class="text-sm font-semibold text-gray-700 dark:text-gray-200 mb-2">İlerleme</p>
+				<div class="w-full h-3 bg-gray-200 dark:bg-slate-700 rounded-full overflow-hidden">
 					<div
 						class="h-full bg-gradient-to-r from-blue-500 to-blue-600 transition-all duration-300"
 						style="width: {(missionProgress / missions.length) * 100}%"
@@ -535,29 +535,29 @@
 			</div>
 
 			<!-- Missions List -->
-			<div class="rounded-2xl border border-gray-200 bg-white p-4 shadow-sm max-h-[400px] overflow-y-auto">
-				<p class="text-sm font-semibold text-gray-900 mb-3">Görevler</p>
+			<div class="rounded-2xl border border-gray-200 dark:border-slate-700 bg-white dark:bg-slate-800 p-4 shadow-sm max-h-[400px] overflow-y-auto">
+				<p class="text-sm font-semibold text-gray-900 dark:text-gray-100 mb-3">Görevler</p>
 				<div class="space-y-2">
 					{#each missions as mission}
 						<div
 							class={`px-3 py-2 rounded-lg border transition ${
-								completedMissions.has(mission.id) ? 'bg-green-50 border-green-200' : 'bg-gray-50 border-gray-200'
+								completedMissions.has(mission.id) ? 'bg-green-50 dark:bg-emerald-950 border-green-200 dark:border-emerald-900' : 'bg-gray-50 dark:bg-slate-700 border-gray-200 dark:border-slate-600'
 							}`}
 						>
 							<div class="flex items-start gap-2">
-								<span class="mt-0.5 text-slate-500">
+								<span class="mt-0.5 text-slate-500 dark:text-slate-300">
 									{#if completedMissions.has(mission.id)}<Check size={18} class="text-emerald-600" />{:else}<Circle size={18} />{/if}
 								</span>
 								<div class="flex-1 min-w-0">
 									<p
 										class={`text-xs font-semibold ${
-											completedMissions.has(mission.id) ? 'text-green-700' : 'text-gray-700'
+											completedMissions.has(mission.id) ? 'text-green-700 dark:text-green-300' : 'text-gray-700 dark:text-gray-200'
 										}`}
 									>
 										{mission.title}
 									</p>
-									<p class="text-xs text-gray-500 line-clamp-1">{mission.description}</p>
-									<p class="text-xs font-bold text-amber-600 mt-1">+{mission.points} puan</p>
+									<p class="text-xs text-gray-500 dark:text-gray-300 line-clamp-1">{mission.description}</p>
+									<p class="text-xs font-bold text-amber-600 dark:text-amber-300 mt-1">+{mission.points} puan</p>
 								</div>
 							</div>
 						</div>
@@ -567,10 +567,10 @@
 
 			<!-- Completion Message -->
 			{#if allCompleted}
-				<div class="rounded-2xl border border-green-300 bg-gradient-to-br from-green-50 to-emerald-50 p-4 text-center animate-pulse">
-					<Check size={24} class="mx-auto mb-2 text-green-700" />
-					<p class="text-sm font-bold text-green-800">Tüm görevleri tamamladın!</p>
-					<p class="text-xs text-green-700 mt-1">Harika bir iş çıkardın! {score} puan kazandın.</p>
+				<div class="rounded-2xl border border-green-300 dark:border-slate-700 bg-gradient-to-br from-green-50 to-emerald-50 dark:from-slate-800 dark:to-slate-800 p-4 text-center animate-pulse">
+					<Check size={24} class="mx-auto mb-2 text-green-700 dark:text-green-300" />
+					<p class="text-sm font-bold text-green-800 dark:text-green-200">Tüm görevleri tamamladın!</p>
+					<p class="text-xs text-green-700 dark:text-green-300 mt-1">Harika bir iş çıkardın! {score} puan kazandın.</p>
 				</div>
 			{/if}
 		</div>

@@ -7,7 +7,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<meta name="description" content="Dijital okuryazarlık platformu - Yaşlılar için güvenli internet rehberi" />
 	<meta name="theme-color" content="#1A1918" />
-	<link rel="icon" href="/favicon.svg" />
+	<link rel="icon" type="image/svg+xml" sizes="any" href="/favicon.svg?v=2" />
 	<link rel="manifest" href="/manifest.webmanifest" />
 	<link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" />
 	<meta name="apple-mobile-web-app-capable" content="yes" />

@@ -53,37 +53,37 @@
 
 <div class="space-y-6">
 	<div class="mb-6">
-		<h2 class="text-2xl font-bold text-gray-900 mb-2"> Mesaj Analiz</h2>
-		<p class="text-gray-600">
+		<h2 class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-2"> Mesaj Analiz</h2>
+		<p class="text-gray-600 dark:text-gray-300">
 			SMS, WhatsApp ya da başka bir uygulamadan aldığın şüpheli bir mesaj mı var? Yapay zeka ile
 			dolandırıcı mı yoksa meşru mu olduğunu kontrol et.
 		</p>
 	</div>
 
-	<div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
-		<p class="text-sm text-gray-600 mb-3">
+	<div class="bg-gray-50 dark:bg-slate-800 p-4 rounded-lg border border-gray-200 dark:border-slate-700">
+		<p class="text-sm text-gray-600 dark:text-gray-300 mb-3">
 			<strong> Örnek kullan:</strong> Aşağıdaki sahte mesajlarla dene:
 		</p>
 		<div class="flex flex-col gap-2">
 			{#each exampleMessages as example}
 				<button
 					on:click={() => useExample(example.text)}
-					class="text-left bg-white p-3 rounded border border-gray-200 hover:bg-blue-50 hover:border-blue-300 transition text-sm"
+					class="text-left bg-white dark:bg-slate-700 p-3 rounded border border-gray-200 dark:border-slate-600 hover:bg-blue-50 dark:hover:bg-slate-600 hover:border-blue-300 transition text-sm"
 				>
-					<strong class="text-gray-900">{example.name}</strong>
-					<p class="text-gray-600 truncate">{example.text}</p>
+					<strong class="text-gray-900 dark:text-gray-100">{example.name}</strong>
+					<p class="text-gray-600 dark:text-gray-300 truncate">{example.text}</p>
 				</button>
 			{/each}
 		</div>
 	</div>
 
 	<div>
-		<label for="message-content" class="block text-sm font-semibold text-gray-700 mb-2">Mesaj Yazısı:</label>
+		<label for="message-content" class="block text-sm font-semibold text-gray-700 dark:text-gray-200 mb-2">Mesaj Yazısı:</label>
 		<textarea
 			id="message-content"
 			bind:value={message}
 			placeholder="Şüpheli mesajı buraya yapıştır..."
-			class="w-full border border-gray-300 rounded-lg p-4 focus:outline-none focus:ring-2 focus:ring-red-500 resize-none h-28"
+			class="w-full border border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-gray-900 dark:text-gray-100 placeholder:text-gray-500 dark:placeholder:text-gray-400 rounded-lg p-4 focus:outline-none focus:ring-2 focus:ring-red-500 resize-none h-28"
 		></textarea>
 	</div>
 
@@ -148,9 +148,9 @@
 				</div>
 
 				{#if analysis.advice}
-					<div class="bg-white bg-opacity-70 p-4 rounded border-l-4 border-green-500">
-						<h4 class="font-bold text-gray-900 mb-2"> Tavsiyemiz:</h4>
-						<p class="text-gray-700">{analysis.advice}</p>
+					<div class="bg-white dark:bg-slate-800 bg-opacity-70 p-4 rounded border-l-4 border-green-500">
+						<h4 class="font-bold text-gray-900 dark:text-gray-100 mb-2"> Tavsiyemiz:</h4>
+						<p class="text-gray-700 dark:text-gray-300">{analysis.advice}</p>
 					</div>
 				{/if}
 			</div>
