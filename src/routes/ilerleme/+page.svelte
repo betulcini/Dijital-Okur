@@ -1,7 +1,6 @@
 <script>
 	import { onMount } from 'svelte';
 	import {
-		Activity,
 		Award,
 		BookCheck,
 		Check,
@@ -14,38 +13,17 @@
 	import { soundManager } from '$lib/utils/soundManager.js';
 	import { getProgress, resetProgress as clearSavedProgress } from '$lib/utils/progressStore.js';
 	import { getCurrentUser } from '$lib/utils/authStore.js';
-
-	const lessonCatalog = [
-		{ id: 'yapay-zeka', name: 'Yapay Zeka Nedir?' },
-		{ id: 'halusinyasyon', name: 'Yapay Zeka Halüsinasyonları' },
-		{ id: 'telefon-ayarlari', name: 'Telefonun Temel Ayarları' },
-		{ id: 'sifre-guvenligi', name: 'Şifre Güvenliği' },
-		{ id: 'email-kullanimi', name: 'Email Kullanımı' },
-		{ id: 'dolandiricilik', name: 'Dolandırıcılık Belirtileri' }
-	];
+	import { lessonCatalog } from '$lib/utils/lessonCatalog.js';
 
 	let userStats = {
 		name: 'Öğrenci',
-		level: 3,
-		xp: 2450,
-		nextLevelXp: 5000,
-		completedLessons: 4,
-		totalLessons: 6,
-		badges: [
-			{ name: 'Yapay Zeka Uzmanı', date: '2024-08-10' },
-			{ name: 'Güvenlik Meraklısı', date: '2024-08-12' },
-			{ name: 'İlk Adım', date: '2024-08-01' },
-			{ name: 'Başarı Avı', date: '2024-08-15' }
-		],
-		lessonsData: [
-			{ name: 'Yapay Zeka Nedir?', completed: true, xp: 200, date: '2024-08-10' },
-			{ name: 'Yapay Zeka Halüsinasyonları', completed: true, xp: 150, date: '2024-08-12' },
-			{ name: 'Telefonun Temel Ayarları', completed: false, xp: 0, date: null },
-			{ name: 'Şifre Güvenliği', completed: true, xp: 200, date: '2024-08-14' },
-			{ name: 'Email Kullanımı', completed: false, xp: 0, date: null },
-			{ name: 'Dolandırıcılık Belirtileri', completed: true, xp: 150, date: '2024-08-15' }
-		],
-		weeklyActivity: [15, 20, 10, 25, 30, 18, 22]
+		level: 1,
+		xp: 0,
+		nextLevelXp: 300,
+		completedLessons: 0,
+		totalLessons: lessonCatalog.length,
+		badges: [],
+		lessonsData: lessonCatalog.map((lesson) => ({ ...lesson, name: lesson.title, completed: false, xp: 0, date: null }))
 	};
 
 	let soundEnabled = soundManager.isSoundEnabled();
@@ -54,18 +32,23 @@
 
 	const syncProgress = () => {
 		const savedProgress = getProgress();
-		const completedById = new Map(savedProgress.completedLessons.map((lesson) => [lesson.id, lesson]));
-		userStats.completedLessons = savedProgress.completedLessons.length;
+		const knownLessonIds = new Set(lessonCatalog.map((lesson) => lesson.id));
+		const completedById = new Map(
+			savedProgress.completedLessons
+				.filter((lesson) => knownLessonIds.has(lesson.id))
+				.map((lesson) => [lesson.id, lesson])
+		);
+		userStats.completedLessons = completedById.size;
 		userStats.totalLessons = lessonCatalog.length;
-		userStats.xp = savedProgress.completedLessons.reduce((total, lesson) => total + lesson.xp, 0);
+		userStats.xp = [...completedById.values()].reduce((total, lesson) => total + lesson.xp, 0);
 		userStats.level = Math.max(1, Math.floor(userStats.xp / 300) + 1);
 		userStats.nextLevelXp = userStats.level * 300;
-		userStats.badges = savedProgress.completedLessons.map((lesson) => ({
+		userStats.badges = [...completedById.values()].map((lesson) => ({
 			name: `${lesson.title} Rozeti`, date: lesson.completedAt
 		}));
 		userStats.lessonsData = lessonCatalog.map((lesson) => {
 			const completed = completedById.get(lesson.id);
-			return { name: lesson.name, completed: Boolean(completed), xp: completed?.xp || 0, date: completed?.completedAt || null };
+			return { ...lesson, name: lesson.title, completed: Boolean(completed), xp: completed?.xp || 0, date: completed?.completedAt || null };
 		});
 		progressPercentage = (userStats.completedLessons / userStats.totalLessons) * 100;
 		xpPercentage = (userStats.xp / userStats.nextLevelXp) * 100;
@@ -262,7 +245,7 @@
 								</span>
 							{:else}
 								<a
-									href="/egitim"
+									href={lesson.href}
 									class="inline-block px-4 py-2 bg-indigo-500 hover:bg-indigo-600 text-white rounded-lg font-semibold transition"
 								>
 									Başla
@@ -274,29 +257,6 @@
 			</div>
 		</div>
 
-		<!-- Weekly Activity -->
-		<div class="card p-8 mb-8 animate-slide-up">
-			<h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-6">Haftalık Aktivite</h2>
-
-			<div class="flex items-end justify-around h-48 gap-3 mb-6">
-				{#each userStats.weeklyActivity as activity, index}
-					<div class="flex flex-col items-center flex-1">
-						<div
-							class="w-full bg-gradient-to-t from-indigo-500 to-purple-500 rounded-t-lg transition-all duration-300 hover:shadow-lg"
-							style="height: {(activity / 30) * 100}%"
-						/>
-						<p class="text-sm text-gray-600 dark:text-gray-400 mt-2 text-center">
-							{['Pts', 'Salı', 'Çrş', 'Prş', 'Cum', 'Cmt', 'Pzr'][index]}
-						</p>
-					</div>
-				{/each}
-			</div>
-
-			<p class="text-center text-gray-600 dark:text-gray-300">
-				Bu hafta toplam <strong>{userStats.weeklyActivity.reduce((a, b) => a + b, 0)} dakika</strong> çalıştın!
-			</p>
-		</div>
-			<Activity size={25} class="mx-auto mb-3 text-primary-600 dark:text-primary-300" strokeWidth={1.6} />
 		<!-- Actions -->
 		<div class="flex gap-4 justify-center flex-wrap animate-slide-up">
 			<a

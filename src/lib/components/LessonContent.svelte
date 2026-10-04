@@ -3,7 +3,8 @@
 	import { Volume2, VolumeX } from 'lucide-svelte';
 	import { soundManager } from '$lib/utils/soundManager.js';
 	import { ttsManager } from '$lib/utils/ttsManager.js';
-	import { completeLesson, isLessonCompleted } from '$lib/utils/progressStore.js';
+	import { completeLesson, getLessonPosition, isLessonCompleted, saveLessonPosition } from '$lib/utils/progressStore.js';
+	import { lessonQuizzes } from '$lib/utils/lessonQuizzes.js';
 
 	export let lesson = {
 		title: '',
@@ -17,10 +18,21 @@
 	let completed = false;
 	let isSpeaking = false;
 	let soundEnabled = soundManager.isSoundEnabled();
+	let quizIndex = 0;
+	let selectedAnswer = null;
+	let answerChecked = false;
+	let quizFeedback = '';
+	$: quizzes = lessonQuizzes[lesson.id] || [];
+	$: currentQuiz = quizzes[quizIndex];
 
 	onMount(() => {
 		window.scrollTo(0, 0);
 		completed = isLessonCompleted(lesson.id || lesson.title);
+		const savedPosition = getLessonPosition();
+		if (!completed && savedPosition?.id === lesson.id) {
+			currentSection = Math.min(Math.max(savedPosition.section || 0, 0), lesson.sections.length - 1);
+		}
+		if (!completed) saveLessonPosition({ id: lesson.id, title: lesson.title, section: currentSection });
 		soundManager.playClick();
 	});
 
@@ -29,18 +41,60 @@
 		soundManager.playClick();
 		if (currentSection < lesson.sections.length - 1) {
 			currentSection++;
+			saveLessonPosition({ id: lesson.id, title: lesson.title, section: currentSection });
+		} else if (quizzes.length) {
+			quizIndex = 0;
+			selectedAnswer = null;
+			answerChecked = false;
+			quizFeedback = '';
+			quizActive = true;
 		} else {
-			completed = true;
-			completeLesson({ id: lesson.id || lesson.title, title: lesson.title, xp: lesson.xp || 100 });
-			soundManager.playSuccess();
+			finishLesson();
 		}
+	};
+
+	let quizActive = false;
+
+	const finishLesson = () => {
+		completed = true;
+		completeLesson({ id: lesson.id || lesson.title, title: lesson.title, xp: lesson.xp || 100 });
+		soundManager.playSuccess();
 	};
 
 	const prevSection = () => {
 		ttsManager.stop();
 		soundManager.playClick();
-		if (currentSection > 0) {
+		if (quizActive) {
+			quizActive = false;
+		} else if (currentSection > 0) {
 			currentSection--;
+			saveLessonPosition({ id: lesson.id, title: lesson.title, section: currentSection });
+		}
+	};
+
+	const checkAnswer = () => {
+		if (selectedAnswer === null) return;
+		answerChecked = true;
+		quizFeedback =
+			selectedAnswer === currentQuiz.correctAnswer
+				? `Doğru. ${currentQuiz.explanation}`
+				: `Bu yanıt doğru değil. ${currentQuiz.explanation}`;
+	};
+
+	const continueQuiz = () => {
+		if (selectedAnswer !== currentQuiz.correctAnswer) {
+			selectedAnswer = null;
+			answerChecked = false;
+			quizFeedback = '';
+			return;
+		}
+		if (quizIndex < quizzes.length - 1) {
+			quizIndex++;
+			selectedAnswer = null;
+			answerChecked = false;
+			quizFeedback = '';
+		} else {
+			finishLesson();
 		}
 	};
 
@@ -116,18 +170,25 @@
 		</div>
 
 		<!-- Progress Bar -->
-		<div class="bg-white dark:bg-slate-800 rounded-full h-2 shadow mb-8 overflow-hidden">
+		<div
+			class="bg-white dark:bg-slate-800 rounded-full h-2 shadow mb-8 overflow-hidden"
+			role="progressbar"
+			aria-label="Ders ilerlemesi"
+			aria-valuemin="0"
+			aria-valuemax={lesson.sections.length}
+			aria-valuenow={currentSection + 1}
+		>
 			<div
 				class="bg-gradient-primary h-full transition-all duration-500"
 				style="width: {((currentSection + 1) / lesson.sections.length) * 100}%"
 			/>
 		</div>
 
-		{#if !completed}
+		{#if !completed && !quizActive}
 			<!-- Content -->
 			<div class="bg-white dark:bg-slate-800 rounded-2xl shadow-lg p-5 sm:p-12 mb-8 animate-slide-up">
 				<div class="flex flex-col sm:flex-row justify-between sm:items-center gap-4 mb-6">
-					<h2 class="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white break-words">
+					<h2 aria-live="polite" class="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white break-words">
 						{lesson.sections[currentSection].title}
 					</h2>
 					<button
@@ -161,6 +222,8 @@
 					{#each lesson.sections as _, i}
 						<button
 							on:click={() => skipToSection(i)}
+							aria-label={`Bölüm ${i + 1}: ${lesson.sections[i].title}`}
+							aria-current={i === currentSection ? 'step' : undefined}
 							class="w-3 h-3 rounded-full transition {i <= currentSection
 								? 'bg-gradient-to-r from-primary-600 to-secondary-600 scale-125'
 								: 'bg-gray-300 dark:bg-slate-600 hover:bg-gray-400'}"
@@ -173,9 +236,46 @@
 					on:click={nextSection}
 					class="px-8 py-3 rounded-lg font-semibold btn-primary"
 				>
-					{currentSection === lesson.sections.length - 1 ? 'Tamamla' : 'Sonraki'} →
+					{currentSection === lesson.sections.length - 1 && quizzes.length
+						? 'Bilgi kontrolüne geç'
+						: currentSection === lesson.sections.length - 1
+							? 'Dersi tamamla'
+							: 'Sonraki'} →
 				</button>
 			</div>
+		{:else if !completed && quizActive}
+			<section class="rounded-2xl bg-white p-5 shadow-lg dark:bg-slate-800 sm:p-8" aria-labelledby="lesson-quiz-title">
+				<p class="text-sm font-semibold text-primary-700 dark:text-primary-300">Bilgi kontrolü · {quizIndex + 1}/{quizzes.length}</p>
+				<h2 id="lesson-quiz-title" class="mt-2 text-2xl font-bold text-gray-900 dark:text-white">{currentQuiz.question}</h2>
+				<fieldset class="mt-6 space-y-3">
+					<legend class="sr-only">Yanıt seçenekleri</legend>
+					{#each currentQuiz.answers as answer, index}
+						<label class="flex cursor-pointer items-start gap-3 rounded-xl border p-4 text-gray-800 transition dark:text-gray-100 {selectedAnswer === index ? 'border-primary-500 bg-primary-50 dark:border-primary-400 dark:bg-slate-700' : 'border-gray-200 hover:border-primary-300 dark:border-slate-600'}">
+							<input type="radio" name={`lesson-quiz-${lesson.id}-${quizIndex}`} value={index} bind:group={selectedAnswer} disabled={answerChecked} class="mt-1 accent-primary-600" />
+							<span>{answer}</span>
+						</label>
+					{/each}
+				</fieldset>
+				{#if answerChecked}
+					<p class="mt-5 rounded-xl p-4 text-left leading-relaxed {selectedAnswer === currentQuiz.correctAnswer ? 'bg-emerald-50 text-emerald-900 dark:bg-emerald-950 dark:text-emerald-100' : 'bg-amber-50 text-amber-950 dark:bg-amber-950 dark:text-amber-100'}" role="status" aria-live="polite">
+						{quizFeedback}
+					</p>
+				{/if}
+				<div class="mt-6 flex flex-col-reverse justify-between gap-3 sm:flex-row">
+					<button on:click={prevSection} class="btn-secondary" type="button">Derse dön</button>
+					{#if !answerChecked}
+						<button on:click={checkAnswer} class="btn-primary" type="button" disabled={selectedAnswer === null}>Yanıtı kontrol et</button>
+					{:else}
+						<button on:click={continueQuiz} class="btn-primary" type="button">
+							{selectedAnswer === currentQuiz.correctAnswer && quizIndex === quizzes.length - 1
+								? 'Dersi tamamla'
+								: selectedAnswer === currentQuiz.correctAnswer
+									? 'Sonraki soru'
+									: 'Tekrar dene'}
+						</button>
+					{/if}
+				</div>
+			</section>
 		{:else}
 			<!-- Completion Screen -->
 			<div class="bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900 dark:to-emerald-900 rounded-2xl shadow-xl p-12 text-center animate-slide-up">

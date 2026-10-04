@@ -32,8 +32,9 @@
 </svelte:head>
 
 <div class="min-h-screen flex flex-col bg-slate-50 text-slate-900 transition-colors duration-300 dark:bg-slate-950 dark:text-slate-100">
+	<a class="skip-link" href="#main-content">İçeriğe geç</a>
 	<Navbar />
-	<main class="flex-1">
+	<main id="main-content" class="flex-1" tabindex="-1">
 		<slot />
 	</main>
 	<Footer />

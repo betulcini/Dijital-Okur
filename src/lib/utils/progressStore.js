@@ -6,14 +6,16 @@ function getStorageKey() {
 	return sessionId ? `${STORAGE_KEY}:${sessionId}` : STORAGE_KEY;
 }
 
-const emptyProgress = () => ({ completedLessons: [] });
+const emptyProgress = () => ({ completedLessons: [], readingPosition: null });
 
 function readProgress() {
 	if (typeof localStorage === 'undefined') return emptyProgress();
 
 	try {
 		const stored = JSON.parse(localStorage.getItem(getStorageKey()));
-		return Array.isArray(stored?.completedLessons) ? stored : emptyProgress();
+		return Array.isArray(stored?.completedLessons)
+			? { ...emptyProgress(), ...stored }
+			: emptyProgress();
 	} catch {
 		return emptyProgress();
 	}
@@ -37,9 +39,22 @@ export function completeLesson({ id, title, xp = 100 }) {
 	const progress = readProgress();
 	if (!progress.completedLessons.some((lesson) => lesson.id === id)) {
 		progress.completedLessons.push({ id, title, xp, completedAt: new Date().toISOString() });
-		saveProgress(progress);
 	}
+	progress.readingPosition = null;
+	saveProgress(progress);
 	return progress;
+}
+
+export function saveLessonPosition({ id, title, section = 0 }) {
+	const progress = readProgress();
+	if (progress.completedLessons.some((lesson) => lesson.id === id)) return progress;
+	progress.readingPosition = { id, title, section, updatedAt: new Date().toISOString() };
+	saveProgress(progress);
+	return progress;
+}
+
+export function getLessonPosition() {
+	return readProgress().readingPosition;
 }
 
 export function resetProgress() {

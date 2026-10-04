@@ -2,10 +2,12 @@
 	import HeroSection from '$lib/components/HeroSection.svelte';
 	import ModuleCard from '$lib/components/ModuleCard.svelte';
 	import PwaInstallPrompt from '$lib/components/PwaInstallPrompt.svelte';
+	import ContinueLearning from '$lib/components/ContinueLearning.svelte';
 </script>
 
 <div class="dark:bg-slate-900 transition-colors duration-300">
 	<HeroSection />
+	<ContinueLearning />
 	<PwaInstallPrompt />
 
 	<!-- Modules Section -->

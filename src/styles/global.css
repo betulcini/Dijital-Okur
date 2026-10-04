@@ -80,6 +80,43 @@ button:active {
 	transform: translateY(0);
 }
 
+:focus-visible {
+	outline: 3px solid #a34e31;
+	outline-offset: 3px;
+}
+
+html.dark :focus-visible {
+	outline-color: #e08a6b;
+}
+
+.skip-link {
+	position: fixed;
+	top: 0.75rem;
+	left: 0.75rem;
+	z-index: 100;
+	transform: translateY(-160%);
+	border-radius: 0.75rem;
+	background: #262422;
+	padding: 0.75rem 1rem;
+	color: #faf9f7;
+	font-weight: 700;
+}
+
+.skip-link:focus {
+	transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+	*,
+	*::before,
+	*::after {
+		scroll-behavior: auto !important;
+		animation-duration: 0.01ms !important;
+		animation-iteration-count: 1 !important;
+		transition-duration: 0.01ms !important;
+	}
+}
+
 /* Prevent flex children from forcing horizontal scrolling on narrow screens. */
 .min-w-0 {
 	min-width: 0;

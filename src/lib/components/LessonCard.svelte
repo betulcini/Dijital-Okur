@@ -7,7 +7,8 @@
 		KeyRound,
 		Landmark,
 		Mail,
-		ShieldAlert
+		ShieldAlert,
+		Smartphone
 	} from 'lucide-svelte';
 
 	export let title = '';
@@ -26,7 +27,8 @@
 		key: KeyRound,
 		government: Landmark,
 		mail: Mail,
-		shield: ShieldAlert
+		shield: ShieldAlert,
+		phone: Smartphone
 	};
 
 	$: Icon = icons[icon] || BookOpen;
