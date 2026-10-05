@@ -13,7 +13,7 @@
 	import { soundManager } from '$lib/utils/soundManager.js';
 	import { getProgress, resetProgress as clearSavedProgress } from '$lib/utils/progressStore.js';
 	import { getCurrentUser } from '$lib/utils/authStore.js';
-	import { lessonCatalog } from '$lib/utils/lessonCatalog.js';
+	import { badgeCatalog, lessonCatalog } from '$lib/utils/lessonCatalog.js';
 
 	let userStats = {
 		name: 'Öğrenci',
@@ -23,6 +23,7 @@
 		completedLessons: 0,
 		totalLessons: lessonCatalog.length,
 		badges: [],
+		earnedBadgeCount: 0,
 		lessonsData: lessonCatalog.map((lesson) => ({ ...lesson, name: lesson.title, completed: false, xp: 0, date: null }))
 	};
 
@@ -43,9 +44,15 @@
 		userStats.xp = [...completedById.values()].reduce((total, lesson) => total + lesson.xp, 0);
 		userStats.level = Math.max(1, Math.floor(userStats.xp / 300) + 1);
 		userStats.nextLevelXp = userStats.level * 300;
-		userStats.badges = [...completedById.values()].map((lesson) => ({
-			name: `${lesson.title} Rozeti`, date: lesson.completedAt
+		const completionDates = [...completedById.values()]
+			.map((lesson) => lesson.completedAt)
+			.sort((a, b) => new Date(a) - new Date(b));
+		userStats.badges = badgeCatalog.map((badge) => ({
+			...badge,
+			earned: completedById.size >= badge.threshold,
+			date: completionDates[badge.threshold - 1] || null
 		}));
+		userStats.earnedBadgeCount = userStats.badges.filter((badge) => badge.earned).length;
 		userStats.lessonsData = lessonCatalog.map((lesson) => {
 			const completed = completedById.get(lesson.id);
 			return { ...lesson, name: lesson.title, completed: Boolean(completed), xp: completed?.xp || 0, date: completed?.completedAt || null };
@@ -162,7 +169,7 @@
 		<div class="grid md:grid-cols-4 gap-4 mb-8">
 			<div class="card p-6 text-center animate-slide-up" style="animation-delay: 0.1s">
 				<Award size={26} class="mx-auto mb-3 text-primary-600 dark:text-primary-300" strokeWidth={1.6} />
-				<div class="text-3xl font-bold gradient-text">{userStats.badges.length}</div>
+				<div class="text-3xl font-bold gradient-text">{userStats.earnedBadgeCount}</div>
 				<p class="text-gray-600 dark:text-gray-300 text-sm">Rozet Kazandı</p>
 			</div>
 			<div class="card p-6 text-center animate-slide-up" style="animation-delay: 0.2s">
@@ -184,30 +191,22 @@
 
 		<!-- Badges Section -->
 		<div class="card p-8 mb-8 animate-slide-up">
-			<h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-6">Kazanılan Rozetler</h2>
-
-			{#if userStats.badges.length > 0}
-				<div class="grid md:grid-cols-4 gap-6">
-					{#each userStats.badges as badge, index}
-						<div
-							class="border-2 border-yellow-300 dark:border-yellow-600 rounded-2xl p-6 text-center hover:shadow-lg transition-all duration-300 transform hover:scale-105"
-							style="animation-delay: {index * 0.1}s"
-						>
-							<div class="mb-4 flex justify-center text-primary-600 dark:text-primary-300"><Award size={36} strokeWidth={1.5} /></div>
-							<h3 class="font-bold text-gray-900 dark:text-white mb-2">
-								{badge.name}
-							</h3>
-							<p class="text-sm text-gray-600 dark:text-gray-400">
-								 {new Date(badge.date).toLocaleDateString('tr-TR')}
-							</p>
-						</div>
-					{/each}
-				</div>
-			{:else}
-				<p class="text-gray-600 dark:text-gray-300 text-center py-8">
-					Henüz rozet kazanmadın. Dersleri tamamlayarak rozetler kazanmaya başla!
-				</p>
-			{/if}
+			<h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-6">Başarı Rozetleri</h2>
+			<div class="grid gap-4 md:grid-cols-3">
+				{#each userStats.badges as badge, index}
+					<div
+						class="rounded-2xl border-2 p-6 text-center transition-all {badge.earned ? 'border-yellow-300 bg-yellow-50 dark:border-yellow-700 dark:bg-yellow-950/30' : 'border-gray-200 bg-gray-50 opacity-75 dark:border-slate-700 dark:bg-slate-800'}"
+						style="animation-delay: {index * 0.1}s"
+					>
+						<div class="mb-4 flex justify-center text-primary-600 dark:text-primary-300"><Award size={36} strokeWidth={1.5} /></div>
+						<h3 class="font-bold text-gray-900 dark:text-white mb-2">{badge.title}</h3>
+						<p class="text-sm text-gray-600 dark:text-gray-300">{badge.description}</p>
+						<p class="mt-3 text-sm font-semibold {badge.earned ? 'text-emerald-700 dark:text-emerald-300' : 'text-gray-500 dark:text-gray-400'}">
+							{badge.earned ? `Kazanıldı · ${new Date(badge.date).toLocaleDateString('tr-TR')}` : `${badge.threshold} ders tamamla`}
+						</p>
+					</div>
+				{/each}
+			</div>
 		</div>
 
 		<!-- Lessons Progress -->
@@ -298,7 +297,7 @@
 					{userStats.xp} XP
 				</span>
 				<span class="px-4 py-2 bg-white dark:bg-slate-800 rounded-full text-sm font-semibold text-gray-900 dark:text-white">
-					{userStats.badges.length} Rozet
+					{userStats.earnedBadgeCount} Rozet
 				</span>
 			</div>
 		</div>

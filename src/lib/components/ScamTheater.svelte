@@ -1,4 +1,7 @@
 <script>
+	import { onMount } from 'svelte';
+	import { completeScenario, getProgress } from '$lib/utils/progressStore.js';
+
 	const scenarios = [
 		{
 			id: 'sms-bank',
@@ -21,7 +24,8 @@
 					title: ' Kısa ve şüpheli link',
 					detail: 'Kullanıcıyı bilinmeyen bir adrese götüren kısa link, güvenlik açığı bu mesajın en bariz kırmızı bayrağıdır.'
 				}
-			]
+			],
+			nextStep: 'Bağlantıya dokunma; bankanın resmî uygulamasını kendin aç veya kartının arkasındaki numarayı ara.'
 		},
 		{
 			id: 'whatsapp-delivery',
@@ -44,7 +48,8 @@
 					title: ' Zaman baskısı',
 					detail: '"2 dakikada" gibi ifade, acele karar almaya zorlayarak manipülasyon yapıyor.'
 				}
-			]
+			],
+			nextStep: 'Bağlantıyı açma. Kargo durumunu sipariş verdiğin mağazanın veya kargo şirketinin resmî uygulamasından kontrol et.'
 		},
 		{
 			id: 'email-school',
@@ -67,18 +72,73 @@
 					title: ' Korkutma yok',
 					detail: 'Acil tehdit, şifre isteği ya da ödül vaadi gibi manipülasyon bulunmuyor.'
 				}
-			]
+			],
+			nextStep: 'Duyuruyu okulun bilinen resmî iletişim kanalından doğrula; mesaj içindeki bağlantılara ve veri taleplerine karşı yine dikkatli ol.'
+		},
+		{
+			id: 'tech-support-call',
+			channel: 'Telefon',
+			title: 'Uzaktan destek araması',
+			sender: 'Teknik Destek',
+			message:
+				'Bilgisayarınızda virüs tespit ettik. Hemen bu numarayı arayın ve ekrandaki kodu bize söyleyin; yoksa dosyalarınız silinecek.',
+			correct: 'şüpheli',
+			redFlags: [
+				{
+					title: 'Beklenmedik arama',
+					detail: 'Kendiliğinden gelen bir aramada arayanın kimliğini yalnızca söylediği unvanla doğrulayamazsın.'
+				},
+				{
+					title: 'Korkutma ve acele ettirme',
+					detail: 'Dosyaların silineceği tehdidi, düşünmeden işlem yaptırmak için baskı kuruyor.'
+				},
+				{
+					title: 'Uzaktan erişim veya kod isteme',
+					detail: 'Ekran kodunu paylaşmak ya da uzaktan erişim vermek cihazını ve hesaplarını riske atabilir.'
+				}
+			],
+			nextStep: 'Aramayı sonlandır. Destek gerektiğinde kurumun resmî sitesindeki iletişim bilgisini kendin bulup kullan.'
+		},
+		{
+			id: 'prize-message',
+			channel: 'SMS',
+			title: 'Ödül kazandınız mesajı',
+			sender: 'Ödül Merkezi',
+			message:
+				'Tebrikler! Çekilişten telefon kazandınız. Ödülü bugün almak için teslimat ücretini bu bağlantıdan ödeyin ve kart bilgilerinizi girin.',
+			correct: 'şüpheli',
+			redFlags: [
+				{
+					title: 'Beklenmedik ödül vaadi',
+					detail: 'Katılmadığın veya doğrulayamadığın bir çekilişten ödül kazandığın iddiası şüpheyle karşılanmalı.'
+				},
+				{
+					title: 'Ödeme ve kart bilgisi talebi',
+					detail: 'Ödül bahanesiyle bağlantı üzerinden kart bilgisi istemek finansal dolandırıcılık riski taşır.'
+				},
+				{
+					title: 'Süre baskısı ve bağlantı',
+					detail: 'Ödülün bugün alınması gerektiği söylenerek acele ettiriliyorsun; bağlantının gerçekliği kanıtlanmıyor.'
+				}
+			],
+			nextStep: 'Bağlantıya girme ve ödeme yapma. Çekilişi düzenlediği söylenen kuruluşu kendi bulduğun resmî kanaldan doğrula.'
 		}
 	];
 
 	let selectedScenarioId = scenarios[0].id;
 	let selectedVerdict = null;
 	let revealedCount = 0;
+	let completedScenarioIds = [];
 
 	$: currentScenario = scenarios.find((scenario) => scenario.id === selectedScenarioId) || scenarios[0];
 	$: visibleFlags = currentScenario.redFlags.slice(0, revealedCount);
 	$: canRevealMore = revealedCount < currentScenario.redFlags.length;
 	$: isCorrect = selectedVerdict === currentScenario.correct;
+	$: scenarioCompleted = completedScenarioIds.includes(currentScenario.id);
+
+	onMount(() => {
+		completedScenarioIds = getProgress().completedScenarios.map((scenario) => scenario.id);
+	});
 
 	function selectScenario(id) {
 		selectedScenarioId = id;
@@ -94,6 +154,9 @@
 	function revealNextFlag() {
 		if (revealedCount < currentScenario.redFlags.length) {
 			revealedCount += 1;
+			if (isCorrect && revealedCount === currentScenario.redFlags.length) {
+				completedScenarioIds = completeScenario(currentScenario.id).map((scenario) => scenario.id);
+			}
 		}
 	}
 </script>
@@ -104,6 +167,9 @@
 		<p class="text-gray-600 dark:text-gray-300">
 			Aşağıdaki senaryolarda gerçek hayattaki dolandırıcılık örneklerini görürsün. Güvenli mi,
 			şüpheli mi diye karar verip ardından kırmızı bayrakları tek tek açacağız.
+		</p>
+		<p class="mt-2 text-sm font-semibold text-primary-700 dark:text-primary-300" aria-live="polite">
+			Tamamlanan senaryo: {completedScenarioIds.length}/{scenarios.length}
 		</p>
 	</div>
 
@@ -202,6 +268,12 @@
 					{currentScenario.correct === 'şüpheli'
 						? 'Bu mesajın kırmızı bayrakları acil tehdit, şifre istemesi ve güvenli olmayan link içeriyordu. Bu nedenle şüpheli kabul edilmelidir.'
 						: 'Bu mesajın dili net, güvenli ve kişisel veri istemeyen bir içerik taşıyordu. Bu nedenle güvenli olarak değerlendirilebilir.'}
+					<p class="mt-3"><strong>Ne yapmalı?</strong> {currentScenario.nextStep}</p>
+					{#if isCorrect}
+						<p class="mt-3 font-semibold text-emerald-700 dark:text-emerald-300" role="status">
+							{scenarioCompleted ? 'Bu senaryo tamamlandı.' : 'Doğru karar ve tüm ipuçları incelendi; senaryo tamamlandı.'}
+						</p>
+					{/if}
 				</div>
 			{/if}
 		</div>

@@ -6,7 +6,12 @@ function getStorageKey() {
 	return sessionId ? `${STORAGE_KEY}:${sessionId}` : STORAGE_KEY;
 }
 
-const emptyProgress = () => ({ completedLessons: [], readingPosition: null });
+const emptyProgress = () => ({
+	completedLessons: [],
+	completedScenarios: [],
+	weeklyGoal: 2,
+	readingPosition: null
+});
 
 function readProgress() {
 	if (typeof localStorage === 'undefined') return emptyProgress();
@@ -55,6 +60,46 @@ export function saveLessonPosition({ id, title, section = 0 }) {
 
 export function getLessonPosition() {
 	return readProgress().readingPosition;
+}
+
+export function setWeeklyGoal(goal) {
+	const progress = readProgress();
+	progress.weeklyGoal = Math.min(7, Math.max(1, Math.round(Number(goal) || 2)));
+	saveProgress(progress);
+	return progress.weeklyGoal;
+}
+
+function getWeekStart(date = new Date()) {
+	const start = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+	const daysSinceMonday = (start.getDay() + 6) % 7;
+	start.setDate(start.getDate() - daysSinceMonday);
+	return start;
+}
+
+export function getWeeklyGoalSummary() {
+	const progress = readProgress();
+	const weekStart = getWeekStart();
+	const completedThisWeek = progress.completedLessons.filter((lesson) => {
+		const completedAt = new Date(lesson.completedAt);
+		return !Number.isNaN(completedAt.getTime()) && completedAt >= weekStart;
+	}).length;
+	const goal = Math.min(7, Math.max(1, Number(progress.weeklyGoal) || 2));
+
+	return {
+		goal,
+		completed: completedThisWeek,
+		remaining: Math.max(0, goal - completedThisWeek),
+		weekStart: weekStart.toISOString().slice(0, 10)
+	};
+}
+
+export function completeScenario(id) {
+	const progress = readProgress();
+	if (!progress.completedScenarios.some((scenario) => scenario.id === id)) {
+		progress.completedScenarios.push({ id, completedAt: new Date().toISOString() });
+		saveProgress(progress);
+	}
+	return progress.completedScenarios;
 }
 
 export function resetProgress() {

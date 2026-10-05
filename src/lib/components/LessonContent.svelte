@@ -5,6 +5,7 @@
 	import { ttsManager } from '$lib/utils/ttsManager.js';
 	import { completeLesson, getLessonPosition, isLessonCompleted, saveLessonPosition } from '$lib/utils/progressStore.js';
 	import { lessonQuizzes } from '$lib/utils/lessonQuizzes.js';
+	import { lessonCatalog } from '$lib/utils/lessonCatalog.js';
 
 	export let lesson = {
 		title: '',
@@ -24,6 +25,7 @@
 	let quizFeedback = '';
 	$: quizzes = lessonQuizzes[lesson.id] || [];
 	$: currentQuiz = quizzes[quizIndex];
+	$: lessonSources = lessonCatalog.find((item) => item.id === lesson.id);
 
 	onMount(() => {
 		window.scrollTo(0, 0);
@@ -316,6 +318,20 @@
 					<p class="text-sm">Tüm dersler tamamlandığında özel bir rozet kazanacaksın!</p>
 				</div>
 			</div>
+		{/if}
+
+		{#if lessonSources?.sources?.length}
+			<aside class="mt-8 rounded-2xl border border-gray-200 bg-white p-5 dark:border-slate-700 dark:bg-slate-800" aria-labelledby="lesson-sources-title">
+				<h2 id="lesson-sources-title" class="text-lg font-bold text-gray-900 dark:text-white">Güvenilir kaynaklar</h2>
+				<p class="mt-1 text-sm text-gray-600 dark:text-gray-300">
+					Kaynak bağlantıları {new Date(`${lessonSources.sourcesUpdatedAt}T12:00:00`).toLocaleDateString('tr-TR')} tarihinde güncellendi.
+				</p>
+				<ul class="mt-3 list-inside list-disc space-y-2">
+					{#each lessonSources.sources as source}
+						<li><a href={source.href} target="_blank" rel="noopener noreferrer" class="font-medium text-primary-700 underline underline-offset-2 dark:text-primary-300">{source.label}</a></li>
+					{/each}
+				</ul>
+			</aside>
 		{/if}
 	</div>
 </div>
