@@ -705,7 +705,7 @@
 
 	.menu-arrow {
 		flex-shrink: 0;
-		opacity: 0.5;
+		opacity: 0.8;
 	}
 
 	.settings-items {
@@ -732,7 +732,12 @@
 	.setting-value,
 	.about-value {
 		font-size: 14px;
-		opacity: 0.6;
+		color: #4b5563;
+	}
+
+	.screen-content.bg-gray-900 .setting-value,
+	.screen-content.bg-gray-900 .about-value {
+		color: #d1d5db;
 	}
 
 	.toggle-item {
@@ -819,9 +824,13 @@
 
 	.setting-description {
 		font-size: 13px;
-		opacity: 0.6;
+		color: #4b5563;
 		padding: 0 8px;
 		margin-bottom: 12px;
+	}
+
+	.screen-content.bg-gray-900 .setting-description {
+		color: #d1d5db;
 	}
 
 	.wifi-networks {
@@ -859,14 +868,14 @@
 	}
 
 	.network-item.connected {
-		background: rgba(37, 99, 235, 0.2);
-		color: #2563eb;
+		background: #dbeafe;
+		color: #1e40af;
 		font-weight: 500;
 	}
 
 	.screen-content.bg-gray-900 .network-item.connected {
-		background: rgba(59, 130, 246, 0.2);
-		color: #93c5fd;
+		background: #1e3a5f;
+		color: #bfdbfe;
 	}
 
 	@keyframes slide-in {

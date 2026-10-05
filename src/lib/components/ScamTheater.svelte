@@ -179,16 +179,16 @@
 				type="button"
 				on:click={() => selectScenario(scenario.id)}
 				class="text-left p-4 rounded-xl border transition-all {selectedScenarioId === scenario.id
-					? 'border-red-500 bg-red-50 shadow-sm'
-					: 'border-gray-200 bg-white dark:border-slate-700 dark:bg-slate-800 hover:border-red-300 hover:bg-red-50'}"
+					? 'border-red-500 bg-red-50 shadow-sm dark:border-red-700 dark:bg-red-950'
+					: 'border-gray-200 bg-white dark:border-slate-700 dark:bg-slate-800 hover:border-red-300 hover:bg-red-50 dark:hover:border-red-700 dark:hover:bg-red-950'}"
 			>
 				<div class="flex items-center justify-between mb-2">
-					<span class="text-xs font-semibold uppercase tracking-wide text-red-600">
+					<span class="text-xs font-semibold uppercase tracking-wide text-red-600 dark:text-red-300">
 						{scenario.channel}
 					</span>
-					<span class="text-sm text-gray-500 dark:text-gray-300">{scenario.sender}</span>
+					<span class="text-sm text-gray-600 dark:text-gray-300">{scenario.sender}</span>
 				</div>
-				<h3 class="font-bold text-gray-900 dark:text-gray-100">{scenario.title}</h3>
+				<h3 class="font-bold text-gray-900 dark:text-white">{scenario.title}</h3>
 			</button>
 		{/each}
 	</div>
